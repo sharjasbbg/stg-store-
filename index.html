@@ -7,46 +7,46 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         body { background: #f5f5f5; }
-       .header { background: #fff; padding: 10px 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 15px; }
-       .header img { height: 40px; }
-       .search { flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
-       .cart-btn { background: #00c853; color: #fff; border: none; padding: 8px 15px; border-radius: 20px; font-weight: 600; cursor: pointer; position: relative; }
-       .cart-count { position: absolute; top: -5px; right: -5px; background: red; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; align-items: center; justify-content: center; }
-       .slider { width: 100%; height: 200px; overflow: hidden; position: relative; }
-       .slider img { width: 100%; height: 200px; object-fit: cover; position: absolute; opacity: 0; transition: opacity 1s; }
-       .slider img.active { opacity: 1; }
-       .filters { padding: 15px; background: #fff; margin: 10px 0; overflow-x: auto; white-space: nowrap; }
-       .filter-tile { display: inline-block; margin-right: 10px; cursor: pointer; text-align: center; }
-       .filter-tile img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; border: 2px solid #eee; }
-       .filter-tile.active img { border-color: #00c853; }
-       .filter-tile span { display: block; font-size: 12px; margin-top: 5px; }
-       .products { padding: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
-       .product { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-       .product img { width: 100%; height: 160px; object-fit: cover; }
-       .p-info { padding: 10px; }
-       .p-name { font-size: 14px; font-weight: 600; height: 36px; overflow: hidden; }
-       .p-brand { font-size: 12px; color: #666; }
-       .p-price { font-size: 16px; font-weight: 700; color: #00c853; margin: 5px 0; }
-       .p-stock { font-size: 12px; }
-       .in { color: #00c853; }
-       .out { color: #f44336; }
-       .add-btn { width: 100%; padding: 8px; background: #00c853; color: #fff; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; margin-top: 5px; }
-       .add-btn:disabled { background: #ccc; }
-       .cart-page { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%; background: #fff; z-index: 200; transition: right 0.3s; overflow-y: auto; }
-       .cart-page.active { right: 0; }
-       .cart-header { padding: 15px; background: #00c853; color: #fff; display: flex; justify-content: space-between; align-items: center; }
-       .close-cart { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
-       .cart-items { padding: 15px; }
-       .cart-item { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-       .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
-       .cart-item-info { flex: 1; }
-       .qty-btn { background: #eee; border: none; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; }
-       .remove-btn { background: #f44336; color: #fff; border: none; padding: 3px 8px; border-radius: 3px; font-size: 11px; cursor: pointer; margin-top: 5px; }
-       .cart-footer { padding: 15px; border-top: 2px solid #eee; }
-       .checkout-btn { width: 100%; padding: 12px; background: #00c853; color: #fff; border: none; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; }
-       .loading,.error { text-align: center; padding: 40px 20px; font-size: 16px; color: #666; }
-       .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
-       .overlay.active { display: block; }
+      .header { background: #fff; padding: 10px 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 15px; }
+      .header img { height: 40px; max-width: 120px; object-fit: contain; }
+      .search { flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
+      .cart-btn { background: #00c853; color: #fff; border: none; padding: 8px 15px; border-radius: 20px; font-weight: 600; cursor: pointer; position: relative; white-space: nowrap; }
+      .cart-count { position: absolute; top: -5px; right: -5px; background: red; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+      .slider { width: 100%; height: 180px; overflow: hidden; position: relative; background: #eee; }
+      .slider img { width: 100%; height: 180px; object-fit: cover; position: absolute; opacity: 0; transition: opacity 1s; }
+      .slider img.active { opacity: 1; }
+      .filters { padding: 15px; background: #fff; margin: 10px 0; overflow-x: auto; white-space: nowrap; }
+      .filter-tile { display: inline-block; margin-right: 10px; cursor: pointer; text-align: center; vertical-align: top; width: 70px; }
+      .filter-tile img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; border: 2px solid #eee; background: #f5f5f5; }
+      .filter-tile.active img { border-color: #00c853; }
+      .filter-tile span { display: block; font-size: 11px; margin-top: 5px; white-space: normal; height: 28px; overflow: hidden; }
+      .products { padding: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+      .product { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+      .product img { width: 100%; height: 160px; object-fit: cover; background: #f5f5f5; }
+      .p-info { padding: 10px; }
+      .p-name { font-size: 14px; font-weight: 600; height: 36px; overflow: hidden; }
+      .p-brand { font-size: 12px; color: #666; }
+      .p-price { font-size: 16px; font-weight: 700; color: #00c853; margin: 5px 0; }
+      .p-stock { font-size: 12px; }
+      .in { color: #00c853; }
+      .out { color: #f44336; }
+      .add-btn { width: 100%; padding: 8px; background: #00c853; color: #fff; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; margin-top: 5px; }
+      .add-btn:disabled { background: #ccc; }
+      .cart-page { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%; background: #fff; z-index: 200; transition: right 0.3s; overflow-y: auto; }
+      .cart-page.active { right: 0; }
+      .cart-header { padding: 15px; background: #00c853; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+      .close-cart { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
+      .cart-items { padding: 15px; }
+      .cart-item { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+      .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; background: #f5f5f5; }
+      .cart-item-info { flex: 1; }
+      .qty-btn { background: #eee; border: none; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; }
+      .remove-btn { background: #f44336; color: #fff; border: none; padding: 3px 8px; border-radius: 3px; font-size: 11px; cursor: pointer; margin-top: 5px; }
+      .cart-footer { padding: 15px; border-top: 2px solid #eee; }
+      .checkout-btn { width: 100%; padding: 12px; background: #00c853; color: #fff; border: none; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; }
+      .loading,.error { text-align: center; padding: 40px 20px; font-size: 16px; color: #666; grid-column: 1 / -1; }
+      .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
+      .overlay.active { display: block; }
     </style>
 </head>
 <body>
@@ -74,11 +74,10 @@
     </div>
 
 <script>
-// ⬇️⬇️⬇️ Google Sheet Direct Link - ഇത് മാത്രം മാറ്റിയാൽ മതി ⬇️⬇️⬇️
 const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
 const PRODUCTS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=product`;
 const BANNER_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
-const WHATSAPP_NUMBER = '917306415774'; // നിങ്ങളുടെ WhatsApp Number
+const WHATSAPP_NUMBER = '917306415774';
 
 let PRODUCTS_DATA = [];
 let BANNER_DATA = {};
@@ -86,7 +85,9 @@ let allProducts = [];
 let cart = JSON.parse(localStorage.getItem('stg_cart') || '[]');
 
 function convertDriveUrl(url) {
-    if(!url) return 'https://via.placeholder.com/300';
+    if(!url) return 'https://via.placeholder.com/300x300?text=No+Image';
+    url = url.trim();
+    if(url.includes('lh3.googleusercontent.com')) return url;
     const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
     if(match) return `https://lh3.googleusercontent.com/d/${match[1]}=w800`;
     return url;
@@ -94,6 +95,7 @@ function convertDriveUrl(url) {
 
 function csvToJson(csv) {
     const lines = csv.split('\n').filter(line => line.trim()!== '');
+    if(lines.length < 2) return [];
     const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/"/g, ''));
     const result = [];
     for(let i = 1; i < lines.length; i++) {
@@ -111,6 +113,7 @@ function csvToJson(csv) {
 async function loadSheetData() {
     try {
         const prodResponse = await fetch(PRODUCTS_CSV_URL);
+        if(!prodResponse.ok) throw new Error('Sheet not published');
         const prodCsv = await prodResponse.text();
         const productsJson = csvToJson(prodCsv);
         PRODUCTS_DATA = productsJson.map((p, i) => ({
@@ -124,15 +127,17 @@ async function loadSheetData() {
         })).filter(p => p.name);
 
         const bannerResponse = await fetch(BANNER_CSV_URL);
-        const bannerCsv = await bannerResponse.text();
-        const bannersJson = csvToJson(bannerCsv);
-        bannersJson.forEach(b => {
-            if(b.type && b.image) BANNER_DATA[b.type.toUpperCase().replace(/\s+/g,'-')] = convertDriveUrl(b.image);
-        });
+        if(bannerResponse.ok) {
+            const bannerCsv = await bannerResponse.text();
+            const bannersJson = csvToJson(bannerCsv);
+            bannersJson.forEach(b => {
+                if(b.type && b.image) BANNER_DATA[b.type.toUpperCase().replace(/\s+/g,'-')] = convertDriveUrl(b.image);
+            });
+        }
 
         initSite();
     } catch(e) {
-        document.getElementById('products').innerHTML = '<div class="error">Sheet Load ആയില്ല. Publish ചെയ്തോ എന്ന് നോക്കൂ.</div>';
+        document.getElementById('products').innerHTML = '<div class="error">Sheet Load ആയില്ല. <br>1. Sheet → File → Share → Publish to web → CSV ആക്കി<br>2. Sheet name "product" & "banner" ആണോ എന്ന് നോക്കൂ</div>';
     }
 }
 
@@ -141,7 +146,7 @@ function initSite() {
     const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6'].map(k => BANNER_DATA[k]).filter(s => s);
     const slider = document.getElementById('slider');
     if(slides.length > 0) {
-        slider.innerHTML = slides.map((src, i) => `<img src="${src}" class="${i===0?'active':''}">`).join('');
+        slider.innerHTML = slides.map((src, i) => `<img src="${src}" class="${i===0?'active':''}" onerror="this.style.display='none'">`).join('');
         let idx = 0;
         setInterval(() => {
             const imgs = document.querySelectorAll('.slider img');
@@ -173,9 +178,9 @@ function loadFilterTiles() {
     const cats = ['ALL',...new Set(allProducts.map(p => p.category))];
     document.getElementById('filters').innerHTML = cats.map(cat => {
         const bannerKey = `CAT-${cat}`;
-        const img = BANNER_DATA[bannerKey] || 'https://via.placeholder.com/60';
+        const img = BANNER_DATA[bannerKey] || 'https://via.placeholder.com/60x60?text=' + cat;
         return `<div class="filter-tile ${cat==='ALL'?'active':''}" onclick="filterCategory('${cat}', this)">
-            <img src="${img}"><span>${cat}</span>
+            <img src="${img}" onerror="this.src='https://via.placeholder.com/60x60?text=${cat}'"><span>${cat}</span>
         </div>`;
     }).join('');
 }
@@ -191,7 +196,7 @@ function displayProducts(products) {
     '<div class="loading">No products found</div>' :
     products.map(p => `
         <div class="product">
-            <img src="${p.image}" alt="${p.name}">
+            <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
             <div class="p-info">
                 <div class="p-name">${p.name}</div>
                 <div class="p-brand">${p.brand}</div>
@@ -222,7 +227,7 @@ function loadCart() {
     '<div class="loading">Cart is empty</div>' :
     cart.map(item => `
         <div class="cart-item">
-            <img src="${item.image}">
+            <img src="${item.image}" onerror="this.src='https://via.placeholder.com/60x60?text=No+Image'">
             <div class="cart-item-info">
                 <div style="font-weight:600">${item.name}</div>
                 <div style="color:#00c853">₹${item.price} x ${item.qty} = ₹${item.price * item.qty}</div>
@@ -272,7 +277,6 @@ function checkout() {
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
 }
 
-// Site Start ചെയ്യുക
 loadSheetData();
 </script>
 </body>
