@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rubik', sans-serif; }
-        body { background: #FFFBF5; } /* EXTRA LIGHT ORANGE */
+        body { background: #FFFBF5; }
 
 .header { background: linear-gradient(135deg, #FFE0B2, #FFCC80); padding: 12px 15px; box-shadow: 0 2px 8px rgba(255,224,178,0.5); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
 .header-left { display: flex; align-items: center; gap: 10px; }
@@ -38,13 +38,7 @@
 .filter-tile.all p { position: static; background: none; font-size: 13px; color: #A0522D; }
 .cat-banner { width: 100%; max-height: 120px; object-fit: cover; margin-bottom: 10px; border-radius: 8px; }
 
-        /* STRICT 3 COLUMNS */
-.products {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        padding: 0 10px 80px;
-    }
+.products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 10px 80px; }
 
 .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(255,179,102,0.15); border: 1px solid #FFF0E0; display: flex; flex-direction: column; }
 .card img { width: 100%; height: 100px; object-fit: cover; cursor: pointer; background: #FFFBF5; }
@@ -289,10 +283,11 @@
                         const stock = getCell(COL.stock);
                         const image = getCell(COL.image);
 
-                        // നിന്റെ ORIGINAL CODE LOGIC - മാറ്റിയിട്ടില്ല
-                        // Empty ആണെങ്കിൽ അല്ലെങ്കിൽ Number മാത്രം ആണെങ്കിൽ മാത്രം auto-generate
-                        if (!nameVal || /^\d+$/.test(nameVal) || nameVal === idVal) {
-                            nameVal = `${brand} ${category} ${idVal}`.trim();
+                        // NAME FIX: Sheet ൽ എന്തുണ്ടെങ്കിലും അത് തന്നെ കാണിക്കും
+                        // Empty ആണെങ്കിൽ മാത്രം Brand + Category
+                        if (!nameVal || nameVal === '') {
+                            nameVal = `${brand} ${category}`.trim();
+                            if (nameVal === '') nameVal = `Product ${idVal}`;
                         }
 
                         let finalPrice = 1;
