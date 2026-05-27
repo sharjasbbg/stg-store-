@@ -1,283 +1,638 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STG Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>STERLING TRADINGS (STG)</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        body { background: #f5f5f5; }
-      .header { background: #fff; padding: 10px 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 15px; }
-      .header img { height: 40px; max-width: 120px; object-fit: contain; }
-      .search { flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
-      .cart-btn { background: #00c853; color: #fff; border: none; padding: 8px 15px; border-radius: 20px; font-weight: 600; cursor: pointer; position: relative; white-space: nowrap; }
-      .cart-count { position: absolute; top: -5px; right: -5px; background: red; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; align-items: center; justify-content: center; }
-      .slider { width: 100%; height: 180px; overflow: hidden; position: relative; background: #eee; }
-      .slider img { width: 100%; height: 180px; object-fit: cover; position: absolute; opacity: 0; transition: opacity 1s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body { font-family: Arial; background: #f5f5f5; }
+
+        /* ✅ ULTIMATE FIX: transform-style + isolation + contain */
+      .header {
+            background: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2147483647;
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            isolation: isolate;
+            contain: layout style paint;
+        }
+      .header-left { display: flex; align-items: center; gap: 15px; }
+      .header img { height: 40px; object-fit: contain; }
+      .header h1 { font-size: 18px; color: #333; font-weight: bold; }
+      .cart-badge {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+      .cart-badge span { background: white; color: #28a745; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+
+        /* ✅ Main wrapper with padding-top instead of margin */
+      .page-wrapper {
+            padding-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+      .slider {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background: #222;
+            z-index: 1;
+            transform: translate3d(0,0,0);
+        }
+        @media (min-width: 768px) {.slider { height: 450px; } }
+      .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
       .slider img.active { opacity: 1; }
-      .filters { padding: 15px; background: #fff; margin: 10px 0; overflow-x: auto; white-space: nowrap; }
-      .filter-tile { display: inline-block; margin-right: 10px; cursor: pointer; text-align: center; vertical-align: top; width: 70px; }
-      .filter-tile img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; border: 2px solid #eee; background: #f5f5f5; }
-      .filter-tile.active img { border-color: #00c853; }
-      .filter-tile span { display: block; font-size: 11px; margin-top: 5px; white-space: normal; height: 28px; overflow: hidden; }
-      .products { padding: 10px; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
-      .product { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-      .product img { width: 100%; height: 160px; object-fit: cover; background: #f5f5f5; }
-      .p-info { padding: 10px; }
-      .p-name { font-size: 14px; font-weight: 600; height: 36px; overflow: hidden; }
-      .p-brand { font-size: 12px; color: #666; }
-      .p-price { font-size: 16px; font-weight: 700; color: #00c853; margin: 5px 0; }
-      .p-stock { font-size: 12px; }
-      .in { color: #00c853; }
-      .out { color: #f44336; }
-      .add-btn { width: 100%; padding: 8px; background: #00c853; color: #fff; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; margin-top: 5px; }
-      .add-btn:disabled { background: #ccc; }
-      .cart-page { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%; background: #fff; z-index: 200; transition: right 0.3s; overflow-y: auto; }
-      .cart-page.active { right: 0; }
-      .cart-header { padding: 15px; background: #00c853; color: #fff; display: flex; justify-content: space-between; align-items: center; }
-      .close-cart { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
-      .cart-items { padding: 15px; }
-      .cart-item { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-      .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; background: #f5f5f5; }
+
+      .filter-section { background: white; padding: 15px; margin-top: 10px; position: relative; z-index: 2; }
+      .filter-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+      .filter-tiles { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+      .filter-tiles::-webkit-scrollbar { height: 4px; }
+      .filter-tiles::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+
+      .filter-tile {
+            min-width: 110px;
+            height: 110px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 8px;
+            background: #f8f8f8;
+            transition: 0.3s;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+      .filter-tile.active { border-color: #007bff; background: #e7f3ff; }
+      .filter-tile img {
+            width: 100%;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+      .filter-tile p {
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+      .filter-tile.brand {
+            background: #ff6b35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.2);
+        }
+      .filter-tile.brand p {
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+      .filter-tile.brand.active {
+            border-color: #007bff;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 0 0 3px #007bff, 0 3px 6px rgba(0,0,0,0.2);
+        }
+
+      .filter-tile.all {
+            background: #28a745;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.2);
+        }
+      .filter-tile.all p {
+            color: white;
+            font-size: 16px;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+        }
+
+      .filters { padding: 15px; background: white; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; position: relative; z-index: 2; }
+      .filters button { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; background: #f8f8f8; cursor: pointer; height: 40px; }
+      .search-box { flex: 1; min-width: 200px; height: 40px; padding: 0 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; outline: none; }
+      .search-box:focus { border-color: #007bff; }
+
+      .cat-banner { width: 100%; height: 180px; object-fit: cover; margin: 15px 0; border-radius: 8px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 15px; padding-bottom: 80px; position: relative; z-index: 2; }
+      .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+      .card img { width: 100%; height: 300px; object-fit: contain; object-position: center; background: #f8f8f8; padding: 10px; box-sizing: border-box; cursor: pointer; }
+      .card-body { padding: 12px; }
+      .card h3 { font-size: 16px; margin-bottom: 5px; min-height: 40px; word-break: break-word; color: #000; font-weight: bold; }
+      .card p { font-size: 14px; color: #555; margin: 4px 0; }
+      .price { color: #28a745; font-size: 22px; font-weight: bold; margin: 8px 0; }
+      .stock { font-size: 13px; margin-bottom: 8px; }
+      .stock.out { color: red; font-weight: bold; }
+
+      .qty-box { display: flex!important; margin: 12px 0 0 0!important; border-radius: 5px!important; overflow: hidden!important; height: 55px!important; border: 2px solid #ddd!important; touch-action: manipulation!important; }
+      .qty-box button { border: none!important; color: #333!important; font-size: 28px!important; font-weight: bold!important; cursor: pointer!important; flex: 1!important; line-height: 1!important; user-select: none!important; -webkit-user-select: none!important; -webkit-tap-highlight-color: transparent!important; touch-action: manipulation!important; }
+      .qty-box button:first-child { background: #e0e0!important; }
+      .qty-box button:last-child { background: #28a745!important; color: white!important; }
+      .qty-box button:disabled { background: #f5f5f5!important; color: #ccc!important; cursor: not-allowed!important; }
+      .qty-box button:active { transform: scale(0.95)!important; }
+      .qty-box input { font-size: 22px!important; font-weight: bold!important; text-align: center!important; border: none!important; background: white!important; outline: none!important; width: 50px!important; flex-shrink: 0!important; border-left: 1px solid #ddd!important; border-right: 1px solid #ddd!important; touch-action: manipulation!important; }
+
+      .loading { text-align: center; padding: 40px; color: #666; }
+      .error { text-align: center; padding: 40px; color: red; background: #ffe6e6; margin: 15px; border-radius: 8px; }
+
+      .whatsapp-float { position: fixed!important; bottom: 20px!important; right: 20px!important; background: #25D366!important; color: white!important; border-radius: 50px!important; padding: 12px 20px!important; display: flex!important; align-items: center!important; gap: 8px!important; box-shadow: 0 4px 12px rgba(0,0,0,0.3)!important; cursor: pointer!important; z-index: 999!important; font-weight: bold!important; font-size: 15px!important; text-decoration: none!important; transition: 0.3s!important; }
+      .whatsapp-float:hover { background: #1ebe57!important; transform: scale(1.05)!important; }
+      .whatsapp-float img { width: 24px!important; height: 24px!important; }
+
+      .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2147483647; }
+      .cart-modal.active { display: flex; align-items: center; justify-content: center; }
+      .cart-content { background: white; width: 90%; max-width: 500px; max-height: 80vh; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+      .cart-header { background: #28a745; color: white; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+      .cart-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; }
+      .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
+      .cart-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+      .cart-item img { width: 60px; height: 60px; object-fit: cover; background: #f8f8f8; border-radius: 5px; }
       .cart-item-info { flex: 1; }
-      .qty-btn { background: #eee; border: none; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; }
-      .remove-btn { background: #f44336; color: #fff; border: none; padding: 3px 8px; border-radius: 3px; font-size: 11px; cursor: pointer; margin-top: 5px; }
-      .cart-footer { padding: 15px; border-top: 2px solid #eee; }
-      .checkout-btn { width: 100%; padding: 12px; background: #00c853; color: #fff; border: none; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; }
-      .loading,.error { text-align: center; padding: 40px 20px; font-size: 16px; color: #666; grid-column: 1 / -1; }
-      .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
-      .overlay.active { display: block; }
+      .cart-item-name { font-weight: bold; font-size: 14px; margin-bottom: 3px; }
+      .cart-item-price { color: #28a745; font-weight: bold; }
+      .cart-item-qty { font-size: 13px; color: #666; }
+      .cart-total { background: #f8f8f8; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
+      .cart-actions { padding: 15px; display: flex; gap: 10px; }
+      .cart-btn { flex: 1; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; }
+      .cart-btn-clear { background: #dc3545; color: white; }
+      .cart-btn-order { background: #25D366; color: white; }
+      .cart-empty { text-align: center; padding: 40px; color: #999; }
+
+      .product-detail { padding: 15px; }
+      .product-detail img { width: 100%; height: 300px; object-fit: contain; background: #f8f8f8; border-radius: 8px; margin-bottom: 15px; }
+      .product-detail h2 { margin-bottom: 8px; word-break: break-word; }
+      .product-detail.price { font-size: 28px; margin: 15px 0; }
     </style>
 </head>
 <body>
     <div class="header">
-        <img id="logo" src="" alt="Logo">
-        <input type="text" class="search" id="search" placeholder="Search products...">
-        <button class="cart-btn" onclick="openCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
-    </div>
-
-    <div class="slider" id="slider"></div>
-    <div class="filters" id="filters"></div>
-    <div class="products" id="products"><div class="loading">Loading Products from Google Sheet...</div></div>
-
-    <div class="overlay" id="overlay" onclick="closeCart()"></div>
-    <div class="cart-page" id="cartPage">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <button class="close-cart" onclick="closeCart()">&times;</button>
+        <div class="header-left">
+            <img id="logo" src="https://via.placeholder.com/150x40?text=Logo" alt="Logo">
+            <h1 id="shopName">STERLING TRADINGS (STG)</h1>
         </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-footer">
-            <h3>Total: ₹<span id="cartTotal">0</span></h3>
-            <button class="checkout-btn" onclick="checkout()">Checkout on WhatsApp</button>
+        <div class="cart-badge" id="cartBtn">
+            🛒 Cart <span id="cartCount">0</span>
         </div>
     </div>
 
-<script>
-const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
-const PRODUCTS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=product`;
-const BANNER_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
-const WHATSAPP_NUMBER = '917306415774';
+    <div class="page-wrapper">
+        <div class="slider" id="slider"></div>
 
-let PRODUCTS_DATA = [];
-let BANNER_DATA = {};
-let allProducts = [];
-let cart = JSON.parse(localStorage.getItem('stg_cart') || '[]');
+        <div class="filter-section">
+            <div class="filter-title">🔍 Filter by Category & Brand</div>
+            <div class="filter-tiles" id="filterTiles"></div>
+        </div>
 
-function convertDriveUrl(url) {
-    if(!url) return 'https://via.placeholder.com/300x300?text=No+Image';
-    url = url.trim();
-    if(url.includes('lh3.googleusercontent.com')) return url;
-    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    if(match) return `https://lh3.googleusercontent.com/d/${match[1]}=w800`;
-    return url;
-}
+        <div class="filters">
+            <button id="resetBtn">Reset All Filters</button>
+            <button id="refreshBtn" style="background:#007bff;color:white;border:none;">🔄 Refresh Data</button>
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Search Products...">
+        </div>
 
-function csvToJson(csv) {
-    const lines = csv.split('\n').filter(line => line.trim()!== '');
-    if(lines.length < 2) return [];
-    const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/"/g, ''));
-    const result = [];
-    for(let i = 1; i < lines.length; i++) {
-        const values = lines[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-        const obj = {};
-        headers.forEach((header, index) => {
-            let value = values[index] || '';
-            obj[header] = value.replace(/^"|"$/g, '').trim();
-        });
-        if(obj.name || obj.type) result.push(obj);
-    }
-    return result;
-}
+        <div id="catBannerContainer" style="padding: 0 15px;"></div>
+        <div class="grid" id="products"><div class="loading">Loading Products...</div></div>
+    </div>
 
-async function loadSheetData() {
-    try {
-        const prodResponse = await fetch(PRODUCTS_CSV_URL);
-        if(!prodResponse.ok) throw new Error('Sheet not published');
-        const prodCsv = await prodResponse.text();
-        const productsJson = csvToJson(prodCsv);
-        PRODUCTS_DATA = productsJson.map((p, i) => ({
-            id: p.sl || `p-${i}`,
-            name: p.name || '',
-            brand: p.brand || 'STG',
-            price: parseFloat(p.price) || 0,
-            category: (p.category || 'General').toUpperCase(),
-            stock: (p.stock || 'IN').toUpperCase(),
-            image: convertDriveUrl(p.image)
-        })).filter(p => p.name);
+    <a href="https://wa.me/966559895503?text=Hello, I need help with products" target="_blank" class="whatsapp-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        CHAT
+    </a>
 
-        const bannerResponse = await fetch(BANNER_CSV_URL);
-        if(bannerResponse.ok) {
-            const bannerCsv = await bannerResponse.text();
-            const bannersJson = csvToJson(bannerCsv);
-            bannersJson.forEach(b => {
-                if(b.type && b.image) BANNER_DATA[b.type.toUpperCase().replace(/\s+/g,'-')] = convertDriveUrl(b.image);
-            });
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <span>🛒 Your Cart</span>
+                <button class="cart-close" id="cartClose">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">SAR 0</span>
+            </div>
+            <div class="cart-actions">
+                <button class="cart-btn cart-btn-clear" id="clearCart">Clear Cart</button>
+                <button class="cart-btn cart-btn-order" id="orderWhatsApp">Order on WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-modal" id="productModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <span>Product Details</span>
+                <button class="cart-close" id="productModalClose">&times;</button>
+            </div>
+            <div class="product-detail" id="productDetailContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
+        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=products`;
+        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
+        const WHATSAPP_NUMBER = '966559895503';
+
+        let allProducts = [];
+        let banners = {};
+        let cart = JSON.parse(localStorage.getItem('stg_cart_final') || '{}');
+        let selectedCat = '';
+        let selectedBrand = '';
+        let searchText = '';
+
+        function csvToArray(csv) {
+            const rows = csv.split('\n').filter(r => r.trim());
+            if(rows.length === 0) return [];
+            const headers = rows[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            return rows.slice(1).map(row => {
+                const values = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const obj = {};
+                headers.forEach((header, i) => {
+                    obj[header] = values[i]? values[i].trim().replace(/^"|"$/g, '') : '';
+                });
+                return obj;
+            }).filter(obj => Object.values(obj).some(v => v));
         }
 
-        initSite();
-    } catch(e) {
-        document.getElementById('products').innerHTML = '<div class="error">Sheet Load ആയില്ല. <br>1. Sheet → File → Share → Publish to web → CSV ആക്കി<br>2. Sheet name "product" & "banner" ആണോ എന്ന് നോക്കൂ</div>';
-    }
-}
+        function getValue(obj, key) {
+            return (obj[key] || obj[key + ' '] || obj[' ' + key] || '').toString().trim();
+        }
 
-function initSite() {
-    if(BANNER_DATA.LOGO) document.getElementById('logo').src = BANNER_DATA.LOGO;
-    const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6'].map(k => BANNER_DATA[k]).filter(s => s);
-    const slider = document.getElementById('slider');
-    if(slides.length > 0) {
-        slider.innerHTML = slides.map((src, i) => `<img src="${src}" class="${i===0?'active':''}" onerror="this.style.display='none'">`).join('');
-        let idx = 0;
-        setInterval(() => {
-            const imgs = document.querySelectorAll('.slider img');
-            if(imgs.length > 0) {
-                imgs[idx].classList.remove('active');
-                idx = (idx + 1) % imgs.length;
-                imgs[idx].classList.add('active');
+        function getImageUrl(url) {
+            if(!url) return '';
+            url = url.trim();
+            if(url.includes('lh3.googleusercontent')) return url + '=w800';
+            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            if(match) return `https://lh3.googleusercontent.com/d/${match[1]}=w800`;
+            return url;
+        }
+
+        function updateCartCount() {
+            const total = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+            document.getElementById('cartCount').textContent = total;
+            localStorage.setItem('stg_cart_final', JSON.stringify(cart));
+        }
+
+        function showError(msg) {
+            document.getElementById('products').innerHTML = `<div class="error">❌ Error: ${msg}</div>`;
+        }
+
+        function loadData() {
+            document.getElementById('products').innerHTML = '<div class="loading">Loading Products...</div>';
+
+            fetch(BANNER_CSV + '&cache=' + new Date().getTime())
+.then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
+.then(csv => {
+                const data = csvToArray(csv);
+                banners = {};
+                data.forEach(item => {
+                    const type = getValue(item, 'type').toUpperCase().replace(/\s+/g, '');
+                    const img = getImageUrl(getValue(item, 'image'));
+                    if(!img) return;
+                    banners[type] = img;
+                });
+
+                if(banners.LOGO) document.getElementById('logo').src = banners.LOGO;
+
+                const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
+.map(k => banners[k]).filter(s => s);
+                const slider = document.getElementById('slider');
+                if(slides.length > 0) {
+                    slider.innerHTML = slides.map((src, i) =>
+                        `<img src="${src}" class="${i===0?'active':''}" alt="Banner">`
+                    ).join('');
+                    let slideIndex = 0;
+                    setInterval(() => {
+                        const imgs = document.querySelectorAll('.slider img');
+                        if(imgs.length > 0) {
+                            imgs[slideIndex].classList.remove('active');
+                            slideIndex = (slideIndex + 1) % imgs.length;
+                            imgs[slideIndex].classList.add('active');
+                        }
+                    }, 3000);
+                }
+            })
+.catch(err => console.log('Banner Error:', err));
+
+            fetch(PRODUCTS_CSV + '&cache=' + new Date().getTime())
+.then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
+.then(csv => {
+                const data = csvToArray(csv);
+                allProducts = data.map((p, index) => {
+                    const nameVal = getValue(p, 'name') || getValue(p, 'product_name') || getValue(p, 'product') || getValue(p, 'title') || getValue(p, 'item_name') || getValue(p, 'description') || getValue(p, 'desc') || getValue(p, 'product_desc') || getValue(p, 'item');
+                    const brand = getValue(p, 'brand');
+                    const category = getValue(p, 'category');
+                    const idVal = getValue(p, 'id') || getValue(p, 'sku') || getValue(p, 'code') || `product-${index}`;
+                    let finalName = nameVal || brand || idVal || `Product ${index + 1}`;
+
+                    return {
+                        id: idVal.replace(/[^a-zA-Z0-9-]/g, '-'),
+                        name: finalName,
+                        brand: brand || 'No Brand',
+                        price: parseFloat(getValue(p, 'price')) || 1,
+                        category: category || 'General',
+                        stock: getValue(p, 'stock') || 'IN',
+                        image: getImageUrl(getValue(p, 'image'))
+                    };
+                });
+
+                loadFilterTiles();
+                displayProducts(allProducts);
+                updateCartCount();
+            })
+.catch(err => showError(err));
+        }
+
+        function loadFilterTiles() {
+            const categories = [...new Set(allProducts.map(p => p.category).filter(c => c && c!== 'General'))];
+            const brands = [...new Set(allProducts.map(p => p.brand).filter(b => b && b!== 'No Brand'))];
+            const tilesDiv = document.getElementById('filterTiles');
+
+            let html = `<div class="filter-tile all ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>STG ALL</p></div>`;
+
+            categories.forEach(cat => {
+                const catKey = 'CAT-' + cat.toUpperCase().replace(/\s+/g, '');
+                const img = banners[catKey] || 'https://via.placeholder.com/110x65?text=' + encodeURIComponent(cat);
+                html += `<div class="filter-tile ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}"><img src="${img}" alt="${cat}"><p>${cat}</p></div>`;
+            });
+
+            brands.forEach(brand => {
+                html += `<div class="filter-tile brand ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`;
+            });
+
+            tilesDiv.innerHTML = html;
+        }
+
+        function filterProducts() {
+            let filtered = allProducts;
+
+            if(selectedCat) filtered = filtered.filter(p => p.category === selectedCat);
+            if(selectedBrand) filtered = filtered.filter(p => p.brand === selectedBrand);
+
+            if(searchText) {
+                const searchLower = searchText.toLowerCase();
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(searchLower) ||
+                    p.brand.toLowerCase().includes(searchLower) ||
+                    p.category.toLowerCase().includes(searchLower)
+                );
             }
-        }, 3000);
-    }
 
-    allProducts = PRODUCTS_DATA;
-    loadFilterTiles();
-    displayProducts(allProducts);
-    loadCart();
+            const bannerDiv = document.getElementById('catBannerContainer');
+            const catKey = 'CAT-' + selectedCat.toUpperCase().replace(/\s+/g, '');
+            if(selectedCat && banners[catKey]) {
+                bannerDiv.innerHTML = `<img src="${banners[catKey]}" class="cat-banner" alt="${selectedCat}">`;
+            } else {
+                bannerDiv.innerHTML = '';
+            }
 
-    document.getElementById('search').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = allProducts.filter(p =>
-            p.name.toLowerCase().includes(term) ||
-            p.brand.toLowerCase().includes(term) ||
-            p.category.toLowerCase().includes(term)
-        );
-        displayProducts(filtered);
-    });
-}
+            displayProducts(filtered);
+        }
 
-function loadFilterTiles() {
-    const cats = ['ALL',...new Set(allProducts.map(p => p.category))];
-    document.getElementById('filters').innerHTML = cats.map(cat => {
-        const bannerKey = `CAT-${cat}`;
-        const img = BANNER_DATA[bannerKey] || 'https://via.placeholder.com/60x60?text=' + cat;
-        return `<div class="filter-tile ${cat==='ALL'?'active':''}" onclick="filterCategory('${cat}', this)">
-            <img src="${img}" onerror="this.src='https://via.placeholder.com/60x60?text=${cat}'"><span>${cat}</span>
-        </div>`;
-    }).join('');
-}
-
-function filterCategory(cat, el) {
-    document.querySelectorAll('.filter-tile').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    displayProducts(cat === 'ALL'? allProducts : allProducts.filter(p => p.category === cat));
-}
-
-function displayProducts(products) {
-    document.getElementById('products').innerHTML = products.length === 0?
-    '<div class="loading">No products found</div>' :
-    products.map(p => `
-        <div class="product">
-            <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
-            <div class="p-info">
-                <div class="p-name">${p.name}</div>
-                <div class="p-brand">${p.brand}</div>
-                <div class="p-price">₹${p.price}</div>
-                <div class="p-stock ${p.stock === 'IN'? 'in' : 'out'}">${p.stock === 'IN'? 'In Stock' : 'Out of Stock'}</div>
-                <button class="add-btn" onclick="addToCart('${p.id}')" ${p.stock!== 'IN'? 'disabled' : ''}>Add to Cart</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function addToCart(id) {
-    const product = allProducts.find(p => p.id === id);
-    const existing = cart.find(item => item.id === id);
-    if(existing) existing.qty++;
-    else cart.push({...product, qty: 1});
-    saveCart();
-}
-
-function saveCart() {
-    localStorage.setItem('stg_cart', JSON.stringify(cart));
-    loadCart();
-}
-
-function loadCart() {
-    document.getElementById('cartCount').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
-    document.getElementById('cartItems').innerHTML = cart.length === 0?
-    '<div class="loading">Cart is empty</div>' :
-    cart.map(item => `
-        <div class="cart-item">
-            <img src="${item.image}" onerror="this.src='https://via.placeholder.com/60x60?text=No+Image'">
-            <div class="cart-item-info">
-                <div style="font-weight:600">${item.name}</div>
-                <div style="color:#00c853">₹${item.price} x ${item.qty} = ₹${item.price * item.qty}</div>
-                <div>
-                    <button class="qty-btn" onclick="updateQty('${item.id}', -1)">-</button>
-                    <span style="margin:0 10px">${item.qty}</span>
-                    <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
+        function displayProducts(products) {
+            const container = document.getElementById('products');
+            if(products.length === 0) {
+                container.innerHTML = '<div class="loading">No Products Found</div>';
+                return;
+            }
+            container.innerHTML = products.map(p => {
+                const qty = cart[p.id] || 0;
+                return `
+                <div class="card" data-product-id="${p.id}">
+                    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200?text=No+Image'">
+                    <div class="card-body">
+                        <h3>${p.name}</h3>
+                        <p>Brand: ${p.brand}</p>
+                        <p class="price">SAR ${p.price}</p>
+                        <p>Category: ${p.category}</p>
+                        <p class="stock ${p.stock === 'OUT'? 'out' : ''}">Stock: ${p.stock}</p>
+                        <div class="qty-box">
+                            <button type="button" class="qty-minus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>-</button>
+                            <input type="number" class="qty-input" id="qty-${p.id}" value="${qty}" min="0" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>
+                            <button type="button" class="qty-plus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>+</button>
+                        </div>
+                    </div>
                 </div>
-                <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
-            </div>
-        </div>
-    `).join('');
-    document.getElementById('cartTotal').textContent = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-}
+            `}).join('');
+        }
 
-function updateQty(id, change) {
-    const item = cart.find(i => i.id === id);
-    if(item) {
-        item.qty += change;
-        if(item.qty <= 0) removeItem(id);
-        else saveCart();
-    }
-}
+        function changeQty(id, delta) {
+            const input = document.getElementById(`qty-${id}`);
+            let val = parseInt(input.value) || 0;
+            val = Math.max(0, val + delta);
+            input.value = val;
+            cart[id] = val;
+            if(val === 0) delete cart[id];
+            updateCartCount();
+        }
 
-function removeItem(id) {
-    cart = cart.filter(i => i.id!== id);
-    saveCart();
-}
+        function setQty(input) {
+            const id = input.getAttribute('data-id');
+            let val = parseInt(input.value) || 0;
+            val = Math.max(0, val);
+            input.value = val;
+            cart[id] = val;
+            if(val === 0) delete cart[id];
+            updateCartCount();
+        }
 
-function openCart() {
-    document.getElementById('cartPage').classList.add('active');
-    document.getElementById('overlay').classList.add('active');
-}
+        function showCart() {
+            const modal = document.getElementById('cartModal');
+            const itemsDiv = document.getElementById('cartItems');
+            const totalSpan = document.getElementById('cartTotal');
 
-function closeCart() {
-    document.getElementById('cartPage').classList.remove('active');
-    document.getElementById('overlay').classList.remove('active');
-}
+            const cartItems = Object.keys(cart).map(id => {
+                const product = allProducts.find(p => p.id === id);
+                if(!product) return null;
+                return {...product, qty: cart[id]};
+            }).filter(Boolean);
 
-function checkout() {
-    if(cart.length === 0) return alert('Cart is empty');
-    let msg = 'Hello STG Store, I want to order:%0A%0A';
-    cart.forEach(item => {
-        msg += `*${item.name}*%0AQty: ${item.qty} x ₹${item.price} = ₹${item.price * item.qty}%0A%0A`;
-    });
-    msg += `*Total: ₹${cart.reduce((sum, item) => sum + (item.price * item.qty), 0)}*`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
-}
+            if(cartItems.length === 0) {
+                itemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+                totalSpan.textContent = 'SAR 0';
+            } else {
+                let total = 0;
+                itemsDiv.innerHTML = cartItems.map(item => {
+                    const subtotal = item.price * item.qty;
+                    total += subtotal;
+                    return `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">SAR ${item.price} x ${item.qty}</div>
+                                <div class="cart-item-qty">Subtotal: SAR ${subtotal}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                totalSpan.textContent = `SAR ${total}`;
+            }
+            modal.classList.add('active');
+        }
 
-loadSheetData();
-</script>
+        function hideCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        function clearCart() {
+            cart = {};
+            localStorage.removeItem('stg_cart_final');
+            updateCartCount();
+            document.querySelectorAll('.qty-input').forEach(input => input.value = 0);
+            hideCart();
+        }
+
+        function orderWhatsApp() {
+            const cartItems = Object.keys(cart).map(id => {
+                const product = allProducts.find(p => p.id === id);
+                if(!product) return null;
+                return {...product, qty: cart[id]};
+            }).filter(Boolean);
+
+            if(cartItems.length === 0) {
+                alert('Cart is empty!');
+                return;
+            }
+
+            let message = `*🛒 New Order from STERLING TRADINGS*%0A%0A`;
+            let total = 0;
+            cartItems.forEach((item, i) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                message += `*${i+1}. ${item.name}*%0A`;
+                message += `📸 Image: ${item.image}%0A`;
+                message += `🏷️ Brand: ${item.brand}%0A`;
+                message += `📦 Qty: ${item.qty} x SAR ${item.price} = *SAR ${subtotal}*%0A%0A`;
+            });
+            message += `━━━━━━━━━━━━━━━%0A`;
+            message += `*💰 Total: SAR ${total}*%0A%0A`;
+            message += `Please confirm this order.`;
+
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
+        function showProductDetail(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if(!product) return;
+
+            const qty = cart[product.id] || 0;
+            document.getElementById('productDetailContent').innerHTML = `
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
+                <h2>${product.name}</h2>
+                <p style="color:#666;margin-bottom:8px">Brand: ${product.brand}</p>
+                <p style="color:#666;margin-bottom:8px">Category: ${product.category}</p>
+                <p class="price">SAR ${product.price}</p>
+                <p class="stock ${product.stock === 'OUT'? 'out' : ''}" style="margin-bottom:15px">Stock: ${product.stock}</p>
+                <div class="qty-box">
+                    <button type="button" onclick="changeQty('${product.id}', -1)" ${product.stock === 'OUT'? 'disabled' : ''}>-</button>
+                    <input type="number" id="modal-qty-${product.id}" value="${qty}" min="0" ${product.stock === 'OUT'? 'disabled' : ''} onchange="setQtyFromModal('${product.id}', this.value)">
+                    <button type="button" onclick="changeQty('${product.id}', 1)" ${product.stock === 'OUT'? 'disabled' : ''}>+</button>
+                </div>
+            `;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function setQtyFromModal(id, value) {
+            let val = parseInt(value) || 0;
+            val = Math.max(0, val);
+            cart[id] = val;
+            if(val === 0) delete cart[id];
+            updateCartCount();
+            const input = document.getElementById(`qty-${id}`);
+            if(input) input.value = val;
+        }
+
+        document.addEventListener('click', function(e) {
+            if(e.target.closest('.card img')) {
+                const card = e.target.closest('.card');
+                const productId = card.getAttribute('data-product-id');
+                showProductDetail(productId);
+            }
+
+            if(e.target.closest('.filter-tile')) {
+                const tile = e.target.closest('.filter-tile');
+                const type = tile.getAttribute('data-type');
+                const value = tile.getAttribute('data-value');
+
+                if(type === 'all') {
+                    selectedCat = '';
+                    selectedBrand = '';
+                } else if(type === 'cat') {
+                    selectedCat = value;
+                    selectedBrand = '';
+                } else if(type === 'brand') {
+                    selectedBrand = value;
+                }
+
+                loadFilterTiles();
+                filterProducts();
+            }
+
+            if(e.target.id === 'resetBtn') {
+                selectedCat = '';
+                selectedBrand = '';
+                searchText = '';
+                document.getElementById('searchInput').value = '';
+                document.getElementById('catBannerContainer').innerHTML = '';
+                loadFilterTiles();
+                displayProducts(allProducts);
+            }
+
+            if(e.target.id === 'refreshBtn') loadData();
+            if(e.target.classList.contains('qty-plus')) changeQty(e.target.getAttribute('data-id'), 1);
+            if(e.target.classList.contains('qty-minus')) changeQty(e.target.getAttribute('data-id'), -1);
+            if(e.target.id === 'cartBtn' || e.target.closest('#cartBtn')) showCart();
+            if(e.target.id === 'cartClose') hideCart();
+            if(e.target.id === 'clearCart') clearCart();
+            if(e.target.id === 'orderWhatsApp') orderWhatsApp();
+            if(e.target.id === 'cartModal') hideCart();
+            if(e.target.id === 'productModalClose' || e.target.id === 'productModal') {
+                document.getElementById('productModal').classList.remove('active');
+            }
+        });
+
+        document.addEventListener('change', function(e) {
+            if(e.target.classList.contains('qty-input')) setQty(e.target);
+        });
+
+        document.addEventListener('input', function(e) {
+            if(e.target.id === 'searchInput') {
+                searchText = e.target.value;
+                filterProducts();
+            }
+        });
+
+        loadData();
+    </script>
 </body>
 </html>
