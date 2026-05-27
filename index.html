@@ -92,6 +92,7 @@
         <div class="cart-badge" id="cartBtn">
             🛒 Cart <span id="cartCount">0</span>
         </div>
+    </div>
     <div class="page-wrapper">
         <div class="slider" id="slider"></div>
         <div class="filter-section">
@@ -135,23 +136,23 @@
             </div>
             <div class="product-detail" id="productDetailContent"></div>
         </div>
+    </div>
     <script>
         const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
         const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=products`;
         const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
         const WHATSAPP_NUMBER = '966559895503';
 
-        // ✅ SHEET COLUMN ORDER - A=0, B=1, C=2, D=3, E=4, F=5, G=6
-        // നിന്റെ Screenshot നോക്കിയാൽ Stock ൽ Image Link വരുന്നു
-        // അതുകൊണ്ട് image=5, stock=6 ആക്കിയിട്ടുണ്ട്. തെറ്റാണെങ്കിൽ മാറ്റൂ
+        // ✅ FINAL COLUMN ORDER - Screenshot പ്രകാരം Fix ചെയ്തു
+        // A=0, B=1, C=2, D=3, E=4, F=5, G=6
         const COLUMN_INDEX = {
-            id: 0, // Column A
-            name: 1, // Column B - Product Name
-            brand: 2, // Column C
-            price: 3, // Column D
-            category: 4, // Column E
-            image: 5, // Column F - Image Link ഇവിടെയാണെന്ന് തോന്നുന്നു
-            stock: 6 // Column G - Stock ഇവിടെയാണെന്ന് തോന്നുന്നു
+            id: 0, // Column A = ID
+            name: 1, // Column B = Name - "CORDLESS DRILL" ഇവിടെയാണ്
+            brand: 2, // Column C = Brand
+            price: 3, // Column D = Price
+            category: 4, // Column E = Category
+            image: 5, // Column F = Image Link - Drive Link ഇവിടെയാണ്
+            stock: 6 // Column G = Stock - IN/OUT ഇവിടെയാണ്
         };
 
         let allProducts = [];
@@ -281,6 +282,11 @@
                     const category = getCell(COLUMN_INDEX.category);
                     const stock = getCell(COLUMN_INDEX.stock);
                     const image = getCell(COLUMN_INDEX.image);
+
+                    // Debug: ആദ്യത്തെ 3 row Console ൽ Print ചെയ്യും
+                    if(i <= 3) {
+                        console.log(`Row ${i}:`, {idVal, nameVal, brand, priceVal, category, stock, image});
+                    }
 
                     let finalName = nameVal || idVal || `Product-${i}`;
 
