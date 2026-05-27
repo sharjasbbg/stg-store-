@@ -7,93 +7,105 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rubik', sans-serif; }
-        body { background: #FFFBF5; }
+        body { background: #FFFBF5; } /* LIGHT ORANGE BG */
 
-.header { background: linear-gradient(135deg, #FFE0B2, #FFCC80); padding: 12px 15px; box-shadow: 0 2px 8px rgba(255,224,178,0.5); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
-.header-left { display: flex; align-items: center; gap: 10px; }
-.logo { height: 40px; width: auto; object-fit: contain; border: 2px solid white; border-radius: 8px; background: white; padding: 2px; }
-.company-name { font-size: 16px; font-weight: 700; color: #8B4513; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
-.cart-btn { background: #fff; color: #FF8C00; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; position: relative; }
-.cart-count { position: absolute; top: -8px; right: -8px; background: #ff0000; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+    .header { background: linear-gradient(135deg, #FFE0B2, #FFCC80); padding: 12px 15px; box-shadow: 0 2px 8px rgba(255,224,178,0.5); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .logo { height: 40px; }
+    .company-name { font-size: 16px; font-weight: 600; color: #8B4513; }
+    .cart-btn { background: #25D366; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; position: relative; }
+    .cart-count { position: absolute; top: -8px; right: -8px; background: #ff0000; color: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
 
-.banner { width: 100%; height: 350px; position: relative; overflow: hidden; background: #ddd; }
-.banner img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: opacity 0.5s; }
-.banner img.active { opacity: 1; }
+      /* TIMELINE BANNER - 350px HEIGHT */
+    .banner { width: 100%; height: 350px; position: relative; overflow: hidden; background: #e8e8e8; }
+    .banner img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: opacity 0.5s; }
+    .banner img.active { opacity: 1; }
 
-.controls { padding: 12px 15px; background: #fff; margin: 10px 0; }
-.search-box { width: 100%; padding: 10px 15px; border: 2px solid #FFE4CC; border-radius: 8px; font-size: 14px; margin-bottom: 10px; }
-.search-box:focus { outline: none; border-color: #FFB366; }
-.btn-group { display: flex; gap: 10px; }
-.btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
-.btn-reset { background: #FFF0E0; color: #FF8C00; }
-.btn-refresh { background: #FFB366; color: white; }
+    .filter-section { background: #fff; padding: 12px 15px 0; }
+    .filter-title { font-size: 12px; color: #666; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
 
-.filter-tiles { display: flex; gap: 8px; overflow-x: auto; padding: 10px 15px; background: #fff; margin-bottom: 10px; }
-.filter-tiles::-webkit-scrollbar { display: none; }
-.filter-tile { min-width: 100px; height: 70px; border: 2px solid #FFF0E0; border-radius: 8px; overflow: hidden; cursor: pointer; position: relative; background: #fff; }
-.filter-tile.active { border-color: #FFB366; box-shadow: 0 2px 8px rgba(255,179,102,0.3); }
-.filter-tile img { width: 100%; height: 100%; object-fit: cover; }
-.filter-tile p { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,179,102,0.95); color: white; padding: 4px; font-size: 11px; text-align: center; font-weight: 500; }
-.filter-tile.all { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #FFE0B2, #FFB366); }
-.filter-tile.all p { position: static; background: none; font-size: 13px; color: #A0522D; }
-.cat-banner { width: 100%; max-height: 120px; object-fit: cover; margin-bottom: 10px; border-radius: 8px; }
+      /* COLORED CATEGORY TILES */
+    .filter-tiles { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; }
+    .filter-tiles::-webkit-scrollbar { display: none; }
+    .filter-tile { min-width: 95px; height: 70px; border: none; border-radius: 8px; cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 6px; }
+    .filter-tile.active { outline: 3px solid #FFB366; outline-offset: 2px; }
+    .filter-tile img { width: 36px; height: 36px; object-fit: contain; margin-bottom: 4px; filter: brightness(0) invert(1); }
+    .filter-tile p { font-size: 11px; font-weight: 600; color: white; text-align: center; line-height: 1.1; }
 
-.products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 10px 80px; }
+      /* EXACT COLORS FROM SCREENSHOT */
+    .tile-stgall { background: #00b050; }
+    .tile-sanitary { background: #000000; }
+    .tile-electric { background: #000000; }
+    .tile-tools { background: #000000; }
+    .tile-conflo { background: #ed7d31; }
+    .tile-stg { background: #ed7d31; }
+    .tile-steorra { background: #ed7d31; }
+    .tile-salvo { background: #ed7d31; }
 
-.card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(255,179,102,0.15); border: 1px solid #FFF0E0; display: flex; flex-direction: column; }
-.card img { width: 100%; height: 100px; object-fit: cover; cursor: pointer; background: #FFFBF5; }
-.card-body { padding: 5px; flex: 1; display: flex; flex-direction: column; }
-.card h3 { font-size: 10px; font-weight: 600; margin-bottom: 3px; color: #333; line-height: 1.2; height: 24px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word; }
-.card p { font-size: 8px; color: #666; margin: 1px 0; line-height: 1.1; }
-.price { color: #FF8C00; font-weight: 700; font-size: 12px!important; }
-.stock { font-size: 8px; }
-.stock.out { color: #ff0000; font-weight: 600; }
-.qty-box { display: flex; align-items: center; gap: 0; margin-top: auto; border: 1px solid #FFE4CC; border-radius: 6px; overflow: hidden; }
-.qty-box button { width: 24px; height: 24px; border: none; background: #FFF0E0; color: #FF8C00; font-size: 14px; cursor: pointer; font-weight: 600; }
-.qty-box button:last-child { background: #FFB366; color: white; }
-.qty-box button:disabled { opacity: 0.3; cursor: not-allowed; }
-.qty-box input { flex: 1; height: 24px; text-align: center; border: none; border-left: 1px solid #FFE4CC; border-right: 1px solid #FFE4CC; font-size: 11px; font-weight: 600; }
-.loading { text-align: center; padding: 40px; color: #FFB366; grid-column: 1 / -1; }
-.error { background: #ffebee; color: #c62828; padding: 15px; margin: 15px; border-radius: 8px; text-align: center; }
+    .controls { padding: 10px 15px; background: #fff; margin-bottom: 10px; display: flex; gap: 8px; align-items: center; }
+    .btn { padding: 9px 14px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; white-space: nowrap; }
+    .btn-reset { background: #f0f0; color: #333; }
+    .btn-refresh { background: #FFB366; color: white; display: flex; align-items: center; gap: 5px; }
+    .search-box { flex: 1; padding: 9px 12px 9px 36px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>') no-repeat 10px center; }
 
-.cart-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
-.cart-modal.active { display: flex; }
-.cart-content { background: white; width: 90%; max-width: 500px; max-height: 80vh; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-.cart-header { padding: 15px; border-bottom: 2px solid #FFF0E0; display: flex; justify-content: space-between; align-items: center; background: #FFFBF5; }
-.cart-header h2 { font-size: 18px; color: #FF8C00; }
-.cart-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #FF8C00; }
-.cart-items { flex: 1; overflow-y: auto; padding: 15px; }
-.cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #FFF0E0; }
-.cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid #FFF0E0; }
-.cart-item-info { flex: 1; }
-.cart-item-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
-.cart-item-price { font-size: 12px; color: #FF8C00; font-weight: 600; }
-.cart-item-qty { font-size: 11px; color: #666; }
-.cart-footer { padding: 15px; border-top: 2px solid #FFF0E0; background: #FFFBF5; }
-.cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #FF8C00; }
-.cart-actions { display: flex; gap: 10px; }
-.cart-actions button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
-.btn-clear { background: #FFF0E0; color: #FF8C00; }
-.btn-order { background: #25D366; color: white; }
-.cart-empty { text-align: center; padding: 40px 20px; color: #999; }
+      /* STRICT 3 COLUMN GRID */
+    .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 15px 80px; }
+    .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .card img { width: 100%; height: 140px; object-fit: cover; cursor: pointer; background: #f8f8f8; }
+    .card-body { padding: 10px; }
+    .card h3 { font-size: 12px; font-weight: 500; margin-bottom: 6px; color: #333; line-height: 1.3; height: 32px; overflow: hidden; }
+    .card p { font-size: 11px; color: #666; margin: 3px 0; }
+    .price { color: #FF8C00; font-weight: 600; font-size: 14px!important; }
+    .stock { font-size: 11px; }
+    .stock.out { color: #ff0000; font-weight: 600; }
+    .qty-box { display: flex; align-items: center; gap: 0; margin-top: 8px; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
+    .qty-box button { width: 36px; height: 36px; border: none; background: #f0f0f0; color: #333; font-size: 20px; cursor: pointer; font-weight: 600; }
+    .qty-box button:last-child { background: #FFB366; color: white; }
+    .qty-box button:disabled { opacity: 0.3; cursor: not-allowed; }
+    .qty-box input { flex: 1; height: 36px; text-align: center; border: none; border-left: 1px solid #ddd; border-right: 1px solid #ddd; font-size: 15px; font-weight: 600; }
+    .loading { text-align: center; padding: 40px; color: #666; grid-column: 1 / -1; }
+    .error { background: #ffebee; color: #c62828; padding: 15px; margin: 15px; border-radius: 8px; text-align: center; }
 
-.product-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
-.product-modal.active { display: flex; }
-.product-modal-content { background: white; border-radius: 12px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
-.product-modal-close { position: absolute; top: 10px; right: 10px; background: rgba(255,179,102,0.8); color: white; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 1; }
-.product-modal img { width: 100%; height: 300px; object-fit: cover; }
-.product-modal-body { padding: 20px; }
-.product-modal-body h2 { font-size: 18px; margin-bottom: 10px; }
-.product-modal-body p { font-size: 14px; color: #666; margin: 6px 0; }
-.product-modal-body.price { font-size: 20px; color: #FF8C00; font-weight: 600; }
+    .cart-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+    .cart-modal.active { display: flex; }
+    .cart-content { background: white; width: 90%; max-width: 500px; max-height: 80vh; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+    .cart-header { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .cart-header h2 { font-size: 18px; }
+    .cart-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #666; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
+    .cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .cart-item-price { font-size: 12px; color: #FF8C00; font-weight: 600; }
+    .cart-item-qty { font-size: 11px; color: #666; }
+    .cart-footer { padding: 15px; border-top: 1px solid #eee; }
+    .cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+    .cart-actions { display: flex; gap: 10px; }
+    .cart-actions button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .btn-clear { background: #f0f0f0; color: #333; }
+    .btn-order { background: #25D366; color: white; }
+    .cart-empty { text-align: center; padding: 40px 20px; color: #999; }
 
-.whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 12px 18px; border-radius: 24px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 99; font-weight: 600; font-size: 14px; }
+    .product-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
+    .product-modal.active { display: flex; }
+    .product-modal-content { background: white; border-radius: 12px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+    .product-modal-close { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 1; }
+    .product-modal img { width: 100%; height: 300px; object-fit: cover; }
+    .product-modal-body { padding: 20px; }
+    .product-modal-body h2 { font-size: 18px; margin-bottom: 10px; }
+    .product-modal-body p { font-size: 14px; color: #666; margin: 6px 0; }
+    .product-modal-body.price { font-size: 20px; color: #FF8C00; font-weight: 600; }
+
+    .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 12px 18px; border-radius: 24px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 99; font-weight: 600; font-size: 14px; }
+
+      @media (min-width: 768px) {.products { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="header-left">
-            <img id="logo" src="https://via.placeholder.com/40/FFB366/fff?text=STG" alt="Logo" class="logo">
+            <img id="logo" src="https://via.placeholder.com/40" alt="Logo" class="logo">
             <div class="company-name">STERLING TRADINGS (STG)</div>
         </div>
         <button class="cart-btn" id="cartBtn">Cart <span class="cart-count" id="cartCount">0</span></button>
@@ -101,15 +113,17 @@
 
     <div class="banner" id="slider"></div>
 
-    <div class="controls">
-        <input type="text" class="search-box" id="searchInput" placeholder="Search products...">
-        <div class="btn-group">
-            <button class="btn btn-reset" id="resetBtn">Reset</button>
-            <button class="btn btn-refresh" id="refreshBtn">Refresh</button>
-        </div>
+    <div class="filter-section">
+        <div class="filter-title">🔍 Filter by Category & Brand</div>
+        <div class="filter-tiles" id="filterTiles"></div>
     </div>
 
-    <div class="filter-tiles" id="filterTiles"></div>
+    <div class="controls">
+        <button class="btn btn-reset" id="resetBtn">Reset All Filters</button>
+        <button class="btn btn-refresh" id="refreshBtn">🔄 Refresh Data</button>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search Products...">
+    </div>
+
     <div id="catBannerContainer" style="padding: 0 15px;"></div>
     <div class="products" id="products"></div>
 
@@ -144,8 +158,8 @@
 
     <script>
         const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
-        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=products`;
-        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
+        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=142702852`;
         const WHATSAPP_NUMBER = '966559895503';
 
         const COL = { id: 0, name: 1, brand: 2, price: 3, category: 4, image: 5, stock: 6 };
@@ -156,6 +170,18 @@
         let selectedCat = '';
         let selectedBrand = '';
         let searchText = '';
+
+        // Category tile colors + icons
+        const categoryConfig = {
+            'STG ALL': { class: 'tile-stgall', icon: '' },
+            'SANITORY': { class: 'tile-sanitary', icon: 'https://img.icons8.com/ios-filled/50/ffffff/plumbing.png' },
+            'ELECTRIC': { class: 'tile-electric', icon: 'https://img.icons8.com/ios-filled/50/ffffff/electrical.png' },
+            'TOOLS': { class: 'tile-tools', icon: 'https://img.icons8.com/ios-filled/50/ffffff/maintenance.png' },
+            'CONFLO': { class: 'tile-conflo', icon: '' },
+            'STG': { class: 'tile-stg', icon: '' },
+            'STEORRA': { class: 'tile-steorra', icon: '' },
+            'SALVO': { class: 'tile-salvo', icon: '' }
+        };
 
         function csvToArray(csv) {
             const rows = [];
@@ -217,8 +243,8 @@
             const timestamp = new Date().getTime();
 
             fetch(BANNER_CSV + '&cache=' + timestamp)
-.then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
-.then(csv => {
+           .then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
+           .then(csv => {
                     const rows = csvToArray(csv);
                     if (rows.length < 2) return;
                     const headers = rows[0].map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
@@ -234,8 +260,9 @@
                     }
                     if (banners.LOGO) document.getElementById('logo').src = banners.LOGO;
 
+                    // Load timeline banner images
                     const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
-.map(k => banners[k]).filter(s => s);
+                   .map(k => banners[k]).filter(s => s);
                     const slider = document.getElementById('slider');
                     if (slides.length > 0) {
                         slider.innerHTML = slides.map((src, i) =>
@@ -251,14 +278,15 @@
                             }
                         }, 3000);
                     } else {
-                        slider.innerHTML = `<img src="https://via.placeholder.com/800x350/FFB366/fff?text=STERLING+TRADINGS" class="active" alt="Banner">`;
+                        // Default timeline banner if no images
+                        slider.innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=2011+2017+Timeline" class="active" alt="Banner">`;
                     }
                 })
-.catch(err => console.log('Banner Error:', err));
+           .catch(err => console.log('Banner Error:', err));
 
             fetch(PRODUCTS_CSV + '&cache=' + timestamp)
-.then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
-.then(csv => {
+           .then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
+           .then(csv => {
                     const rows = csvToArray(csv);
                     if (rows.length < 2) {
                         showError('Sheet കാലിയാണ്');
@@ -283,11 +311,10 @@
                         const stock = getCell(COL.stock);
                         const image = getCell(COL.image);
 
-                        // NAME FIX: Sheet ൽ എന്തുണ്ടെങ്കിലും അത് തന്നെ കാണിക്കും
-                        // Empty ആണെങ്കിൽ മാത്രം Brand + Category
-                        if (!nameVal || nameVal === '') {
-                            nameVal = `${brand} ${category}`.trim();
-                            if (nameVal === '') nameVal = `Product ${idVal}`;
+                        // നിന്റെ ORIGINAL LOGIC - മാറ്റിയിട്ടില്ല
+                        // Auto-generate name if empty or just numbers
+                        if (!nameVal || /^\d+$/.test(nameVal) || nameVal === idVal) {
+                            nameVal = `${brand} ${category} ${idVal}`.trim();
                         }
 
                         let finalPrice = 1;
@@ -313,7 +340,7 @@
                     displayProducts(allProducts);
                     updateCartCount();
                 })
-.catch(err => showError(err));
+           .catch(err => showError(err));
         }
 
         function loadFilterTiles() {
@@ -321,16 +348,17 @@
             const brands = [...new Set(allProducts.map(p => p.brand).filter(b => b && b!== 'No Brand'))];
             const tilesDiv = document.getElementById('filterTiles');
 
-            let html = `<div class="filter-tile all ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>STG ALL</p></div>`;
+            let html = `<div class="filter-tile tile-stgall ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>STG ALL</p></div>`;
 
             categories.forEach(cat => {
-                const catKey = 'CAT-' + cat.toUpperCase().replace(/\s+/g, '');
-                const img = banners[catKey] || 'https://via.placeholder.com/100x70/FFB366/fff?text=' + encodeURIComponent(cat);
-                html += `<div class="filter-tile ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}"><img src="${img}" alt="${cat}"><p>${cat}</p></div>`;
+                const config = categoryConfig[cat.toUpperCase()] || { class: 'tile-stg', icon: '' };
+                const iconHtml = config.icon? `<img src="${config.icon}" alt="">` : '';
+                html += `<div class="filter-tile ${config.class} ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}">${iconHtml}<p>${cat}</p></div>`;
             });
 
             brands.forEach(brand => {
-                html += `<div class="filter-tile ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`;
+                const config = categoryConfig[brand.toUpperCase()] || { class: 'tile-stg', icon: '' };
+                html += `<div class="filter-tile ${config.class} ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`;
             });
 
             tilesDiv.innerHTML = html;
@@ -368,7 +396,7 @@
                 const qty = cart[p.id] || 0;
                 return `
                 <div class="card" data-product-id="${p.id}">
-                    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200/FFF0E0/FFB366?text=No+Image'">
+                    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200?text=No+Image'">
                     <div class="card-body">
                         <h3>${p.name}</h3>
                         <p>Brand: ${p.brand}</p>
@@ -481,7 +509,7 @@
             if (!product) return;
             const qty = cart[product.id] || 0;
             document.getElementById('productDetailContent').innerHTML = `
-                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300/FFF0E0/FFB366?text=No+Image'">
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
                 <h2>${product.name}</h2>
                 <p style="color:#666;margin-bottom:8px">Brand: ${product.brand}</p>
                 <p style="color:#666;margin-bottom:8px">Category: ${product.category}</p>
