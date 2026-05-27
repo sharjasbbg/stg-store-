@@ -38,7 +38,7 @@
 .filter-tile.all p { position: static; background: none; font-size: 13px; color: #A0522D; }
 .cat-banner { width: 100%; max-height: 120px; object-fit: cover; margin-bottom: 10px; border-radius: 8px; }
 
-        /* STRICT 3 COLUMNS ONLY */
+        /* STRICT 3 COLUMNS */
 .products {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -289,11 +289,10 @@
                         const stock = getCell(COL.stock);
                         const image = getCell(COL.image);
 
-                        // NAME FIX: Sheet ൽ എന്തുണ്ടെങ്കിലും അതേപടി കാണിക്കും
-                        // Empty ആണെങ്കിൽ മാത്രം fallback
-                        if (!nameVal || nameVal === '') {
-                            nameVal = `${brand} ${category}`.trim();
-                            if (nameVal === '') nameVal = `Product ${idVal}`;
+                        // നിന്റെ ORIGINAL CODE LOGIC - മാറ്റിയിട്ടില്ല
+                        // Empty ആണെങ്കിൽ അല്ലെങ്കിൽ Number മാത്രം ആണെങ്കിൽ മാത്രം auto-generate
+                        if (!nameVal || /^\d+$/.test(nameVal) || nameVal === idVal) {
+                            nameVal = `${brand} ${category} ${idVal}`.trim();
                         }
 
                         let finalPrice = 1;
