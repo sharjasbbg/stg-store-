@@ -7,34 +7,58 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
-        .header { background: #1a365d; color: white; padding: 1rem; text-align: center; }
-        .header h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .search-bar { padding: 1rem; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-        .categories { display: flex; overflow-x: auto; padding: 1rem; gap: 10px; background: white; }
-        .category-btn { padding: 8px 16px; background: #e2e8f0; border: none; border-radius: 20px; white-space: nowrap; cursor: pointer; }
-        .category-btn.active { background: #1a365d; color: white; }
-        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; padding: 1rem; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .product-img { width: 100%; height: 120px; object-fit: cover; background: #eee; }
-        .product-info { padding: 12px; }
-        .product-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; height: 40px; overflow: hidden; }
-        .product-brand { color: #666; font-size: 12px; margin-bottom: 8px; }
-        .product-price { font-weight: bold; color: #1a365d; font-size: 16px; }
-        .loading { text-align: center; padding: 2rem; color: #666; }
-        .error { text-align: center; padding: 2rem; color: #e53e3e; }
+       .header { background: #1a365d; color: white; padding: 1rem; text-align: center; }
+       .header h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+       .search-bar { padding: 1rem; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+       .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+       .controls { display: flex; gap: 10px; padding: 0 1rem 1rem; background: white; }
+       .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+       .btn-reset { background: #e2e8f0; color: #1a365d; }
+       .btn-refresh { background: #1a365d; color: white; }
+       .categories { display: flex; overflow-x: auto; padding: 1rem; gap: 10px; background: white; }
+       .category-btn { padding: 8px 16px; background: #e2e8f0; border: none; border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 12px; }
+       .category-btn.active { background: #1a365d; color: white; }
+
+        /* 3 COLUMN FIX - Mobile */
+       .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 8px;
+        }
+        @media (min-width: 768px) {
+           .products { grid-template-columns: repeat(5, 1fr); gap: 1rem; padding: 1rem; }
+        }
+
+       .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+       .product-img { width: 100%; height: 100px; object-fit: contain; background: #fff; padding: 4px; }
+       .product-info { padding: 8px; }
+       .product-name { font-weight: 600; font-size: 11px; margin-bottom: 4px; height: 32px; overflow: hidden; line-height: 1.2; }
+       .product-id { color: #888; font-size: 10px; margin-bottom: 2px; }
+       .product-brand { color: #666; font-size: 10px; margin-bottom: 2px; }
+       .product-price { font-weight: bold; color: #1a365d; font-size: 12px; margin-bottom: 4px; }
+       .product-meta { font-size: 9px; color: #888; margin-bottom: 6px; }
+       .cart-control { display: flex; align-items: center; justify-content: space-between; }
+       .qty-btn { width: 24px; height: 24px; background: #1a365d; color: white; border: none; border-radius: 4px; cursor: pointer; }
+       .qty { font-size: 12px; font-weight: 600; }
+       .loading { text-align: center; padding: 2rem; color: #666; grid-column: 1 / -1; }
+       .error { text-align: center; padding: 2rem; color: #e53e3e; grid-column: 1 / -1; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Sharja SBBG</h1>
-        <p>Building Materials & Sanitary</p>
+        <h1>STERLING TRADINGS (STG)</h1>
     </div>
-    
+
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search products...">
     </div>
-    
+
+    <div class="controls">
+        <button class="btn btn-reset" onclick="resetFilters()">Reset</button>
+        <button class="btn btn-refresh" onclick="loadProducts()">Refresh</button>
+    </div>
+
     <div class="categories" id="categories"></div>
     <div class="products" id="products">
         <div class="loading">Loading products...</div>
@@ -43,52 +67,60 @@
     <script>
         const SHEET_ID = 'YOUR_SHEET_ID_HERE';
         const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
-        
+
         let allProducts = [];
         let currentCategory = 'all';
-        
+        let cart = {};
+
         async function loadProducts() {
+            document.getElementById('products').innerHTML = '<div class="loading">Loading products...</div>';
             try {
                 const response = await fetch(PRODUCTS_CSV);
                 const csvText = await response.text();
                 const rows = csvText.split('\n').slice(1);
-                
+
                 allProducts = rows.map(row => {
                     const cols = row.split(',');
-                    return {
-                        id: cols[0],
-                        name: cols[1],
-                        brand: cols[2],
-                        price: cols[3],
-                        category: cols[4],
-                        image: cols[5] || 'https://via.placeholder.com/150'
-                    };
-                }).filter(p => p.name);
-                
+                    const id = cols[0]?.trim();
+                    let name = cols[1]?.trim();
+                    const brand = cols[2]?.trim() || 'STG';
+                    const price = cols[3]?.trim() || '1';
+                    const category = cols[4]?.trim() || 'GENERAL';
+                    const stock = cols[5]?.trim() || 'IN';
+                    const image = cols[6]?.trim() || 'https://via.placeholder.com/150';
+
+                    // NAME FIX: Name കാലി ആണെങ്കിൽ Category + ID ചേർക്കും
+                    if (!name || name === '') {
+                        name = `${category} ${id}`;
+                    }
+
+                    return { id, name, brand, price, category, stock, image };
+                }).filter(p => p.id);
+
                 displayCategories();
                 displayProducts(allProducts);
             } catch (error) {
-                document.getElementById('products').innerHTML = '<div class="error">Failed to load products. Check Sheet URL.</div>';
+                document.getElementById('products').innerHTML = '<div class="error">Failed to load products</div>';
             }
         }
-        
+
         function displayCategories() {
-            const categories = ['all', ...new Set(allProducts.map(p => p.category).filter(Boolean))];
+            const categories = ['STG ALL',...new Set(allProducts.map(p => p.category).filter(Boolean))];
             const categoriesDiv = document.getElementById('categories');
-            categoriesDiv.innerHTML = categories.map(cat => 
-                `<button class="category-btn ${cat === 'all' ? 'active' : ''}" onclick="filterCategory('${cat}')">${cat.toUpperCase()}</button>`
+            categoriesDiv.innerHTML = categories.map(cat =>
+                `<button class="category-btn ${cat === 'STG ALL'? 'active' : ''}" onclick="filterCategory('${cat}')">${cat}</button>`
             ).join('');
         }
-        
+
         function filterCategory(category) {
             currentCategory = category;
             document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.textContent.toLowerCase() === category);
+                btn.classList.toggle('active', btn.textContent === category);
             });
-            const filtered = category === 'all' ? allProducts : allProducts.filter(p => p.category === category);
+            const filtered = category === 'STG ALL'? allProducts : allProducts.filter(p => p.category === category);
             displayProducts(filtered);
         }
-        
+
         function displayProducts(products) {
             const productsDiv = document.getElementById('products');
             if (products.length === 0) {
@@ -100,22 +132,41 @@
                     <img src="${product.image}" alt="${product.name}" class="product-img" onerror="this.src='https://via.placeholder.com/150'">
                     <div class="product-info">
                         <div class="product-name">${product.name}</div>
-                        <div class="product-brand">${product.brand}</div>
-                        <div class="product-price">AED ${product.price}</div>
+                        <div class="product-id">${product.id}</div>
+                        <div class="product-brand">Brand: ${product.brand}</div>
+                        <div class="product-price">SAR ${product.price}</div>
+                        <div class="product-meta">Category: ${product.category}<br>Stock: ${product.stock}</div>
+                        <div class="cart-control">
+                            <button class="qty-btn" onclick="updateCart('${product.id}', -1)">-</button>
+                            <span class="qty">${cart[product.id] || 0}</span>
+                            <button class="qty-btn" onclick="updateCart('${product.id}', 1)">+</button>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
-        
+
+        function updateCart(id, change) {
+            cart[id] = (cart[id] || 0) + change;
+            if (cart[id] < 0) cart[id] = 0;
+            displayProducts(currentCategory === 'STG ALL'? allProducts : allProducts.filter(p => p.category === currentCategory));
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            filterCategory('STG ALL');
+        }
+
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            const filtered = allProducts.filter(p => 
-                p.name.toLowerCase().includes(searchTerm) || 
-                p.brand.toLowerCase().includes(searchTerm)
+            const filtered = allProducts.filter(p =>
+                p.name.toLowerCase().includes(searchTerm) ||
+                p.brand.toLowerCase().includes(searchTerm) ||
+                p.id.toLowerCase().includes(searchTerm)
             );
             displayProducts(filtered);
         });
-        
+
         loadProducts();
     </script>
 </body>
