@@ -108,7 +108,7 @@
         <div class="grid" id="products"><div class="loading">Loading Products...</div></div>
     </div>
     <a href="https://wa.me/966559895503?text=Hello, I need help with products" target="_blank" class="whatsapp-float">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6b/WhatsApp.svg" alt="WhatsApp">
         CHAT
     </a>
     <div class="cart-modal" id="cartModal">
@@ -137,12 +137,15 @@
             <div class="product-detail" id="productDetailContent"></div>
         </div>
     </div>
-        <script>
+    <script>
         const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
 
-        // ✅ FIXED: export?format=csv use ചെയ്താൽ letter + number എല്ലാം വരും
-        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`; // products sheet ൻ്റെ gid
-        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=142702852`; // banner sheet ൻ്റെ gid
+        // ✅ PRODUCTS - export = Letter വരും
+        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+
+        // ✅ BANNER - gviz = Logo, Slider, Category image എല്ലാം വരും
+        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
+
         const WHATSAPP_NUMBER = '966559895503';
 
         const COL = {
@@ -240,7 +243,7 @@
                         document.getElementById('logo').onerror = function(){ this.src='https://via.placeholder.com/150x40?text=Logo'; };
                     }
                     const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
-  .map(k => banners[k]).filter(s => s);
+.map(k => banners[k]).filter(s => s);
                     const slider = document.getElementById('slider');
                     if(slides.length > 0) {
                         slider.innerHTML = slides.map((src, i) =>
@@ -256,7 +259,7 @@
                             }
                         }, 3000);
                     } else {
-                        slider.innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
+                        slider.innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
                     }
                 })
 .catch(err => {
@@ -291,7 +294,7 @@
                         const stock = getCell(COL.stock);
                         const image = getCell(COL.image);
 
-                        // ✅ 100% FIX: Sheet ൽ എന്ത് ഉണ്ടോ അതേ പോലെ - Letter, Number, Blank എല്ലാം
+                        // ✅ Sheet ൽ എന്ത് ഉണ്ടോ അതേ പോലെ - Letter, Number, Blank എല്ലാം
                         nameVal = nameVal || '';
 
                         let finalPrice = 1;
