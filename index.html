@@ -238,7 +238,7 @@
                         document.getElementById('logo').onerror = function(){ this.src='https://via.placeholder.com/150x40?text=Logo'; };
                     }
                     const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
-     .map(k => banners[k]).filter(s => s);
+   .map(k => banners[k]).filter(s => s);
                     const slider = document.getElementById('slider');
                     if(slides.length > 0) {
                         slider.innerHTML = slides.map((src, i) =>
@@ -289,10 +289,8 @@
                         const stock = getCell(COL.stock);
                         const image = getCell(COL.image);
 
-                        // ✅ FIXED: Letter ഉണ്ടെങ്കിൽ display ചെയ്യും, Number മാത്രം ആണെങ്കിൽ auto-generate
-                        if (!nameVal || /^\d+$/.test(nameVal)) {
-                            nameVal = `${brand} ${category} ${idVal}`.trim();
-                        }
+                        // ✅ 100% FIX: Sheet ൽ എന്ത് ഉണ്ടോ അതേ പോലെ - Auto-generate ഇല്ല
+                        nameVal = nameVal || '';
 
                         let finalPrice = 1;
                         if(priceVal && priceVal!== '' && priceVal!== '0') {
@@ -376,7 +374,7 @@
                 <div class="card" data-product-id="${p.id}">
                     <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200?text=No+Image'">
                     <div class="card-body">
-                        <h3>${p.name}</h3>
+                        <h3>${p.name || '&nbsp;'}</h3>
                         <p>Brand: ${p.brand}</p>
                         <p class="price">SAR ${p.price}</p>
                         <p>Category: ${p.category}</p>
@@ -432,7 +430,7 @@
                         <div class="cart-item">
                             <img src="${item.image}" alt="${item.name}">
                             <div class="cart-item-info">
-                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-name">${item.name || 'No Name'}</div>
                                 <div class="cart-item-price">SAR ${item.price} x ${item.qty}</div>
                                 <div class="cart-item-qty">Subtotal: SAR ${subtotal}</div>
                             </div>
@@ -471,7 +469,7 @@
             cartItems.forEach((item, i) => {
                 const subtotal = item.price * item.qty;
                 total += subtotal;
-                message += `*${i+1}. ${item.name}*%0A`;
+                message += `*${i+1}. ${item.name || 'No Name'}*%0A`;
                 message += `📸 Image: ${item.image}%0A`;
                 message += `🏷️ Brand: ${item.brand}%0A`;
                 message += `📦 Qty: ${item.qty} x SAR ${item.price} = *SAR ${subtotal}*%0A%0A`;
@@ -488,7 +486,7 @@
             const qty = cart[product.id] || 0;
             document.getElementById('productDetailContent').innerHTML = `
                 <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
-                <h2>${product.name}</h2>
+                <h2>${product.name || 'No Name'}</h2>
                 <p style="color:#666;margin-bottom:8px">Brand: ${product.brand}</p>
                 <p style="color:#666;margin-bottom:8px">Category: ${product.category}</p>
                 <p class="price">SAR ${product.price}</p>
