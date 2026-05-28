@@ -8,88 +8,88 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
         body { font-family: Arial; background: #f5f5f5; }
-   .header { background: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647; transform: translate3d(0,0,0); }
-   .header-left { display: flex; align-items: center; gap: 15px; }
-   .header img { height: 40px; object-fit: contain; }
-   .header h1 { font-size: 18px; color: #333; font-weight: bold; }
-   .cart-badge { background: #28a745; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
-   .cart-badge span { background: white; color: #28a745; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; }
-   .page-wrapper { padding-top: 60px; position: relative; z-index: 1; }
-   .slider { width: 100%; height: 250px; overflow: hidden; position: relative; background: #222; z-index: 1; }
+ .header { background: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647; transform: translate3d(0,0,0); }
+ .header-left { display: flex; align-items: center; gap: 15px; }
+ .header img { height: 40px; object-fit: contain; }
+ .header h1 { font-size: 18px; color: #333; font-weight: bold; }
+ .cart-badge { background: #28a745; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+ .cart-badge span { background: white; color: #28a745; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+ .page-wrapper { padding-top: 60px; position: relative; z-index: 1; }
+ .slider { width: 100%; height: 250px; overflow: hidden; position: relative; background: #222; z-index: 1; }
         @media (min-width: 768px) {.slider { height: 450px; } }
-   .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
-   .slider img.active { opacity: 1; }
-   .filter-section { background: white; padding: 15px; margin-top: 10px; position: relative; z-index: 2; }
-   .filter-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-   .filter-tiles { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
-   .filter-tiles::-webkit-scrollbar { height: 4px; }
-   .filter-tiles::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+ .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
+ .slider img.active { opacity: 1; }
+ .filter-section { background: white; padding: 15px; margin-top: 10px; position: relative; z-index: 2; }
+ .filter-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+ .filter-tiles { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+ .filter-tiles::-webkit-scrollbar { height: 4px; }
+ .filter-tiles::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
 
     /* ✅ CATEGORY TILE - Image + Text */
-   .filter-tile { min-width: 110px; height: 110px; text-align: center; cursor: pointer; border: 2px solid transparent; border-radius: 8px; padding: 8px; background: #f8f8f8; transition: 0.3s; flex-shrink: 0; overflow: hidden; }
-   .filter-tile.active { border-color: #007bff; background: #e7f3ff; }
-   .filter-tile img { width: 100%; height: 65px; object-fit: cover; border-radius: 6px; margin-bottom: 5px; }
-   .filter-tile p { font-size: 12px; font-weight: bold; color: #333; margin: 0; line-height: 1.2; word-break: break-word; }
+ .filter-tile { min-width: 110px; height: 110px; text-align: center; cursor: pointer; border: 2px solid transparent; border-radius: 8px; padding: 8px; background: #f8f8f8; transition: 0.3s; flex-shrink: 0; overflow: hidden; }
+ .filter-tile.active { border-color: #007bff; background: #e7f3ff; }
+ .filter-tile img { width: 100%; height: 65px; object-fit: cover; border-radius: 6px; margin-bottom: 5px; }
+ .filter-tile p { font-size: 12px; font-weight: bold; color: #333; margin: 0; line-height: 1.2; word-break: break-word; }
 
-    /* ✅ BRAND BUTTON - Orange + 3D */
-   .filter-tile.brand { background: #ff6b35; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.2); }
-   .filter-tile.brand p { color: white; font-size: 15px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; text-transform: uppercase; }
-   .filter-tile.brand.active { border-color: #007bff; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 0 0 3px #007bff, 0 3px 6px rgba(0,0,0,0.2); }
+    /* ✅ BRAND BUTTON - Orange + 3D Effect */
+ .filter-tile.brand { background: #ff6b35; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.25); }
+ .filter-tile.brand p { color: white; font-size: 15px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; text-transform: uppercase; }
+ .filter-tile.brand.active { border-color: #007bff; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 0 0 3px #007bff, 0 4px 8px rgba(0,0,0,0.25); }
 
-    /* ✅ ALL PRODUCTS - Green */
-   .filter-tile.all { background: #28a745; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.2); }
-   .filter-tile.all p { color: white; font-size: 16px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
+    /* ✅ ALL PRODUCTS - Green + 3D */
+ .filter-tile.all { background: #28a745; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.25); }
+ .filter-tile.all p { color: white; font-size: 16px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
 
-   .filters { padding: 15px; background: white; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; position: relative; z-index: 2; }
-   .filters button { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; background: #f8f8f8; cursor: pointer; height: 40px; }
-   .search-box { flex: 1; min-width: 200px; height: 40px; padding: 0 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; outline: none; }
-   .search-box:focus { border-color: #007bff; }
-   .cat-banner { width: 100%; height: 180px; object-fit: cover; margin: 15px 0; border-radius: 8px; }
+ .filters { padding: 15px; background: white; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; position: relative; z-index: 2; }
+ .filters button { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; background: #f8f8f8; cursor: pointer; height: 40px; }
+ .search-box { flex: 1; min-width: 200px; height: 40px; padding: 0 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; outline: none; }
+ .search-box:focus { border-color: #007bff; }
+ .cat-banner { width: 100%; height: 180px; object-fit: cover; margin: 15px 0; border-radius: 8px; }
 
-    /* ✅ STRICT 3 COLUMN - NO MEDIA QUERY */
-   .grid { display: grid; grid-template-columns: repeat(3, 1fr)!important; gap: 10px; padding: 15px; padding-bottom: 80px; position: relative; z-index: 2; }
-   .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-   .card img { width: 100%; height: 200px; object-fit: contain; object-position: center; background: #f8f8f8; padding: 10px; box-sizing: border-box; cursor: pointer; }
-   .card-body { padding: 12px; }
-   .card h3 { font-size: 14px; margin-bottom: 5px; min-height: 36px; word-break: break-word; color: #000; font-weight: bold; line-height: 1.2; }
-   .card p { font-size: 12px; color: #555; margin: 4px 0; }
-   .price { color: #28a745; font-size: 18px; font-weight: bold; margin: 8px 0; }
-   .stock { font-size: 12px; margin-bottom: 8px; }
-   .stock.out { color: red; font-weight: bold; }
-   .qty-box { display: flex!important; margin: 12px 0 0!important; border-radius: 5px!important; overflow: hidden!important; height: 45px!important; border: 2px solid #ddd!important; touch-action: manipulation!important; }
-   .qty-box button { border: none!important; color: #333!important; font-size: 24px!important; font-weight: bold!important; cursor: pointer!important; flex: 1!important; line-height: 1!important; user-select: none!important; -webkit-user-select: none!important; -webkit-tap-highlight-color: transparent!important; touch-action: manipulation!important; }
-   .qty-box button:first-child { background: #e0e0e0!important; }
-   .qty-box button:last-child { background: #28a745!important; color: white!important; }
-   .qty-box button:disabled { background: #f5f5f5!important; color: #ccc!important; cursor: not-allowed!important; }
-   .qty-box button:active { transform: scale(0.95)!important; }
-   .qty-box input { font-size: 18px!important; font-weight: bold!important; text-align: center!important; border: none!important; background: white!important; outline: none!important; width: 40px!important; flex-shrink: 0!important; border-left: 1px solid #ddd!important; border-right: 1px solid #ddd!important; touch-action: manipulation!important; }
-   .loading { text-align: center; padding: 40px; color: #666; }
-   .error { text-align: center; padding: 40px; color: red; background: #ffe6e6; margin: 15px; border-radius: 8px; }
-   .whatsapp-float { position: fixed!important; bottom: 20px!important; right: 20px!important; background: #25D366!important; color: white!important; border-radius: 50px!important; padding: 12px 20px!important; display: flex!important; align-items: center!important; gap: 8px!important; box-shadow: 0 4px 12px rgba(0,0,0,0.3)!important; cursor: pointer!important; z-index: 999!important; font-weight: bold!important; font-size: 15px!important; text-decoration: none!important; transition: 0.3s!important; }
-   .whatsapp-float:hover { background: #1ebe57!important; transform: scale(1.05)!important; }
-   .whatsapp-float img { width: 24px!important; height: 24px!important; }
-   .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2147483647; }
-   .cart-modal.active { display: flex; align-items: center; justify-content: center; }
-   .cart-content { background: white; width: 90%; max-width: 500px; max-height: 80vh; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
-   .cart-header { background: #28a745; color: white; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-   .cart-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; }
-   .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
-   .cart-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
-   .cart-item img { width: 60px; height: 60px; object-fit: cover; background: #f8f8f8; border-radius: 5px; }
-   .cart-item-info { flex: 1; }
-   .cart-item-name { font-weight: bold; font-size: 14px; margin-bottom: 3px; }
-   .cart-item-price { color: #28a745; font-weight: bold; }
-   .cart-item-qty { font-size: 13px; color: #666; }
-   .cart-total { background: #f8f8f8; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
-   .cart-actions { padding: 15px; display: flex; gap: 10px; }
-   .cart-btn { flex: 1; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; }
-   .cart-btn-clear { background: #dc3545; color: white; }
-   .cart-btn-order { background: #25D366; color: white; }
-   .cart-empty { text-align: center; padding: 40px; color: #999; }
-   .product-detail { padding: 15px; }
-   .product-detail img { width: 100%; height: 300px; object-fit: contain; background: #f8f8f8; border-radius: 8px; margin-bottom: 15px; }
-   .product-detail h2 { margin-bottom: 8px; word-break: break-word; }
-   .product-detail.price { font-size: 28px; margin: 15px 0; }
+    /* ✅ STRICT 3 COLUMN */
+ .grid { display: grid; grid-template-columns: repeat(3, 1fr)!important; gap: 10px; padding: 15px; padding-bottom: 80px; position: relative; z-index: 2; }
+ .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+ .card img { width: 100%; height: 200px; object-fit: contain; object-position: center; background: #f8f8f8; padding: 10px; box-sizing: border-box; cursor: pointer; }
+ .card-body { padding: 12px; }
+ .card h3 { font-size: 14px; margin-bottom: 5px; min-height: 36px; word-break: break-word; color: #000; font-weight: bold; line-height: 1.2; }
+ .card p { font-size: 12px; color: #555; margin: 4px 0; }
+ .price { color: #28a745; font-size: 18px; font-weight: bold; margin: 8px 0; }
+ .stock { font-size: 12px; margin-bottom: 8px; }
+ .stock.out { color: red; font-weight: bold; }
+ .qty-box { display: flex!important; margin: 12px 0 0!important; border-radius: 5px!important; overflow: hidden!important; height: 45px!important; border: 2px solid #ddd!important; touch-action: manipulation!important; }
+ .qty-box button { border: none!important; color: #333!important; font-size: 24px!important; font-weight: bold!important; cursor: pointer!important; flex: 1!important; line-height: 1!important; user-select: none!important; -webkit-user-select: none!important; -webkit-tap-highlight-color: transparent!important; touch-action: manipulation!important; }
+ .qty-box button:first-child { background: #e0e0e0!important; }
+ .qty-box button:last-child { background: #28a745!important; color: white!important; }
+ .qty-box button:disabled { background: #f5f5f5!important; color: #ccc!important; cursor: not-allowed!important; }
+ .qty-box button:active { transform: scale(0.95)!important; }
+ .qty-box input { font-size: 18px!important; font-weight: bold!important; text-align: center!important; border: none!important; background: white!important; outline: none!important; width: 40px!important; flex-shrink: 0!important; border-left: 1px solid #ddd!important; border-right: 1px solid #ddd!important; touch-action: manipulation!important; }
+ .loading { text-align: center; padding: 40px; color: #666; }
+ .error { text-align: center; padding: 40px; color: red; background: #ffe6e6; margin: 15px; border-radius: 8px; }
+ .whatsapp-float { position: fixed!important; bottom: 20px!important; right: 20px!important; background: #25D366!important; color: white!important; border-radius: 50px!important; padding: 12px 20px!important; display: flex!important; align-items: center!important; gap: 8px!important; box-shadow: 0 4px 12px rgba(0,0,0,0.3)!important; cursor: pointer!important; z-index: 999!important; font-weight: bold!important; font-size: 15px!important; text-decoration: none!important; transition: 0.3s!important; }
+ .whatsapp-float:hover { background: #1ebe57!important; transform: scale(1.05)!important; }
+ .whatsapp-float img { width: 24px!important; height: 24px!important; }
+ .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2147483647; }
+ .cart-modal.active { display: flex; align-items: center; justify-content: center; }
+ .cart-content { background: white; width: 90%; max-width: 500px; max-height: 80vh; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+ .cart-header { background: #28a745; color: white; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+ .cart-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; }
+ .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
+ .cart-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+ .cart-item img { width: 60px; height: 60px; object-fit: cover; background: #f8f8f8; border-radius: 5px; }
+ .cart-item-info { flex: 1; }
+ .cart-item-name { font-weight: bold; font-size: 14px; margin-bottom: 3px; }
+ .cart-item-price { color: #28a745; font-weight: bold; }
+ .cart-item-qty { font-size: 13px; color: #666; }
+ .cart-total { background: #f8f8f8; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
+ .cart-actions { padding: 15px; display: flex; gap: 10px; }
+ .cart-btn { flex: 1; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; }
+ .cart-btn-clear { background: #dc3545; color: white; }
+ .cart-btn-order { background: #25D366; color: white; }
+ .cart-empty { text-align: center; padding: 40px; color: #999; }
+ .product-detail { padding: 15px; }
+ .product-detail img { width: 100%; height: 300px; object-fit: contain; background: #f8f8f8; border-radius: 8px; margin-bottom: 15px; }
+ .product-detail h2 { margin-bottom: 8px; word-break: break-word; }
+ .product-detail.price { font-size: 28px; margin: 15px 0; }
     </style>
 </head>
 <body>
@@ -136,7 +136,6 @@
                 <button class="cart-btn cart-btn-order" id="orderWhatsApp">Order on WhatsApp</button>
             </div>
         </div>
-    </div>
     <div class="cart-modal" id="productModal">
         <div class="cart-content">
             <div class="cart-header">
@@ -148,15 +147,13 @@
     </div>
         <script>
         const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
-        // ✅ SHEET NAME USE ചെയ്തു - GID വേണ്ട
         const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=products`;
         const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
         const WHATSAPP_NUMBER = '966559895503';
 
-        // ✅ നിന്റെ Sheet Order: A=0, B=1, C=2, D=3, E=4, F=5, G=6
         const COL = {
             id: 0, // A = id
-            name: 1, // B = name ← ഇതാണ് Name Column
+            name: 1, // B = name
             brand: 2, // C = brand
             price: 3, // D = price
             category: 4,// E = category
@@ -170,17 +167,6 @@
         let selectedCat = '';
         let selectedBrand = '';
         let searchText = '';
-
-        const categoryConfig = {
-            'STG ALL': { class: 'tile-stgall', icon: '' },
-            'SANITORY': { class: 'tile-sanitary', icon: 'https://img.icons8.com/ios-filled/50/ffffff/plumbing.png' },
-            'ELECTRIC': { class: 'tile-electric', icon: 'https://img.icons8.com/ios-filled/50/ffffff/electrical.png' },
-            'TOOLS': { class: 'tile-tools', icon: 'https://img.icons8.com/ios-filled/50/ffffff/maintenance.png' },
-            'CONFLO': { class: 'tile-conflo', icon: '' },
-            'STG': { class: 'tile-stg', icon: '' },
-            'STEORRA': { class: 'tile-steorra', icon: '' },
-            'SALVO': { class: 'tile-salvo', icon: '' }
-        };
 
         function csvToArray(csv) {
             const rows = [];
@@ -240,8 +226,8 @@
         function loadData() {
             document.getElementById('products').innerHTML = '<div class="loading">Loading Products...</div>';
             fetch(BANNER_CSV + '&cache=' + new Date().getTime())
-     .then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
-     .then(csv => {
+.then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
+.then(csv => {
                     const rows = csvToArray(csv);
                     if (rows.length < 2) return;
                     const headers = rows[0].map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
@@ -260,7 +246,7 @@
                         document.getElementById('logo').onerror = function(){ this.src='https://via.placeholder.com/150x40?text=Logo'; };
                     }
                     const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
-             .map(k => banners[k]).filter(s => s);
+        .map(k => banners[k]).filter(s => s);
                     const slider = document.getElementById('slider');
                     if(slides.length > 0) {
                         slider.innerHTML = slides.map((src, i) =>
@@ -279,14 +265,14 @@
                         slider.innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
                     }
                 })
-     .catch(err => {
+.catch(err => {
                     console.log('Banner Error:', err);
                     document.getElementById('slider').innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
                 });
 
             fetch(PRODUCTS_CSV + '&cache=' + new Date().getTime())
-     .then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
-     .then(csv => {
+.then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
+.then(csv => {
                     const rows = csvToArray(csv);
                     if (rows.length < 2) {
                         showError('Sheet കാലിയാണ്');
@@ -311,7 +297,6 @@
                         const stock = getCell(COL.stock);
                         const image = getCell(COL.image);
 
-                        // ✅ നിന്റെ ORIGINAL LOGIC - മാറ്റിയിട്ടില്ല
                         if (!nameVal || /^\d+$/.test(nameVal) || nameVal === idVal) {
                             nameVal = `${brand} ${category} ${idVal}`.trim();
                         }
@@ -339,22 +324,31 @@
                     displayProducts(allProducts);
                     updateCartCount();
                 })
-     .catch(err => showError(err));
+.catch(err => showError(err));
         }
 
+        // ✅ CATEGORY IMAGE + ALL PRODUCTS + BRAND 3D FIX
         function loadFilterTiles() {
             const categories = [...new Set(allProducts.map(p => p.category).filter(c => c && c!== 'General'))];
             const brands = [...new Set(allProducts.map(p => p.brand).filter(b => b && b!== 'No Brand'))];
             const tilesDiv = document.getElementById('filterTiles');
-            let html = `<div class="filter-tile all ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>STG ALL</p></div>`;
+
+            // ✅ STG ALL → ALL PRODUCTS
+            let html = `<div class="filter-tile all ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>ALL PRODUCTS</p></div>`;
+
+            // ✅ Category Image Banner Sheet ൽ നിന്ന്
             categories.forEach(cat => {
-                const config = categoryConfig[cat.toUpperCase()] || { class: 'tile-stg', icon: '' };
-                const iconHtml = config.icon? `<img src="${config.icon}" alt="">` : '';
-                html += `<div class="filter-tile ${config.class} ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}">${iconHtml}<p>${cat}</p></div>`;
+                const catKey = 'CAT-' + cat.toUpperCase().replace(/\s+/g, '');
+                const catImg = banners[catKey] || 'https://via.placeholder.com/110x65?text=' + encodeURIComponent(cat);
+                html += `<div class="filter-tile ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}">
+                    <img src="${catImg}" alt="${cat}">
+                    <p>${cat}</p>
+                </div>`;
             });
+
+            // ✅ Brand Buttons Orange + 3D
             brands.forEach(brand => {
-                const config = categoryConfig[brand.toUpperCase()] || { class: 'tile-stg', icon: '' };
-                html += `<div class="filter-tile ${config.class} ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`;
+                html += `<div class="filter-tile brand ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`;
             });
             tilesDiv.innerHTML = html;
         }
@@ -483,7 +477,7 @@
                 alert('Cart is empty!');
                 return;
             }
-            let message = `*🛒 New Order from STERLING TRADINGS*%0A%0A`;
+            let message = `*🛒 New Order from STERLING TRADINGS*%0A`;
             let total = 0;
             cartItems.forEach((item, i) => {
                 const subtotal = item.price * item.qty;
