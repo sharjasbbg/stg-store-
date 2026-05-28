@@ -24,15 +24,22 @@
      .filter-tiles { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
      .filter-tiles::-webkit-scrollbar { height: 4px; }
      .filter-tiles::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+     
+     /* ✅ പഴയ Code പോലെ - Category Image + Text */
      .filter-tile { min-width: 110px; height: 110px; text-align: center; cursor: pointer; border: 2px solid transparent; border-radius: 8px; padding: 8px; background: #f8f8f8; transition: 0.3s; flex-shrink: 0; overflow: hidden; }
      .filter-tile.active { border-color: #007bff; background: #e7f3ff; }
      .filter-tile img { width: 100%; height: 65px; object-fit: cover; border-radius: 6px; margin-bottom: 5px; }
      .filter-tile p { font-size: 12px; font-weight: bold; color: #333; margin: 0; line-height: 1.2; word-break: break-word; }
+     
+     /* ✅ Brand Button - Orange + 3D Effect */
      .filter-tile.brand { background: #ff6b35; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.2); }
      .filter-tile.brand p { color: white; font-size: 15px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; text-transform: uppercase; }
      .filter-tile.brand.active { border-color: #007bff; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 0 0 3px #007bff, 0 3px 6px rgba(0,0,0,0.2); }
+     
+     /* ✅ STG ALL - Green */
      .filter-tile.all { background: #28a745; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 3px 6px rgba(0,0,0,0.2); }
      .filter-tile.all p { color: white; font-size: 16px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
+     
      .filters { padding: 15px; background: white; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; position: relative; z-index: 2; }
      .filters button { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; background: #f8f8f8; cursor: pointer; height: 40px; }
      .search-box { flex: 1; min-width: 200px; height: 40px; padding: 0 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; outline: none; }
@@ -92,7 +99,6 @@
         <div class="cart-badge" id="cartBtn">
             🛒 Cart <span id="cartCount">0</span>
         </div>
-    </div>
     <div class="page-wrapper">
         <div class="slider" id="slider"></div>
         <div class="filter-section">
@@ -127,6 +133,7 @@
                 <button class="cart-btn cart-btn-order" id="orderWhatsApp">Order on WhatsApp</button>
             </div>
         </div>
+    </div>
     <div class="cart-modal" id="productModal">
         <div class="cart-content">
             <div class="cart-header">
@@ -230,8 +237,8 @@
         function loadData() {
             document.getElementById('products').innerHTML = '<div class="loading">Loading Products...</div>';
             fetch(BANNER_CSV + '&cache=' + new Date().getTime())
-      .then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
-      .then(csv => {
+     .then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
+     .then(csv => {
                     const rows = csvToArray(csv);
                     if (rows.length < 2) return;
                     const headers = rows[0].map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
@@ -250,7 +257,7 @@
                         document.getElementById('logo').onerror = function(){ this.src='https://via.placeholder.com/150x40?text=Logo'; };
                     }
                     const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
-              .map(k => banners[k]).filter(s => s);
+             .map(k => banners[k]).filter(s => s);
                     const slider = document.getElementById('slider');
                     if(slides.length > 0) {
                         slider.innerHTML = slides.map((src, i) =>
@@ -269,14 +276,14 @@
                         slider.innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
                     }
                 })
-      .catch(err => {
+     .catch(err => {
                     console.log('Banner Error:', err);
                     document.getElementById('slider').innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
                 });
 
             fetch(PRODUCTS_CSV + '&cache=' + new Date().getTime())
-      .then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
-      .then(csv => {
+     .then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
+     .then(csv => {
                     const rows = csvToArray(csv);
                     if (rows.length < 2) {
                         showError('Sheet കാലിയാണ്');
@@ -329,7 +336,7 @@
                     displayProducts(allProducts);
                     updateCartCount();
                 })
-      .catch(err => showError(err));
+     .catch(err => showError(err));
         }
 
         function loadFilterTiles() {
