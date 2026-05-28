@@ -139,8 +139,10 @@
     </div>
         <script>
         const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
-        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=products`;
-        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
+
+        // ✅ FIXED: export?format=csv use ചെയ്താൽ letter + number എല്ലാം വരും
+        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`; // products sheet ൻ്റെ gid
+        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=142702852`; // banner sheet ൻ്റെ gid
         const WHATSAPP_NUMBER = '966559895503';
 
         const COL = {
@@ -238,7 +240,7 @@
                         document.getElementById('logo').onerror = function(){ this.src='https://via.placeholder.com/150x40?text=Logo'; };
                     }
                     const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
-   .map(k => banners[k]).filter(s => s);
+  .map(k => banners[k]).filter(s => s);
                     const slider = document.getElementById('slider');
                     if(slides.length > 0) {
                         slider.innerHTML = slides.map((src, i) =>
@@ -289,7 +291,7 @@
                         const stock = getCell(COL.stock);
                         const image = getCell(COL.image);
 
-                        // ✅ 100% FIX: Sheet ൽ എന്ത് ഉണ്ടോ അതേ പോലെ - Auto-generate ഇല്ല
+                        // ✅ 100% FIX: Sheet ൽ എന്ത് ഉണ്ടോ അതേ പോലെ - Letter, Number, Blank എല്ലാം
                         nameVal = nameVal || '';
 
                         let finalPrice = 1;
@@ -464,7 +466,7 @@
                 alert('Cart is empty!');
                 return;
             }
-            let message = `*🛒 New Order from STERLING TRADINGS*%0A%0A`;
+            let message = `*🛒 New Order from STERLING TRADINGS*%0A`;
             let total = 0;
             cartItems.forEach((item, i) => {
                 const subtotal = item.price * item.qty;
