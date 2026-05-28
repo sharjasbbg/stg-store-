@@ -137,4 +137,442 @@
             <div class="product-detail" id="productDetailContent"></div>
         </div>
     </div>
+        <script>
+        const SHEET_ID = '1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
+        const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+        const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=142702852`;
+        const WHATSAPP_NUMBER = '966559895503';
+
+        // ✅ നിന്റെ Sheet Order: A=0, B=1, C=2, D=3, E=4, F=5, G=6
+        const COL = {
+            id: 0, // A = id
+            name: 1, // B = name ← ഇതാണ് Name Column
+            brand: 2, // C = brand
+            price: 3, // D = price
+            category: 4,// E = category
+            image: 5, // F = image
+            stock: 6 // G = stock
+        };
+
+        let allProducts = [];
+        let banners = {};
+        let cart = JSON.parse(localStorage.getItem('stg_cart_final') || '{}');
+        let selectedCat = '';
+        let selectedBrand = '';
+        let searchText = '';
+
+        // Category tile colors + icons
+        const categoryConfig = {
+            'STG ALL': { class: 'tile-stgall', icon: '' },
+            'SANITORY': { class: 'tile-sanitary', icon: 'https://img.icons8.com/ios-filled/50/ffffff/plumbing.png' },
+            'ELECTRIC': { class: 'tile-electric', icon: 'https://img.icons8.com/ios-filled/50/ffffff/electrical.png' },
+            'TOOLS': { class: 'tile-tools', icon: 'https://img.icons8.com/ios-filled/50/ffffff/maintenance.png' },
+            'CONFLO': { class: 'tile-conflo', icon: '' },
+            'STG': { class: 'tile-stg', icon: '' },
+            'STEORRA': { class: 'tile-steorra', icon: '' },
+            'SALVO': { class: 'tile-salvo', icon: '' }
+        };
+
+        function csvToArray(csv) {
+            const rows = [];
+            let currentRow = [];
+            let currentCell = '';
+            let insideQuote = false;
+            for (let i = 0; i < csv.length; i++) {
+                const char = csv[i];
+                const nextChar = csv[i + 1];
+                if (char === '"' && insideQuote && nextChar === '"') {
+                    currentCell += '"';
+                    i++;
+                } else if (char === '"') {
+                    insideQuote =!insideQuote;
+                } else if (char === ',' &&!insideQuote) {
+                    currentRow.push(currentCell);
+                    currentCell = '';
+                } else if ((char === '\n' || char === '\r') &&!insideQuote) {
+                    if (currentCell || currentRow.length > 0) {
+                        currentRow.push(currentCell);
+                        rows.push(currentRow);
+                        currentRow = [];
+                        currentCell = '';
+                    }
+                } else if (char!== '\r') {
+                    currentCell += char;
+                }
+            }
+            if (currentCell || currentRow.length > 0) {
+                currentRow.push(currentCell);
+                rows.push(currentRow);
+            }
+            return rows;
+        }
+
+        function getImageUrl(url) {
+            if(!url) return '';
+            url = url.trim();
+            if(url.includes('lh3.googleusercontent')) return url;
+            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            if(match) return `https://lh3.googleusercontent.com/d/${match[1]}=w800`;
+            const match2 = url.match(/id=([a-zA-Z0-9_-]+)/);
+            if(match2) return `https://lh3.googleusercontent.com/d/${match2[1]}=w800`;
+            return url;
+        }
+
+        function updateCartCount() {
+            const total = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+            document.getElementById('cartCount').textContent = total;
+            localStorage.setItem('stg_cart_final', JSON.stringify(cart));
+        }
+
+        function showError(msg) {
+            document.getElementById('products').innerHTML = `<div class="error">❌ Error: ${msg}</div>`;
+        }
+
+        function loadData() {
+            document.getElementById('products').innerHTML = '<div class="loading">Loading Products...</div>';
+            fetch(BANNER_CSV + '&cache=' + new Date().getTime())
+         .then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
+         .then(csv => {
+                    const rows = csvToArray(csv);
+                    if (rows.length < 2) return;
+                    const headers = rows[0].map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
+                    const typeIndex = headers.findIndex(h => h === 'type');
+                    const imageIndex = headers.findIndex(h => h === 'image');
+                    banners = {};
+                    for (let i = 1; i < rows.length; i++) {
+                        const row = rows[i];
+                        const type = row[typeIndex]? row[typeIndex].replace(/^"|"$/g, '').trim().toUpperCase().replace(/\s+/g, '') : '';
+                        const img = getImageUrl(row[imageIndex]? row[imageIndex].replace(/^"|"$/g, '').trim() : '');
+                        if(!img ||!type) continue;
+                        banners[type] = img;
+                    }
+                    if(banners.LOGO) document.getElementById('logo').src = banners.LOGO;
+                    const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
+                 .map(k => banners[k]).filter(s => s);
+                    const slider = document.getElementById('slider');
+                    if(slides.length > 0) {
+                        slider.innerHTML = slides.map((src, i) =>
+                            `<img src="${src}" class="${i===0?'active':''}" alt="Banner">`
+                        ).join('');
+                        let slideIndex = 0;
+                        setInterval(() => {
+                            const imgs = document.querySelectorAll('.banner img');
+                            if(imgs.length > 0) {
+                                imgs[slideIndex].classList.remove('active');
+                                slideIndex = (slideIndex + 1) % imgs.length;
+                                imgs[slideIndex].classList.add('active');
+                            }
+                        }, 3000);
+                    } else {
+                        slider.innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=2011+2017+Timeline" class="active" alt="Banner">`;
+                    }
+                })
+         .catch(err => console.log('Banner Error:', err));
+
+            fetch(PRODUCTS_CSV + '&cache=' + new Date().getTime())
+         .then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
+         .then(csv => {
+                    const rows = csvToArray(csv);
+                    if (rows.length < 2) {
+                        showError('Sheet കാലിയാണ്');
+                        return;
+                    }
+
+                    allProducts = [];
+                    for (let i = 1; i < rows.length; i++) {
+                        const row = rows[i];
+                        const getCell = (index) => {
+                            if(index === -1 || index >= row.length) return '';
+                            let val = row[index] || '';
+                            val = val.replace(/^"|"$/g, '').trim();
+                            return val;
+                        };
+
+                        const idVal = getCell(COL.id);
+                        let nameVal = getCell(COL.name);
+                        const brand = getCell(COL.brand);
+                        const priceVal = getCell(COL.price);
+                        const category = getCell(COL.category);
+                        const stock = getCell(COL.stock);
+                        const image = getCell(COL.image);
+
+                        // ✅ നിന്റെ ORIGINAL LOGIC - മാറ്റിയിട്ടില്ല
+                        // Auto-generate name if empty or just numbers
+                        if (!nameVal || /^\d+$/.test(nameVal) || nameVal === idVal) {
+                            nameVal = `${brand} ${category} ${idVal}`.trim();
+                        }
+
+                        let finalPrice = 1;
+                        if(priceVal && priceVal!== '' && priceVal!== '0') {
+                            const parsed = parseFloat(priceVal.replace(/[^0-9.]/g, ''));
+                            if(!isNaN(parsed) && parsed > 0) finalPrice = parsed;
+                        }
+
+                        const finalId = (idVal || `product-${i}`).toString().replace(/[^a-zA-Z0-9-]/g, '-');
+
+                        allProducts.push({
+                            id: finalId,
+                            name: nameVal,
+                            brand: brand || 'No Brand',
+                            price: finalPrice,
+                            category: category || 'General',
+                            stock: stock || 'IN',
+                            image: getImageUrl(image)
+                        });
+                    }
+
+                    console.log('Loaded Products:', allProducts);
+                    loadFilterTiles();
+                    displayProducts(allProducts);
+                    updateCartCount();
+                })
+         .catch(err => showError(err));
+        }
+
+        function loadFilterTiles() {
+            const categories = [...new Set(allProducts.map(p => p.category).filter(c => c && c!== 'General'))];
+            const brands = [...new Set(allProducts.map(p => p.brand).filter(b => b && b!== 'No Brand'))];
+            const tilesDiv = document.getElementById('filterTiles');
+            let html = `<div class="filter-tile tile-stgall ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>STG ALL</p></div>`;
+            categories.forEach(cat => {
+                const config = categoryConfig[cat.toUpperCase()] || { class: 'tile-stg', icon: '' };
+                const iconHtml = config.icon? `<img src="${config.icon}" alt="">` : '';
+                html += `<div class="filter-tile ${config.class} ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}">${iconHtml}<p>${cat}</p></div>`;
+            });
+            brands.forEach(brand => {
+                const config = categoryConfig[brand.toUpperCase()] || { class: 'tile-stg', icon: '' };
+                html += `<div class="filter-tile ${config.class} ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`;
+            });
+            tilesDiv.innerHTML = html;
+        }
+
+        function filterProducts() {
+            let filtered = allProducts;
+            if(selectedCat) filtered = filtered.filter(p => p.category === selectedCat);
+            if(selectedBrand) filtered = filtered.filter(p => p.brand === selectedBrand);
+            if(searchText) {
+                const searchLower = searchText.toLowerCase();
+                filtered = filtered.filter(p =>
+                    p.name.toLowerCase().includes(searchLower) ||
+                    p.brand.toLowerCase().includes(searchLower) ||
+                    p.category.toLowerCase().includes(searchLower)
+                );
+            }
+            const bannerDiv = document.getElementById('catBannerContainer');
+            const catKey = 'CAT-' + selectedCat.toUpperCase().replace(/\s+/g, '');
+            if(selectedCat && banners[catKey]) {
+                bannerDiv.innerHTML = `<img src="${banners[catKey]}" class="cat-banner" alt="${selectedCat}">`;
+            } else {
+                bannerDiv.innerHTML = '';
+            }
+            displayProducts(filtered);
+        }
+
+        function displayProducts(products) {
+            const container = document.getElementById('products');
+            if(products.length === 0) {
+                container.innerHTML = '<div class="loading">No Products Found</div>';
+                return;
+            }
+            container.innerHTML = products.map(p => {
+                const qty = cart[p.id] || 0;
+                return `
+                <div class="card" data-product-id="${p.id}">
+                    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200?text=No+Image'">
+                    <div class="card-body">
+                        <h3>${p.name}</h3>
+                        <p>Brand: ${p.brand}</p>
+                        <p class="price">SAR ${p.price}</p>
+                        <p>Category: ${p.category}</p>
+                        <p class="stock ${p.stock === 'OUT'? 'out' : ''}">Stock: ${p.stock}</p>
+                        <div class="qty-box">
+                            <button type="button" class="qty-minus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>-</button>
+                            <input type="number" class="qty-input" id="qty-${p.id}" value="${qty}" min="0" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>
+                            <button type="button" class="qty-plus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>+</button>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function changeQty(id, delta) {
+            const input = document.getElementById(`qty-${id}`);
+            let val = parseInt(input.value) || 0;
+            val = Math.max(0, val + delta);
+            input.value = val;
+            cart[id] = val;
+            if(val === 0) delete cart[id];
+            updateCartCount();
+        }
+
+        function setQty(input) {
+            const id = input.getAttribute('data-id');
+            let val = parseInt(input.value) || 0;
+            val = Math.max(0, val);
+            input.value = val;
+            cart[id] = val;
+            if(val === 0) delete cart[id];
+            updateCartCount();
+        }
+
+        function showCart() {
+            const modal = document.getElementById('cartModal');
+            const itemsDiv = document.getElementById('cartItems');
+            const totalSpan = document.getElementById('cartTotal');
+            const cartItems = Object.keys(cart).map(id => {
+                const product = allProducts.find(p => p.id === id);
+                if(!product) return null;
+                return {...product, qty: cart[id]};
+            }).filter(Boolean);
+            if(cartItems.length === 0) {
+                itemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+                totalSpan.textContent = 'SAR 0';
+            } else {
+                let total = 0;
+                itemsDiv.innerHTML = cartItems.map(item => {
+                    const subtotal = item.price * item.qty;
+                    total += subtotal;
+                    return `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">SAR ${item.price} x ${item.qty}</div>
+                                <div class="cart-item-qty">Subtotal: SAR ${subtotal}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                totalSpan.textContent = `SAR ${total}`;
+            }
+            modal.classList.add('active');
+        }
+
+        function hideCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        function clearCart() {
+            cart = {};
+            localStorage.removeItem('stg_cart_final');
+            updateCartCount();
+            document.querySelectorAll('.qty-input').forEach(input => input.value = 0);
+            hideCart();
+        }
+
+        function orderWhatsApp() {
+            const cartItems = Object.keys(cart).map(id => {
+                const product = allProducts.find(p => p.id === id);
+                if(!product) return null;
+                return {...product, qty: cart[id]};
+            }).filter(Boolean);
+            if(cartItems.length === 0) {
+                alert('Cart is empty!');
+                return;
+            }
+            let message = `*🛒 New Order from STERLING TRADINGS*%0A%0A`;
+            let total = 0;
+            cartItems.forEach((item, i) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                message += `*${i+1}. ${item.name}*%0A`;
+                message += `📸 Image: ${item.image}%0A`;
+                message += `🏷️ Brand: ${item.brand}%0A`;
+                message += `📦 Qty: ${item.qty} x SAR ${item.price} = *SAR ${subtotal}*%0A%0A`;
+            });
+            message += `━━━━━━━━━━━━━━━%0A`;
+            message += `*💰 Total: SAR ${total}*%0A%0A`;
+            message += `Please confirm this order.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
+        function showProductDetail(productId) {
+            const product = allProducts.find(p => p.id === productId);
+            if(!product) return;
+            const qty = cart[product.id] || 0;
+            document.getElementById('productDetailContent').innerHTML = `
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
+                <h2>${product.name}</h2>
+                <p style="color:#666;margin-bottom:8px">Brand: ${product.brand}</p>
+                <p style="color:#666;margin-bottom:8px">Category: ${product.category}</p>
+                <p class="price">SAR ${product.price}</p>
+                <p class="stock ${product.stock === 'OUT'? 'out' : ''}" style="margin-bottom:15px">Stock: ${product.stock}</p>
+                <div class="qty-box">
+                    <button type="button" onclick="changeQty('${product.id}', -1)" ${product.stock === 'OUT'? 'disabled' : ''}>-</button>
+                    <input type="number" id="modal-qty-${product.id}" value="${qty}" min="0" ${product.stock === 'OUT'? 'disabled' : ''} onchange="setQtyFromModal('${product.id}', this.value)">
+                    <button type="button" onclick="changeQty('${product.id}', 1)" ${product.stock === 'OUT'? 'disabled' : ''}>+</button>
+                </div>
+            `;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function setQtyFromModal(id, value) {
+            let val = parseInt(value) || 0;
+            val = Math.max(0, val);
+            cart[id] = val;
+            if(val === 0) delete cart[id];
+            updateCartCount();
+            const input = document.getElementById(`qty-${id}`);
+            if(input) input.value = val;
+        }
+
+        document.addEventListener('click', function(e) {
+            if(e.target.closest('.card img')) {
+                const card = e.target.closest('.card');
+                const productId = card.getAttribute('data-product-id');
+                showProductDetail(productId);
+            }
+            if(e.target.closest('.filter-tile')) {
+                const tile = e.target.closest('.filter-tile');
+                const type = tile.getAttribute('data-type');
+                const value = tile.getAttribute('data-value');
+                if(type === 'all') {
+                    selectedCat = '';
+                    selectedBrand = '';
+                } else if(type === 'cat') {
+                    selectedCat = value;
+                    selectedBrand = '';
+                } else if(type === 'brand') {
+                    selectedBrand = value;
+                }
+                loadFilterTiles();
+                filterProducts();
+            }
+            if(e.target.id === 'resetBtn') {
+                selectedCat = '';
+                selectedBrand = '';
+                searchText = '';
+                document.getElementById('searchInput').value = '';
+                document.getElementById('catBannerContainer').innerHTML = '';
+                loadFilterTiles();
+                displayProducts(allProducts);
+            }
+            if(e.target.id === 'refreshBtn') loadData();
+            if(e.target.classList.contains('qty-plus')) changeQty(e.target.getAttribute('data-id'), 1);
+            if(e.target.classList.contains('qty-minus')) changeQty(e.target.getAttribute('data-id'), -1);
+            if(e.target.id === 'cartBtn' || e.target.closest('#cartBtn')) showCart();
+            if(e.target.id === 'cartClose') hideCart();
+            if(e.target.id === 'clearCart') clearCart();
+            if(e.target.id === 'orderWhatsApp') orderWhatsApp();
+            if(e.target.id === 'cartModal') hideCart();
+            if(e.target.id === 'productModalClose' || e.target.id === 'productModal') {
+                document.getElementById('productModal').classList.remove('active');
+            }
+        });
+
+        document.addEventListener('change', function(e) {
+            if(e.target.classList.contains('qty-input')) setQty(e.target);
+        });
+
+        document.addEventListener('input', function(e) {
+            if(e.target.id === 'searchInput') {
+                searchText = e.target.value;
+                filterProducts();
+            }
+        });
+
+        loadData();
+    </script>
+</body>
+</html>
     
