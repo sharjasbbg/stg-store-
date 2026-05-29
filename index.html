@@ -397,10 +397,18 @@
                 return;
             }
             container.innerHTML = products.map(p => {
-                const cartKey = getCartKey(p.id);
-                const cartItem = cart[cartKey];
-                const qty = cartItem? cartItem.qty : 0;
-                const displayPrice = cartItem? cartItem.price : (p.variants && p.variants.length > 0? p.variants[0].price : p.price);
+                let defaultQty = 0;
+                let displayPrice = p.price;
+
+                if(p.variants && p.variants.length > 0) {
+                    displayPrice = p.variants[0].price;
+                    const defaultCartKey = `${p.id}_${p.variants[0].size.replace(/\s/g,'_')}`;
+                    const cartItem = cart[defaultCartKey];
+                    defaultQty = cartItem? cartItem.qty : 0;
+                } else {
+                    const cartItem = cart[p.id];
+                    defaultQty = cartItem? cartItem.qty : 0;
+                }
 
                 return `
                 <div class="card" data-product-id="${p.id}">
@@ -418,7 +426,7 @@
                         <p class="stock ${p.stock === 'OUT'? 'out' : ''}">Stock: ${p.stock}</p>
                         <div class="qty-box">
                             <button type="button" class="qty-minus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>-</button>
-                            <input type="number" class="qty-input" id="qty-${p.id}" value="${qty}" min="0" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>
+                            <input type="number" class="qty-input" id="qty-${p.id}" value="${defaultQty}" min="0" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>
                             <button type="button" class="qty-plus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>+</button>
                         </div>
                     </div>
@@ -699,11 +707,12 @@
                 const product = allProducts.find(p => p.id === id);
                 const variantIndex = e.target.value;
                 const newPrice = product.variants[variantIndex].price;
+                const newSize = product.variants[variantIndex].size;
                 document.getElementById(`price-${id}`).textContent = `SAR ${newPrice}`;
-                document.getElementById(`qty-${id}`).value = 0;
-                const cartKey = getCartKey(id);
-                delete cart[cartKey];
-                updateCartCount();
+                // FIX: Load existing qty for this variant
+                const newCartKey = `${id}_${newSize.replace(/\s/g,'_')}`;
+                const cartItem = cart[newCartKey];
+                document.getElementById(`qty-${id}`).value = cartItem? cartItem.qty : 0;
             }
         });
 
