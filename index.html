@@ -20,7 +20,7 @@
       .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
       .slider img.active { opacity: 1; }
       
-      /* STICKY FILTER SECTION - Scroll ചെയ്യുമ്പോൾ മുകളിൽ നിൽക്കും */
+      /* STICKY FILTER SECTION */
       .filter-section { 
           background: white; 
           padding: 15px; 
@@ -74,8 +74,22 @@
       .price { color: #28a745; font-size: 18px; font-weight: bold; margin: 8px 0; }
       .stock { font-size: 12px; margin-bottom: 8px; }
       .stock.out { color: red; font-weight: bold; }
-      .variant-select { width: 100%; padding: 8px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; outline: none; background: white; cursor: pointer; }
-      .variant-select:focus { border-color: #007bff; }
+      
+      /* VARIANT BOX LIGHT COLOR - ഇത് മാത്രം മാറ്റി */
+      .variant-select { 
+          width: 100%; 
+          padding: 8px; 
+          margin: 8px 0; 
+          border: 1px solid #b3d9ff; 
+          border-radius: 5px; 
+          font-size: 13px; 
+          outline: none; 
+          background: #e7f3ff; 
+          cursor: pointer; 
+          color: #333;
+          font-weight: bold;
+      }
+      .variant-select:focus { border-color: #007bff; background: #d4e9ff; }
       
       /* BUTTON SIZE വലുതാക്കി */
       .qty-box { display: flex!important; margin-top: auto!important; border-radius: 5px!important; overflow: hidden!important; height: 50px!important; border: 2px solid #ddd!important; touch-action: manipulation!important; }
