@@ -254,6 +254,23 @@
             return url;
         }
 
+        // Image URL to Base64 convert ചെയ്യാൻ
+        async function imageToBase64(url) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(blob);
+                });
+            } catch(e) {
+                console.log('Image convert error:', e);
+                return null;
+            }
+        }
+
         function updateCartCount() {
             const total = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
             document.getElementById('cartCount').textContent = total;
@@ -649,6 +666,7 @@
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
         }
 
+        // PDF WITH IMAGES - UPDATED
         async function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const cartItems = Object.values(cart);
@@ -656,6 +674,9 @@
                 alert('Cart is empty!');
                 return;
             }
+
+            document.getElementById('downloadPDF').textContent = '⏳ Generating...';
+            document.getElementById('downloadPDF').disabled = true;
 
             const doc = new jsPDF();
             let y = 20;
@@ -665,23 +686,13 @@
             y += 10;
             doc.setFontSize(14);
             doc.text('Order Invoice', 105, y, { align: 'center' });
-            y += 15;
+            y += 10;
 
             doc.setFontSize(10);
             doc.setFont('helvetica', 'normal');
             const date = new Date().toLocaleDateString('en-GB');
             doc.text(`Date: ${date}`, 14, y);
             y += 10;
-
-            doc.setFontSize(11);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Item', 14, y);
-            doc.text('Qty', 100, y);
-            doc.text('Price', 130, y);
-            doc.text('Total', 165, y);
-            y += 7;
-            doc.line(14, y, 196, y);
-            y += 5;
 
             let total = 0;
             for (let i = 0; i < cartItems.length; i++) {
@@ -690,27 +701,46 @@
                 total += subtotal;
                 const displayName = item.size? `${item.name} - ${item.size}` : item.name;
 
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(9);
-                const splitName = doc.splitTextToSize(displayName, 80);
-                doc.text(splitName, 14, y);
-                doc.text(item.qty.toString(), 100, y);
-                doc.text(`SAR ${item.price}`, 130, y);
-                doc.text(`SAR ${subtotal}`, 165, y);
-                y += (splitName.length * 5) + 3;
-
-                if (y > 270) {
+                // Page break check
+                if (y > 240) {
                     doc.addPage();
                     y = 20;
                 }
+
+                // Try to add image
+                try {
+                    const imgBase64 = await imageToBase64(item.image);
+                    if(imgBase64) {
+                        doc.addImage(imgBase64, 'JPEG', 14, y, 25, 25);
+                    }
+                } catch(e) {
+                    console.log('Image add failed:', e);
+                }
+
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(10);
+                const splitName = doc.splitTextToSize(displayName, 100);
+                doc.text(splitName, 45, y + 5);
+
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(9);
+                doc.text(`Qty: ${item.qty} x SAR ${item.price}`, 45, y + 12);
+                doc.text(`Subtotal: SAR ${subtotal}`, 45, y + 17);
+
+                y += 32;
+            }
+
+            if (y > 260) {
+                doc.addPage();
+                y = 20;
             }
 
             y += 5;
             doc.line(14, y, 196, y);
             y += 7;
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(12);
-            doc.text(`Total: SAR ${total}`, 165, y);
+            doc.setFontSize(14);
+            doc.text(`Total: SAR ${total}`, 196, y, { align: 'right' });
             y += 15;
 
             doc.setFontSize(10);
@@ -720,6 +750,8 @@
             doc.text('WhatsApp: +966 55 989 5503', 105, y, { align: 'center' });
 
             doc.save(`STG_Order_${date.replace(/\//g, '-')}.pdf`);
+            document.getElementById('downloadPDF').textContent = '📄 PDF';
+            document.getElementById('downloadPDF').disabled = false;
         }
 
         function showProductDetail(productId) {
