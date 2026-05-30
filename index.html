@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>STERLING TRADINGS (STG)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
@@ -20,7 +21,6 @@
       .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
       .slider img.active { opacity: 1; }
       
-      /* STICKY FILTER SECTION */
       .filter-section { 
           background: white; 
           padding: 15px; 
@@ -44,7 +44,6 @@
       .filter-tile.all { background: #28a745; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.25); }
       .filter-tile.all p { color: white; font-size: 16px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
       
-      /* STICKY SEARCH + RESET BAR */
       .filters { 
           padding: 15px; 
           background: white; 
@@ -62,11 +61,11 @@
       .search-box:focus { border-color: #007bff; }
       .cat-banner { width: 100%; height: 180px; object-fit: cover; margin: 15px 0; border-radius: 8px; }
       
-      /* GRID: Mobile 2 col, Tab/Desktop 3 col */
       .grid { display: grid; grid-template-columns: repeat(2, 1fr)!important; gap: 10px; padding: 15px; padding-bottom: 80px; position: relative; z-index: 2; }
       @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr)!important; } }
 
       .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+      .card.stock-out { border: 2px solid #dc3545; }
       .card img { width: 100%; height: 220px; object-fit: contain; object-position: center; background: white; padding: 5px; box-sizing: border-box; cursor: pointer; flex-shrink: 0; }
       .card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; }
       .card h3 { font-size: 14px; margin-bottom: 5px; min-height: 36px; word-break: break-word; color: #000; font-weight: bold; line-height: 1.2; }
@@ -75,23 +74,22 @@
       .stock { font-size: 12px; margin-bottom: 8px; }
       .stock.out { color: red; font-weight: bold; }
       
-      /* VARIANT BOX LIGHT COLOR - ഇത് മാത്രം മാറ്റി */
+      /* VARIANT BOX LIGHT GREEN */
       .variant-select { 
           width: 100%; 
           padding: 8px; 
           margin: 8px 0; 
-          border: 1px solid #b3d9ff; 
+          border: 1px solid #b3e6b3; 
           border-radius: 5px; 
           font-size: 13px; 
           outline: none; 
-          background: #e7f3ff; 
+          background: #e8f8e8; 
           cursor: pointer; 
           color: #333;
           font-weight: bold;
       }
-      .variant-select:focus { border-color: #007bff; background: #d4e9ff; }
+      .variant-select:focus { border-color: #28a745; background: #d4f4d4; }
       
-      /* BUTTON SIZE വലുതാക്കി */
       .qty-box { display: flex!important; margin-top: auto!important; border-radius: 5px!important; overflow: hidden!important; height: 50px!important; border: 2px solid #ddd!important; touch-action: manipulation!important; }
       .qty-box button { border: none!important; color: #333!important; font-size: 28px!important; font-weight: bold!important; cursor: pointer!important; flex: 1!important; line-height: 1!important; user-select: none!important; -webkit-user-select: none!important; -webkit-tap-highlight-color: transparent!important; touch-action: manipulation!important; }
       .qty-box button:first-child { background: #e0e0e0!important; }
@@ -111,17 +109,20 @@
       .cart-header { background: #28a745; color: white; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
       .cart-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; }
       .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
-      .cart-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+      .cart-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; position: relative; }
       .cart-item img { width: 60px; height: 60px; object-fit: cover; background: #f8f8f8; border-radius: 5px; }
-      .cart-item-info { flex: 1; }
+      .cart-item-info { flex: 1; padding-right: 30px; }
       .cart-item-name { font-weight: bold; font-size: 14px; margin-bottom: 3px; }
       .cart-item-price { color: #28a745; font-weight: bold; }
       .cart-item-qty { font-size: 13px; color: #666; }
+      .cart-item-remove { position: absolute; right: 0; top: 10px; background: #dc3545; color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; }
+      .cart-item-remove:hover { background: #c82333; }
       .cart-total { background: #f8f8f8; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
-      .cart-actions { padding: 15px; display: flex; gap: 10px; }
-      .cart-btn { flex: 1; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; }
+      .cart-actions { padding: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+      .cart-btn { flex: 1; min-width: 100px; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; }
       .cart-btn-clear { background: #dc3545; color: white; }
       .cart-btn-order { background: #25D366; color: white; }
+      .cart-btn-pdf { background: #007bff; color: white; }
       .cart-empty { text-align: center; padding: 40px; color: #999; }
       .product-detail { padding: 15px; }
       .product-detail img { width: 100%; height: 300px; object-fit: contain; background: #f8f8f8; border-radius: 8px; margin-bottom: 15px; }
@@ -170,6 +171,7 @@
             </div>
             <div class="cart-actions">
                 <button class="cart-btn cart-btn-clear" id="clearCart">Clear Cart</button>
+                <button class="cart-btn cart-btn-pdf" id="downloadPDF">📄 PDF</button>
                 <button class="cart-btn cart-btn-order" id="orderWhatsApp">Order on WhatsApp</button>
             </div>
         </div>
@@ -458,8 +460,9 @@
                     defaultQty = cartItem? cartItem.qty : 0;
                 }
 
+                const isOut = p.stock === 'OUT';
                 return `
-                <div class="card" data-product-id="${p.id}">
+                <div class="card ${isOut? 'stock-out' : ''}" data-product-id="${p.id}">
                     <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200?text=No+Image'">
                     <div class="card-body">
                         <h3>${p.name || '&nbsp;'}</h3>
@@ -471,11 +474,11 @@
                             </select>
                         ` : ''}
                         <p>Category: ${p.category}</p>
-                        <p class="stock ${p.stock === 'OUT'? 'out' : ''}">Stock: ${p.stock}</p>
+                        <p class="stock ${isOut? 'out' : ''}">Stock: ${p.stock}</p>
                         <div class="qty-box">
-                            <button type="button" class="qty-minus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>-</button>
-                            <input type="number" class="qty-input" id="qty-${p.id}" value="${defaultQty}" min="0" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>
-                            <button type="button" class="qty-plus" data-id="${p.id}" ${p.stock === 'OUT'? 'disabled' : ''}>+</button>
+                            <button type="button" class="qty-minus" data-id="${p.id}" ${isOut? 'disabled' : ''}>-</button>
+                            <input type="number" class="qty-input" id="qty-${p.id}" value="${defaultQty}" min="0" data-id="${p.id}" ${isOut? 'disabled' : ''}>
+                            <button type="button" class="qty-plus" data-id="${p.id}" ${isOut? 'disabled' : ''}>+</button>
                         </div>
                     </div>
                 </div>
@@ -558,18 +561,40 @@
             updateCartCount();
         }
 
+        function removeFromCart(cartKey) {
+            delete cart[cartKey];
+            updateCartCount();
+            showCart();
+            const productId = cartKey.split('_')[0];
+            const input = document.getElementById(`qty-${productId}`);
+            if(input) {
+                const product = allProducts.find(p => p.id === productId);
+                if(product && product.variants.length > 0) {
+                    const select = document.querySelector(`.variant-select[data-id="${productId}"]`);
+                    if(select) {
+                        const variantIndex = select.value;
+                        const variant = product.variants[variantIndex];
+                        const checkKey = `${productId}_${variant.size.replace(/\s/g,'_')}`;
+                        if(checkKey === cartKey) input.value = 0;
+                    }
+                } else {
+                    input.value = 0;
+                }
+            }
+        }
+
         function showCart() {
             const modal = document.getElementById('cartModal');
             const itemsDiv = document.getElementById('cartItems');
             const totalSpan = document.getElementById('cartTotal');
-            const cartItems = Object.values(cart);
+            const cartItems = Object.entries(cart);
 
             if(cartItems.length === 0) {
                 itemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
                 totalSpan.textContent = 'SAR 0';
             } else {
                 let total = 0;
-                itemsDiv.innerHTML = cartItems.map(item => {
+                itemsDiv.innerHTML = cartItems.map(([key, item]) => {
                     const subtotal = item.price * item.qty;
                     total += subtotal;
                     const displayName = item.size? `${item.name} - ${item.size}` : item.name;
@@ -581,6 +606,7 @@
                                 <div class="cart-item-price">SAR ${item.price} x ${item.qty}</div>
                                 <div class="cart-item-qty">Subtotal: SAR ${subtotal}</div>
                             </div>
+                            <button class="cart-item-remove" data-key="${key}">&times;</button>
                         </div>
                     `;
                 }).join('');
@@ -621,6 +647,79 @@
             message += `*💰 Total: SAR ${total}*%0A%0A`;
             message += `Please confirm this order.`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const cartItems = Object.values(cart);
+            if(cartItems.length === 0) {
+                alert('Cart is empty!');
+                return;
+            }
+
+            const doc = new jsPDF();
+            let y = 20;
+            doc.setFontSize(18);
+            doc.setFont('helvetica', 'bold');
+            doc.text('STERLING TRADINGS (STG)', 105, y, { align: 'center' });
+            y += 10;
+            doc.setFontSize(14);
+            doc.text('Order Invoice', 105, y, { align: 'center' });
+            y += 15;
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            const date = new Date().toLocaleDateString('en-GB');
+            doc.text(`Date: ${date}`, 14, y);
+            y += 10;
+
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Item', 14, y);
+            doc.text('Qty', 100, y);
+            doc.text('Price', 130, y);
+            doc.text('Total', 165, y);
+            y += 7;
+            doc.line(14, y, 196, y);
+            y += 5;
+
+            let total = 0;
+            for (let i = 0; i < cartItems.length; i++) {
+                const item = cartItems[i];
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                const displayName = item.size? `${item.name} - ${item.size}` : item.name;
+
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(9);
+                const splitName = doc.splitTextToSize(displayName, 80);
+                doc.text(splitName, 14, y);
+                doc.text(item.qty.toString(), 100, y);
+                doc.text(`SAR ${item.price}`, 130, y);
+                doc.text(`SAR ${subtotal}`, 165, y);
+                y += (splitName.length * 5) + 3;
+
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
+            }
+
+            y += 5;
+            doc.line(14, y, 196, y);
+            y += 7;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.text(`Total: SAR ${total}`, 165, y);
+            y += 15;
+
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Thank you for your order!', 105, y, { align: 'center' });
+            y += 5;
+            doc.text('WhatsApp: +966 55 989 5503', 105, y, { align: 'center' });
+
+            doc.save(`STG_Order_${date.replace(/\//g, '-')}.pdf`);
         }
 
         function showProductDetail(productId) {
@@ -742,6 +841,8 @@
             if(e.target.id === 'cartClose') hideCart();
             if(e.target.id === 'clearCart') clearCart();
             if(e.target.id === 'orderWhatsApp') orderWhatsApp();
+            if(e.target.id === 'downloadPDF') downloadPDF();
+            if(e.target.classList.contains('cart-item-remove')) removeFromCart(e.target.getAttribute('data-key'));
             if(e.target.id === 'cartModal') hideCart();
             if(e.target.id === 'productModalClose' || e.target.id === 'productModal') {
                 document.getElementById('productModal').classList.remove('active');
