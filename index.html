@@ -9,125 +9,106 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
         body { font-family: Arial; background: #f5f5f5; }
-      .header { background: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647; transform: translate3d(0,0,0); }
-      .header-left { display: flex; align-items: center; gap: 15px; }
-      .header img { height: 40px; object-fit: contain; }
-      .header h1 { font-size: 18px; color: #333; font-weight: bold; }
-      .cart-badge { background: #28a745; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
-      .cart-badge span { background: white; color: #28a745; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; }
-      .page-wrapper { padding-top: 60px; position: relative; z-index: 1; }
-      .slider { width: 100%; height: 250px; overflow: hidden; position: relative; background: #222; z-index: 1; }
+     .header { background: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647; transform: translate3d(0,0,0); height: 60px; }
+     .header-left { display: flex; align-items: center; gap: 15px; }
+     .header img { height: 40px; object-fit: contain; }
+     .header h1 { font-size: 18px; color: #333; font-weight: bold; }
+     .cart-badge { background: #28a745; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+     .cart-badge span { background: white; color: #28a745; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+     .page-wrapper { padding-top: 60px; position: relative; z-index: 1; }
+     .slider { width: 100%; height: 250px; overflow: hidden; position: relative; background: #222; z-index: 1; }
         @media (min-width: 768px) {.slider { height: 450px; } }
-      .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
-      .slider img.active { opacity: 1; }
-      
-      .filter-section { 
-          background: white; 
-          padding: 15px; 
-          margin-top: 10px; 
-          position: sticky; 
-          top: 60px; 
-          z-index: 1000; 
-          box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-      }
-      .filter-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-      .filter-tiles { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
-      .filter-tiles::-webkit-scrollbar { height: 4px; }
-      .filter-tiles::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
-      .filter-tile { min-width: 110px; height: 110px; text-align: center; cursor: pointer; border: 2px solid transparent; border-radius: 8px; padding: 8px; background: #f8f8f8; transition: 0.3s; flex-shrink: 0; overflow: hidden; }
-      .filter-tile.active { border-color: #007bff; background: #e7f3ff; }
-      .filter-tile img { width: 100%; height: 65px; object-fit: cover; border-radius: 6px; margin-bottom: 5px; }
-      .filter-tile p { font-size: 12px; font-weight: bold; color: #333; margin: 0; line-height: 1.2; word-break: break-word; }
-      .filter-tile.brand { background: #ff6b35; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.25); }
-      .filter-tile.brand p { color: white; font-size: 15px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; text-transform: uppercase; }
-      .filter-tile.brand.active { border-color: #007bff; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 0 0 3px #007bff, 0 4px 8px rgba(0,0,0,0.25); }
-      .filter-tile.all { background: #28a745; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.25); }
-      .filter-tile.all p { color: white; font-size: 16px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
-      
-      .filters { 
-          padding: 15px; 
-          background: white; 
-          display: flex; 
-          gap: 10px; 
-          flex-wrap: wrap; 
-          align-items: center; 
-          position: sticky; 
-          top: 180px; 
-          z-index: 999; 
-          box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-      }
-      .filters button { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; background: #f8f8f8; cursor: pointer; height: 40px; }
-      .search-box { flex: 1; min-width: 200px; height: 40px; padding: 0 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; outline: none; }
-      .search-box:focus { border-color: #007bff; }
-      .cat-banner { width: 100%; height: 180px; object-fit: cover; margin: 15px 0; border-radius: 8px; }
-      
-      .grid { display: grid; grid-template-columns: repeat(2, 1fr)!important; gap: 10px; padding: 15px; padding-bottom: 80px; position: relative; z-index: 2; }
-      @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr)!important; } }
+     .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; opacity: 0; transition: 1s; }
+     .slider img.active { opacity: 1; }
 
-      .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-      .card.stock-out { border: 2px solid #dc3545; }
-      .card img { width: 100%; height: 220px; object-fit: contain; object-position: center; background: white; padding: 5px; box-sizing: border-box; cursor: pointer; flex-shrink: 0; }
-      .card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; }
-      .card h3 { font-size: 14px; margin-bottom: 5px; min-height: 36px; word-break: break-word; color: #000; font-weight: bold; line-height: 1.2; }
-      .card p { font-size: 12px; color: #555; margin: 4px 0; }
-      .price { color: #28a745; font-size: 18px; font-weight: bold; margin: 8px 0; }
-      .stock { font-size: 12px; margin-bottom: 8px; }
-      .stock.out { color: red; font-weight: bold; }
-      
-      /* VARIANT BOX LIGHT GREEN */
-      .variant-select { 
-          width: 100%; 
-          padding: 8px; 
-          margin: 8px 0; 
-          border: 1px solid #b3e6b3; 
-          border-radius: 5px; 
-          font-size: 13px; 
-          outline: none; 
-          background: #e8f8e8; 
-          cursor: pointer; 
-          color: #333;
-          font-weight: bold;
+      /* FIXED - STICKY CATEGORY */
+     .filter-section {
+          background: white;
+          padding: 15px;
+          margin-top: 10px;
+          position: sticky;
+          top: 60px;
+          z-index: 1001;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.12);
       }
-      .variant-select:focus { border-color: #28a745; background: #d4f4d4; }
-      
-      .qty-box { display: flex!important; margin-top: auto!important; border-radius: 5px!important; overflow: hidden!important; height: 50px!important; border: 2px solid #ddd!important; touch-action: manipulation!important; }
-      .qty-box button { border: none!important; color: #333!important; font-size: 28px!important; font-weight: bold!important; cursor: pointer!important; flex: 1!important; line-height: 1!important; user-select: none!important; -webkit-user-select: none!important; -webkit-tap-highlight-color: transparent!important; touch-action: manipulation!important; }
-      .qty-box button:first-child { background: #e0e0e0!important; }
-      .qty-box button:last-child { background: #28a745!important; color: white!important; }
-      .qty-box button:disabled { background: #f5f5f5!important; color: #ccc!important; cursor: not-allowed!important; }
-      .qty-box button:active { transform: scale(0.95)!important; }
-      .qty-box input { font-size: 20px!important; font-weight: bold!important; text-align: center!important; border: none!important; background: white!important; outline: none!important; width: 45px!important; flex-shrink: 0!important; border-left: 1px solid #ddd!important; border-right: 1px solid #ddd!important; touch-action: manipulation!important; }
+     .filter-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+     .filter-tiles { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+     .filter-tiles::-webkit-scrollbar { height: 4px; }
+     .filter-tiles::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+     .filter-tile { min-width: 110px; height: 110px; text-align: center; cursor: pointer; border: 2px solid transparent; border-radius: 8px; padding: 8px; background: #f8f8f8; transition: 0.3s; flex-shrink: 0; overflow: hidden; }
+     .filter-tile.active { border-color: #007bff; background: #e7f3ff; }
+     .filter-tile img { width: 100%; height: 65px; object-fit: cover; border-radius: 6px; margin-bottom: 5px; }
+     .filter-tile p { font-size: 12px; font-weight: bold; color: #333; margin: 0; line-height: 1.2; word-break: break-word; }
+     .filter-tile.brand { background: #ff6b35; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.25); }
+     .filter-tile.brand p { color: white; font-size: 15px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; text-transform: uppercase; }
+     .filter-tile.brand.active { border-color: #007bff; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 0 0 3px #007bff, 0 4px 8px rgba(0,0,0,0.25); }
+     .filter-tile.all { background: #28a745; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.25); }
+     .filter-tile.all p { color: white; font-size: 16px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
 
-      .loading { text-align: center; padding: 40px; color: #666; }
-      .error { text-align: center; padding: 40px; color: red; background: #ffe6e6; margin: 15px; border-radius: 8px; }
-      .whatsapp-float { position: fixed!important; bottom: 20px!important; right: 20px!important; background: #25D366!important; color: white!important; border-radius: 50px!important; padding: 12px 20px!important; display: flex!important; align-items: center!important; gap: 8px!important; box-shadow: 0 4px 12px rgba(0,0,0,0.3)!important; cursor: pointer!important; z-index: 999!important; font-weight: bold!important; font-size: 15px!important; text-decoration: none!important; transition: 0.3s!important; }
-      .whatsapp-float:hover { background: #1ebe57!important; transform: scale(1.05)!important; }
-      .whatsapp-float img { width: 24px!important; height: 24px!important; }
-      .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2147483647; }
-      .cart-modal.active { display: flex; align-items: center; justify-content: center; }
-      .cart-content { background: white; width: 90%; max-width: 500px; max-height: 80vh; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
-      .cart-header { background: #28a745; color: white; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-      .cart-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; }
-      .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
-      .cart-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; position: relative; }
-      .cart-item img { width: 60px; height: 60px; object-fit: cover; background: #f8f8f8; border-radius: 5px; }
-      .cart-item-info { flex: 1; padding-right: 30px; }
-      .cart-item-name { font-weight: bold; font-size: 14px; margin-bottom: 3px; }
-      .cart-item-price { color: #28a745; font-weight: bold; }
-      .cart-item-qty { font-size: 13px; color: #666; }
-      .cart-item-remove { position: absolute; right: 0; top: 10px; background: #dc3545; color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; }
-      .cart-item-remove:hover { background: #c82333; }
-      .cart-total { background: #f8f8f8; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
-      .cart-actions { padding: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
-      .cart-btn { flex: 1; min-width: 100px; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; }
-      .cart-btn-clear { background: #dc3545; color: white; }
-      .cart-btn-order { background: #25D366; color: white; }
-      .cart-btn-pdf { background: #007bff; color: white; }
-      .cart-empty { text-align: center; padding: 40px; color: #999; }
-      .product-detail { padding: 15px; }
-      .product-detail img { width: 100%; height: 300px; object-fit: contain; background: #f8f8f8; border-radius: 8px; margin-bottom: 15px; }
-      .product-detail h2 { margin-bottom: 8px; word-break: break-word; }
-      .product-detail.price { font-size: 28px; margin: 15px 0; }
+      /* FIXED - STICKY SEARCH */
+     .filters {
+          padding: 15px;
+          background: white;
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          align-items: center;
+          position: sticky;
+          top: 205px;
+          z-index: 1000;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+          border-top: 1px solid #eee;
+      }
+     .filters button { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; background: #f8f8f8; cursor: pointer; height: 40px; }
+     .search-box { flex: 1; min-width: 200px; height: 40px; padding: 0 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; outline: none; }
+     .search-box:focus { border-color: #007bff; }
+     .cat-banner { width: 100%; height: 180px; object-fit: cover; margin: 15px 0; border-radius: 8px; }
+
+     .grid { display: grid; grid-template-columns: repeat(2, 1fr)!important; gap: 10px; padding: 15px; padding-bottom: 80px; position: relative; z-index: 2; }
+      @media (min-width: 768px) {.grid { grid-template-columns: repeat(3, 1fr)!important; } }
+     .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+     .card.stock-out { border: 2px solid #dc3545; }
+     .card img { width: 100%; height: 220px; object-fit: contain; object-position: center; background: white; padding: 5px; box-sizing: border-box; cursor: pointer; flex-shrink: 0; }
+     .card-body { padding: 12px; display: flex; flex-direction: column; flex: 1; }
+     .card h3 { font-size: 14px; margin-bottom: 5px; min-height: 36px; word-break: break-word; color: #000; font-weight: bold; line-height: 1.2; }
+     .card p { font-size: 12px; color: #555; margin: 4px 0; }
+     .price { color: #28a745; font-size: 18px; font-weight: bold; margin: 8px 0; }
+     .stock { font-size: 12px; margin-bottom: 8px; }
+     .stock.out { color: red; font-weight: bold; }
+     .variant-select { width: 100%; padding: 8px; margin: 8px 0; border: 1px solid #b3e6b3; border-radius: 5px; font-size: 13px; outline: none; background: #e8f8e8; cursor: pointer; color: #333; font-weight: bold; }
+     .variant-select:focus { border-color: #28a745; background: #d4f4d4; }
+     .qty-box { display: flex!important; margin-top: auto!important; border-radius: 5px!important; overflow: hidden!important; height: 50px!important; border: 2px solid #ddd!important; touch-action: manipulation!important; }
+     .qty-box button { border: none!important; color: #333!important; font-size: 28px!important; font-weight: bold!important; cursor: pointer!important; flex: 1!important; line-height: 1!important; user-select: none!important; -webkit-user-select: none!important; -webkit-tap-highlight-color: transparent!important; touch-action: manipulation!important; }
+     .qty-box button:first-child { background: #e0e0e0!important; }
+     .qty-box button:last-child { background: #28a745!important; color: white!important; }
+     .qty-box button:disabled { background: #f5f5f5!important; color: #ccc!important; cursor: not-allowed!important; }
+     .qty-box button:active { transform: scale(0.95)!important; }
+     .qty-box input { font-size: 20px!important; font-weight: bold!important; text-align: center!important; border: none!important; background: white!important; outline: none!important; width: 45px!important; flex-shrink: 0!important; border-left: 1px solid #ddd!important; border-right: 1px solid #ddd!important; touch-action: manipulation!important; }
+     .loading { text-align: center; padding: 40px; color: #666; }
+     .error { text-align: center; padding: 40px; color: red; background: #ffe6e6; margin: 15px; border-radius: 8px; }
+     .whatsapp-float { position: fixed!important; bottom: 20px!important; right: 20px!important; background: #25D366!important; color: white!important; border-radius: 50px!important; padding: 12px 20px!important; display: flex!important; align-items: center!important; gap: 8px!important; box-shadow: 0 4px 12px rgba(0,0,0,0.3)!important; cursor: pointer!important; z-index: 999!important; font-weight: bold!important; font-size: 15px!important; text-decoration: none!important; transition: 0.3s!important; }
+     .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2147483647; }
+     .cart-modal.active { display: flex; align-items: center; justify-content: center; }
+     .cart-content { background: white; width: 90%; max-width: 500px; max-height: 80vh; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+     .cart-header { background: #28a745; color: white; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+     .cart-close { background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1; }
+     .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
+     .cart-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; position: relative; }
+     .cart-item img { width: 60px; height: 60px; object-fit: cover; background: #f8f8f8; border-radius: 5px; }
+     .cart-item-info { flex: 1; padding-right: 30px; }
+     .cart-item-name { font-weight: bold; font-size: 14px; margin-bottom: 3px; }
+     .cart-item-price { color: #28a745; font-weight: bold; }
+     .cart-item-qty { font-size: 13px; color: #666; }
+     .cart-item-remove { position: absolute; right: 0; top: 10px; background: #dc3545; color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 16px; line-height: 1; display: flex; align-items: center; justify-content: center; }
+     .cart-total { background: #f8f8f8; padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; }
+     .cart-actions { padding: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+     .cart-btn { flex: 1; min-width: 100px; padding: 12px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; }
+     .cart-btn-clear { background: #dc3545; color: white; }
+     .cart-btn-order { background: #25D366; color: white; }
+     .cart-btn-pdf { background: #007bff; color: white; }
+     .cart-empty { text-align: center; padding: 40px; color: #999; }
+     .product-detail { padding: 15px; }
+     .product-detail img { width: 100%; height: 300px; object-fit: contain; background: #f8f8f8; border-radius: 8px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -136,9 +117,7 @@
             <img id="logo" src="https://via.placeholder.com/150x40?text=Logo" alt="Logo">
             <h1 id="shopName">STERLING TRADINGS (STG)</h1>
         </div>
-        <div class="cart-badge" id="cartBtn">
-            🛒 Cart <span id="cartCount">0</span>
-        </div>
+        <div class="cart-badge" id="cartBtn">🛒 Cart <span id="cartCount">0</span></div>
     </div>
     <div class="page-wrapper">
         <div class="slider" id="slider"></div>
@@ -154,21 +133,12 @@
         <div id="catBannerContainer" style="padding: 0 15px;"></div>
         <div class="grid" id="products"><div class="loading">Loading Products...</div></div>
     </div>
-    <a href="https://wa.me/966559895503?text=Hello, I need help with products" target="_blank" class="whatsapp-float">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6b/WhatsApp.svg" alt="WhatsApp">
-        CHAT
-    </a>
+    <a href="https://wa.me/966559895503?text=Hello, I need help with products" target="_blank" class="whatsapp-float"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">CHAT</a>
     <div class="cart-modal" id="cartModal">
         <div class="cart-content">
-            <div class="cart-header">
-                <span>🛒 Your Cart</span>
-                <button class="cart-close" id="cartClose">&times;</button>
-            </div>
+            <div class="cart-header"><span>🛒 Your Cart</span><button class="cart-close" id="cartClose">&times;</button></div>
             <div class="cart-items" id="cartItems"></div>
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">SAR 0</span>
-            </div>
+            <div class="cart-total"><span>Total:</span><span id="cartTotal">SAR 0</span></div>
             <div class="cart-actions">
                 <button class="cart-btn cart-btn-clear" id="clearCart">Clear Cart</button>
                 <button class="cart-btn cart-btn-pdf" id="downloadPDF">📄 PDF</button>
@@ -178,10 +148,7 @@
     </div>
     <div class="cart-modal" id="productModal">
         <div class="cart-content">
-            <div class="cart-header">
-                <span>Product Details</span>
-                <button class="cart-close" id="productModalClose">&times;</button>
-            </div>
+            <div class="cart-header"><span>Product Details</span><button class="cart-close" id="productModalClose">&times;</button></div>
             <div class="product-detail" id="productDetailContent"></div>
         </div>
     </div>
@@ -190,719 +157,38 @@
         const PRODUCTS_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
         const BANNER_CSV = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=banner`;
         const WHATSAPP_NUMBER = '966559895503';
-
-        const COL = {
-            id: 0,
-            name: 1,
-            brand: 2,
-            price: 3,
-            category: 4,
-            image: 5,
-            stock: 6,
-            variants: 7
-        };
-
-        let allProducts = [];
-        let banners = {};
-        let cart = JSON.parse(localStorage.getItem('stg_cart_v2') || '{}');
-        let selectedCat = '';
-        let selectedBrand = '';
-        let searchText = '';
-
-        function csvToArray(csv) {
-            const rows = [];
-            let currentRow = [];
-            let currentCell = '';
-            let insideQuote = false;
-            for (let i = 0; i < csv.length; i++) {
-                const char = csv[i];
-                const nextChar = csv[i + 1];
-                if (char === '"' && insideQuote && nextChar === '"') {
-                    currentCell += '"';
-                    i++;
-                } else if (char === '"') {
-                    insideQuote =!insideQuote;
-                } else if (char === ',' &&!insideQuote) {
-                    currentRow.push(currentCell);
-                    currentCell = '';
-                } else if ((char === '\n' || char === '\r') &&!insideQuote) {
-                    if (currentCell || currentRow.length > 0) {
-                        currentRow.push(currentCell);
-                        rows.push(currentRow);
-                        currentRow = [];
-                        currentCell = '';
-                    }
-                } else if (char!== '\r') {
-                    currentCell += char;
-                }
-            }
-            if (currentCell || currentRow.length > 0) {
-                currentRow.push(currentCell);
-                rows.push(currentRow);
-            }
-            return rows;
-        }
-
-        function getImageUrl(url) {
-            if(!url) return '';
-            url = url.trim();
-            if(url.includes('lh3.googleusercontent')) return url;
-            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-            if(match) return `https://lh3.googleusercontent.com/d/${match[1]}=w800`;
-            const match2 = url.match(/id=([a-zA-Z0-9_-]+)/);
-            if(match2) return `https://lh3.googleusercontent.com/d/${match2[1]}=w800`;
-            return url;
-        }
-
-        // Image URL to Base64 convert ചെയ്യാൻ
-        async function imageToBase64(url) {
-            try {
-                const response = await fetch(url);
-                const blob = await response.blob();
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onloadend = () => resolve(reader.result);
-                    reader.onerror = reject;
-                    reader.readAsDataURL(blob);
-                });
-            } catch(e) {
-                console.log('Image convert error:', e);
-                return null;
-            }
-        }
-
-        function updateCartCount() {
-            const total = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('cartCount').textContent = total;
-            localStorage.setItem('stg_cart_v2', JSON.stringify(cart));
-        }
-
-        function showError(msg) {
-            document.getElementById('products').innerHTML = `<div class="error">❌ Error: ${msg}</div>`;
-        }
-
+        const COL = { id: 0, name: 1, brand: 2, price: 3, category: 4, image: 5, stock: 6, variants: 7 };
+        let allProducts = []; let banners = {}; let cart = JSON.parse(localStorage.getItem('stg_cart_v2') || '{}'); let selectedCat = ''; let selectedBrand = ''; let searchText = '';
+        function csvToArray(csv) { const rows = []; let currentRow = []; let currentCell = ''; let insideQuote = false; for (let i = 0; i < csv.length; i++) { const char = csv[i]; const nextChar = csv[i + 1]; if (char === '"' && insideQuote && nextChar === '"') { currentCell += '"'; i++; } else if (char === '"') { insideQuote =!insideQuote; } else if (char === ',' &&!insideQuote) { currentRow.push(currentCell); currentCell = ''; } else if ((char === '\n' || char === '\r') &&!insideQuote) { if (currentCell || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); currentRow = []; currentCell = ''; } } else if (char!== '\r') { currentCell += char; } } if (currentCell || currentRow.length > 0) { currentRow.push(currentCell); rows.push(currentRow); } return rows; }
+        function getImageUrl(url) { if(!url) return ''; url = url.trim(); if(url.includes('lh3.googleusercontent')) return url; const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/); if(match) return `https://lh3.googleusercontent.com/d/${match[1]}=w800`; const match2 = url.match(/id=([a-zA-Z0-9_-]+)/); if(match2) return `https://lh3.googleusercontent.com/d/${match2[1]}=w800`; return url; }
+        async function imageToBase64(url) { try { const response = await fetch(url); const blob = await response.blob(); return new Promise((resolve, reject) => { const reader = new FileReader(); reader.onloadend = () => resolve(reader.result); reader.onerror = reject; reader.readAsDataURL(blob); }); } catch(e) { return null; } }
+        function updateCartCount() { const total = Object.values(cart).reduce((sum, item) => sum + item.qty, 0); document.getElementById('cartCount').textContent = total; localStorage.setItem('stg_cart_v2', JSON.stringify(cart)); }
+        function showError(msg) { document.getElementById('products').innerHTML = `<div class="error">❌ Error: ${msg}</div>`; }
         function loadData() {
             document.getElementById('products').innerHTML = '<div class="loading">Loading Products...</div>';
-            fetch(BANNER_CSV + '&cache=' + new Date().getTime())
-.then(res => res.ok? res.text() : Promise.reject('Banner sheet കിട്ടിയില്ല'))
-.then(csv => {
-                    const rows = csvToArray(csv);
-                    if (rows.length < 2) return;
-                    const headers = rows[0].map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
-                    const typeIndex = headers.findIndex(h => h === 'type');
-                    const imageIndex = headers.findIndex(h => h === 'image');
-                    banners = {};
-                    for (let i = 1; i < rows.length; i++) {
-                        const row = rows[i];
-                        const type = row[typeIndex]? row[typeIndex].replace(/^"|"$/g, '').trim().toUpperCase().replace(/\s+/g, '') : '';
-                        const img = getImageUrl(row[imageIndex]? row[imageIndex].replace(/^"|"$/g, '').trim() : '');
-                        if(!img ||!type) continue;
-                        banners[type] = img;
-                    }
-                    if(banners.LOGO) {
-                        document.getElementById('logo').src = banners.LOGO;
-                        document.getElementById('logo').onerror = function(){ this.src='https://via.placeholder.com/150x40?text=Logo'; };
-                    }
-                    const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6']
-.map(k => banners[k]).filter(s => s);
-                    const slider = document.getElementById('slider');
-                    if(slides.length > 0) {
-                        slider.innerHTML = slides.map((src, i) =>
-                            `<img src="${src}" class="${i===0?'active':''}" alt="Banner">`
-                        ).join('');
-                        let slideIndex = 0;
-                        setInterval(() => {
-                            const imgs = document.querySelectorAll('.slider img');
-                            if(imgs.length > 0) {
-                                imgs[slideIndex].classList.remove('active');
-                                slideIndex = (slideIndex + 1) % imgs.length;
-                                imgs[slideIndex].classList.add('active');
-                            }
-                        }, 3000);
-                    } else {
-                        slider.innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
-                    }
-                })
-.catch(err => {
-                    console.log('Banner Error:', err);
-                    document.getElementById('slider').innerHTML = `<img src="https://via.placeholder.com/800x350/e8e8e8/333?text=STERLING+TRADINGS" class="active" alt="Banner">`;
-                });
-
-            fetch(PRODUCTS_CSV + '&cache=' + new Date().getTime())
-.then(res => res.ok? res.text() : Promise.reject('Products sheet കിട്ടിയില്ല'))
-.then(csv => {
-                    const rows = csvToArray(csv);
-                    if (rows.length < 2) {
-                        showError('Sheet കാലിയാണ്');
-                        return;
-                    }
-
-                    allProducts = [];
-                    for (let i = 1; i < rows.length; i++) {
-                        const row = rows[i];
-                        const getCell = (index) => {
-                            if(index === -1 || index >= row.length) return '';
-                            let val = row[index] || '';
-                            val = val.replace(/^"|"$/g, '').trim();
-                            return val;
-                        };
-
-                        const idVal = getCell(COL.id);
-                        let nameVal = getCell(COL.name);
-                        const brand = getCell(COL.brand);
-                        const priceVal = getCell(COL.price);
-                        const category = getCell(COL.category);
-                        const stock = getCell(COL.stock);
-                        const image = getCell(COL.image);
-                        const variantsRaw = getCell(COL.variants) || '';
-
-                        nameVal = nameVal || '';
-
-                        let finalPrice = 1;
-                        if(priceVal && priceVal!== '' && priceVal!== '0') {
-                            const parsed = parseFloat(priceVal.replace(/[^0-9.]/g, ''));
-                            if(!isNaN(parsed) && parsed > 0) finalPrice = parsed;
-                        }
-
-                        const finalId = (idVal || `product-${i}`).toString().replace(/[^a-zA-Z0-9-]/g, '-');
-
-                        let variants = [];
-                        if(variantsRaw && variantsRaw.trim()!== '') {
-                            try {
-                                variants = variantsRaw.split(',').map(v => {
-                                    const parts = v.split(':');
-                                    return {
-                                        size: parts[0].trim(),
-                                        price: parseFloat(parts[1]) || finalPrice
-                                    };
-                                });
-                            } catch(e) {
-                                variants = [];
-                            }
-                        }
-
-                        allProducts.push({
-                            id: finalId,
-                            name: nameVal,
-                            brand: brand || 'No Brand',
-                            price: finalPrice,
-                            category: category || 'General',
-                            stock: stock || 'IN',
-                            image: getImageUrl(image),
-                            variants: variants
-                        });
-                    }
-
-                    loadFilterTiles();
-                    displayProducts(allProducts);
-                    updateCartCount();
-                })
-.catch(err => showError(err));
+            fetch(BANNER_CSV + '&cache=' + new Date().getTime()).then(res => res.ok? res.text() : Promise.reject('Banner sheet')).then(csv => {
+                    const rows = csvToArray(csv); if (rows.length < 2) return; const headers = rows[0].map(h => h.replace(/^"|"$/g, '').trim().toLowerCase()); const typeIndex = headers.findIndex(h => h === 'type'); const imageIndex = headers.findIndex(h => h === 'image'); banners = {}; for (let i = 1; i < rows.length; i++) { const row = rows[i]; const type = row[typeIndex]? row[typeIndex].replace(/^"|"$/g, '').trim().toUpperCase().replace(/\s+/g, '') : ''; const img = getImageUrl(row[imageIndex]? row[imageIndex].replace(/^"|"$/g, '').trim() : ''); if(!img ||!type) continue; banners[type] = img; } if(banners.LOGO) { document.getElementById('logo').src = banners.LOGO; } const slides = ['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6'].map(k => banners[k]).filter(s => s); const slider = document.getElementById('slider'); if(slides.length > 0) { slider.innerHTML = slides.map((src, i) => `<img src="${src}" class="${i===0?'active':''}" alt="Banner">`).join(''); let slideIndex = 0; setInterval(() => { const imgs = document.querySelectorAll('.slider img'); if(imgs.length > 0) { imgs[slideIndex].classList.remove('active'); slideIndex = (slideIndex + 1) % imgs.length; imgs[slideIndex].classList.add('active'); } }, 3000); } }).catch(err => {});
+            fetch(PRODUCTS_CSV + '&cache=' + new Date().getTime()).then(res => res.ok? res.text() : Promise.reject('Products sheet')).then(csv => {
+                    const rows = csvToArray(csv); if (rows.length < 2) { showError('Sheet കാലിയാണ്'); return; } allProducts = []; for (let i = 1; i < rows.length; i++) { const row = rows[i]; const getCell = (index) => { if(index === -1 || index >= row.length) return ''; let val = row[index] || ''; val = val.replace(/^"|"$/g, '').trim(); return val; }; const idVal = getCell(COL.id); let nameVal = getCell(COL.name); const brand = getCell(COL.brand); const priceVal = getCell(COL.price); const category = getCell(COL.category); const stock = getCell(COL.stock); const image = getCell(COL.image); const variantsRaw = getCell(COL.variants) || ''; let finalPrice = 1; if(priceVal && priceVal!== '' && priceVal!== '0') { const parsed = parseFloat(priceVal.replace(/[^0-9.]/g, '')); if(!isNaN(parsed) && parsed > 0) finalPrice = parsed; } const finalId = (idVal || `product-${i}`).toString().replace(/[^a-zA-Z0-9-]/g, '-'); let variants = []; if(variantsRaw && variantsRaw.trim()!== '') { try { variants = variantsRaw.split(',').map(v => { const parts = v.split(':'); return { size: parts[0].trim(), price: parseFloat(parts[1]) || finalPrice }; }); } catch(e) { variants = []; } } allProducts.push({ id: finalId, name: nameVal, brand: brand || 'No Brand', price: finalPrice, category: category || 'General', stock: stock || 'IN', image: getImageUrl(image), variants: variants }); } loadFilterTiles(); displayProducts(allProducts); updateCartCount(); }).catch(err => showError(err));
         }
-
-        function loadFilterTiles() {
-            const categories = [...new Set(allProducts.map(p => p.category).filter(c => c && c!== 'General'))];
-            const brands = [...new Set(allProducts.map(p => p.brand).filter(b => b && b!== 'No Brand'))];
-            const tilesDiv = document.getElementById('filterTiles');
-
-            let html = `<div class="filter-tile all ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>ALL PRODUCTS</p></div>`;
-
-            categories.forEach(cat => {
-                const catKey = 'CAT-' + cat.toUpperCase().replace(/\s+/g, '');
-                const catImg = banners[catKey] || 'https://via.placeholder.com/110x65?text=' + encodeURIComponent(cat);
-                html += `<div class="filter-tile ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}">
-                    <img src="${catImg}" alt="${cat}">
-                    <p>${cat}</p>
-                </div>`;
-            });
-
-            brands.forEach(brand => {
-                html += `<div class="filter-tile brand ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`;
-            });
-            tilesDiv.innerHTML = html;
-        }
-
-        function filterProducts() {
-            let filtered = allProducts;
-            if(selectedCat) filtered = filtered.filter(p => p.category === selectedCat);
-            if(selectedBrand) filtered = filtered.filter(p => p.brand === selectedBrand);
-            if(searchText) {
-                const searchLower = searchText.toLowerCase();
-                filtered = filtered.filter(p =>
-                    p.name.toLowerCase().includes(searchLower) ||
-                    p.brand.toLowerCase().includes(searchLower) ||
-                    p.category.toLowerCase().includes(searchLower)
-                );
-            }
-            const bannerDiv = document.getElementById('catBannerContainer');
-            const catKey = 'CAT-' + selectedCat.toUpperCase().replace(/\s+/g, '');
-            if(selectedCat && banners[catKey]) {
-                bannerDiv.innerHTML = `<img src="${banners[catKey]}" class="cat-banner" alt="${selectedCat}">`;
-            } else {
-                bannerDiv.innerHTML = '';
-            }
-            displayProducts(filtered);
-        }
-
-        function getCartKey(id) {
-            const product = allProducts.find(p => p.id === id);
-            if(product && product.variants.length > 0) {
-                const select = document.querySelector(`.variant-select[data-id="${id}"]`);
-                if(select) {
-                    const variantIndex = select.value;
-                    const variant = product.variants[variantIndex];
-                    return `${id}_${variant.size.replace(/\s/g,'_')}`;
-                }
-            }
-            return id;
-        }
-
-        function displayProducts(products) {
-            const container = document.getElementById('products');
-            if(products.length === 0) {
-                container.innerHTML = '<div class="loading">No Products Found</div>';
-                return;
-            }
-            container.innerHTML = products.map(p => {
-                let defaultQty = 0;
-                let displayPrice = p.price;
-
-                if(p.variants && p.variants.length > 0) {
-                    displayPrice = p.variants[0].price;
-                    const defaultCartKey = `${p.id}_${p.variants[0].size.replace(/\s/g,'_')}`;
-                    const cartItem = cart[defaultCartKey];
-                    defaultQty = cartItem? cartItem.qty : 0;
-                } else {
-                    const cartItem = cart[p.id];
-                    defaultQty = cartItem? cartItem.qty : 0;
-                }
-
-                const isOut = p.stock === 'OUT';
-                return `
-                <div class="card ${isOut? 'stock-out' : ''}" data-product-id="${p.id}">
-                    <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200?text=No+Image'">
-                    <div class="card-body">
-                        <h3>${p.name || '&nbsp;'}</h3>
-                        <p>Brand: ${p.brand}</p>
-                        <p class="price" id="price-${p.id}">SAR ${displayPrice}</p>
-                        ${p.variants && p.variants.length > 0? `
-                            <select class="variant-select" data-id="${p.id}">
-                                ${p.variants.map((v,i) => `<option value="${i}">Size: ${v.size} - SAR ${v.price}</option>`).join('')}
-                            </select>
-                        ` : ''}
-                        <p>Category: ${p.category}</p>
-                        <p class="stock ${isOut? 'out' : ''}">Stock: ${p.stock}</p>
-                        <div class="qty-box">
-                            <button type="button" class="qty-minus" data-id="${p.id}" ${isOut? 'disabled' : ''}>-</button>
-                            <input type="number" class="qty-input" id="qty-${p.id}" value="${defaultQty}" min="0" data-id="${p.id}" ${isOut? 'disabled' : ''}>
-                            <button type="button" class="qty-plus" data-id="${p.id}" ${isOut? 'disabled' : ''}>+</button>
-                        </div>
-                    </div>
-                </div>
-            `}).join('');
-        }
-
-        function changeQty(id, delta) {
-            const product = allProducts.find(p => p.id === id);
-            let cartKey = id;
-            let price = product.price;
-            let size = '';
-            let name = product.name;
-
-            if(product.variants && product.variants.length > 0) {
-                const select = document.querySelector(`.variant-select[data-id="${id}"]`);
-                if(select) {
-                    const variantIndex = select.value;
-                    const variant = product.variants[variantIndex];
-                    cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`;
-                    price = variant.price;
-                    size = variant.size;
-                }
-            }
-
-            const input = document.getElementById(`qty-${id}`);
-            let val = parseInt(input.value) || 0;
-            val = Math.max(0, val + delta);
-            input.value = val;
-
-            if(val === 0) {
-                delete cart[cartKey];
-            } else {
-                cart[cartKey] = {
-                    qty: val,
-                    name: name,
-                    size: size,
-                    price: price,
-                    image: product.image,
-                    id: product.id
-                };
-            }
-            updateCartCount();
-        }
-
-        function setQty(input) {
-            const id = input.getAttribute('data-id');
-            const product = allProducts.find(p => p.id === id);
-            let cartKey = id;
-            let price = product.price;
-            let size = '';
-            let name = product.name;
-
-            if(product.variants && product.variants.length > 0) {
-                const select = document.querySelector(`.variant-select[data-id="${id}"]`);
-                if(select) {
-                    const variantIndex = select.value;
-                    const variant = product.variants[variantIndex];
-                    cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`;
-                    price = variant.price;
-                    size = variant.size;
-                }
-            }
-
-            let val = parseInt(input.value) || 0;
-            val = Math.max(0, val);
-            input.value = val;
-
-            if(val === 0) {
-                delete cart[cartKey];
-            } else {
-                cart[cartKey] = {
-                    qty: val,
-                    name: name,
-                    size: size,
-                    price: price,
-                    image: product.image,
-                    id: product.id
-                };
-            }
-            updateCartCount();
-        }
-
-        function removeFromCart(cartKey) {
-            delete cart[cartKey];
-            updateCartCount();
-            showCart();
-            const productId = cartKey.split('_')[0];
-            const input = document.getElementById(`qty-${productId}`);
-            if(input) {
-                const product = allProducts.find(p => p.id === productId);
-                if(product && product.variants.length > 0) {
-                    const select = document.querySelector(`.variant-select[data-id="${productId}"]`);
-                    if(select) {
-                        const variantIndex = select.value;
-                        const variant = product.variants[variantIndex];
-                        const checkKey = `${productId}_${variant.size.replace(/\s/g,'_')}`;
-                        if(checkKey === cartKey) input.value = 0;
-                    }
-                } else {
-                    input.value = 0;
-                }
-            }
-        }
-
-        function showCart() {
-            const modal = document.getElementById('cartModal');
-            const itemsDiv = document.getElementById('cartItems');
-            const totalSpan = document.getElementById('cartTotal');
-            const cartItems = Object.entries(cart);
-
-            if(cartItems.length === 0) {
-                itemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
-                totalSpan.textContent = 'SAR 0';
-            } else {
-                let total = 0;
-                itemsDiv.innerHTML = cartItems.map(([key, item]) => {
-                    const subtotal = item.price * item.qty;
-                    total += subtotal;
-                    const displayName = item.size? `${item.name} - ${item.size}` : item.name;
-                    return `
-                        <div class="cart-item">
-                            <img src="${item.image}" alt="${item.name}">
-                            <div class="cart-item-info">
-                                <div class="cart-item-name">${displayName || 'No Name'}</div>
-                                <div class="cart-item-price">SAR ${item.price} x ${item.qty}</div>
-                                <div class="cart-item-qty">Subtotal: SAR ${subtotal}</div>
-                            </div>
-                            <button class="cart-item-remove" data-key="${key}">&times;</button>
-                        </div>
-                    `;
-                }).join('');
-                totalSpan.textContent = `SAR ${total}`;
-            }
-            modal.classList.add('active');
-        }
-
-        function hideCart() {
-            document.getElementById('cartModal').classList.remove('active');
-        }
-
-        function clearCart() {
-            cart = {};
-            localStorage.removeItem('stg_cart_v2');
-            updateCartCount();
-            document.querySelectorAll('.qty-input').forEach(input => input.value = 0);
-            hideCart();
-        }
-
-        function orderWhatsApp() {
-            const cartItems = Object.values(cart);
-            if(cartItems.length === 0) {
-                alert('Cart is empty!');
-                return;
-            }
-            let message = `*🛒 New Order from STERLING TRADINGS*%0A`;
-            let total = 0;
-            cartItems.forEach((item, i) => {
-                const subtotal = item.price * item.qty;
-                total += subtotal;
-                const displayName = item.size? `${item.name} - ${item.size}` : item.name;
-                message += `*${i+1}. ${displayName || 'No Name'}*%0A`;
-                message += `📸 Image: ${item.image}%0A`;
-                message += `📦 Qty: ${item.qty} x SAR ${item.price} = *SAR ${subtotal}*%0A%0A`;
-            });
-            message += `━━━━━━━━━━━━━━━%0A`;
-            message += `*💰 Total: SAR ${total}*%0A%0A`;
-            message += `Please confirm this order.`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
-        }
-
-        // PDF WITH IMAGES - UPDATED
-        async function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const cartItems = Object.values(cart);
-            if(cartItems.length === 0) {
-                alert('Cart is empty!');
-                return;
-            }
-
-            document.getElementById('downloadPDF').textContent = '⏳ Generating...';
-            document.getElementById('downloadPDF').disabled = true;
-
-            const doc = new jsPDF();
-            let y = 20;
-            doc.setFontSize(18);
-            doc.setFont('helvetica', 'bold');
-            doc.text('STERLING TRADINGS (STG)', 105, y, { align: 'center' });
-            y += 10;
-            doc.setFontSize(14);
-            doc.text('Order Invoice', 105, y, { align: 'center' });
-            y += 10;
-
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            const date = new Date().toLocaleDateString('en-GB');
-            doc.text(`Date: ${date}`, 14, y);
-            y += 10;
-
-            let total = 0;
-            for (let i = 0; i < cartItems.length; i++) {
-                const item = cartItems[i];
-                const subtotal = item.price * item.qty;
-                total += subtotal;
-                const displayName = item.size? `${item.name} - ${item.size}` : item.name;
-
-                // Page break check
-                if (y > 240) {
-                    doc.addPage();
-                    y = 20;
-                }
-
-                // Try to add image
-                try {
-                    const imgBase64 = await imageToBase64(item.image);
-                    if(imgBase64) {
-                        doc.addImage(imgBase64, 'JPEG', 14, y, 25, 25);
-                    }
-                } catch(e) {
-                    console.log('Image add failed:', e);
-                }
-
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(10);
-                const splitName = doc.splitTextToSize(displayName, 100);
-                doc.text(splitName, 45, y + 5);
-
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(9);
-                doc.text(`Qty: ${item.qty} x SAR ${item.price}`, 45, y + 12);
-                doc.text(`Subtotal: SAR ${subtotal}`, 45, y + 17);
-
-                y += 32;
-            }
-
-            if (y > 260) {
-                doc.addPage();
-                y = 20;
-            }
-
-            y += 5;
-            doc.line(14, y, 196, y);
-            y += 7;
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(14);
-            doc.text(`Total: SAR ${total}`, 196, y, { align: 'right' });
-            y += 15;
-
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.text('Thank you for your order!', 105, y, { align: 'center' });
-            y += 5;
-            doc.text('WhatsApp: +966 55 989 5503', 105, y, { align: 'center' });
-
-            doc.save(`STG_Order_${date.replace(/\//g, '-')}.pdf`);
-            document.getElementById('downloadPDF').textContent = '📄 PDF';
-            document.getElementById('downloadPDF').disabled = false;
-        }
-
-        function showProductDetail(productId) {
-            const product = allProducts.find(p => p.id === productId);
-            if(!product) return;
-            const cartKey = getCartKey(product.id);
-            const cartItem = cart[cartKey];
-            const qty = cartItem? cartItem.qty : 0;
-            const displayPrice = cartItem? cartItem.price : (product.variants && product.variants.length > 0? product.variants[0].price : product.price);
-
-            document.getElementById('productDetailContent').innerHTML = `
-                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
-                <h2>${product.name || 'No Name'}</h2>
-                <p style="color:#666;margin-bottom:8px">Brand: ${product.brand}</p>
-                <p style="color:#666;margin-bottom:8px">Category: ${product.category}</p>
-                <p class="price" id="modal-price-${product.id}">SAR ${displayPrice}</p>
-                ${product.variants && product.variants.length > 0? `
-                    <select class="variant-select" data-id="${product.id}" onchange="updateModalPrice('${product.id}')">
-                        ${product.variants.map((v,i) => `<option value="${i}">Size: ${v.size} - SAR ${v.price}</option>`).join('')}
-                    </select>
-                ` : ''}
-                <p class="stock ${product.stock === 'OUT'? 'out' : ''}" style="margin-bottom:15px">Stock: ${product.stock}</p>
-                <div class="qty-box">
-                    <button type="button" onclick="changeQty('${product.id}', -1)" ${product.stock === 'OUT'? 'disabled' : ''}>-</button>
-                    <input type="number" id="modal-qty-${product.id}" value="${qty}" min="0" ${product.stock === 'OUT'? 'disabled' : ''} onchange="setQtyFromModal('${product.id}', this.value)">
-                    <button type="button" onclick="changeQty('${product.id}', 1)" ${product.stock === 'OUT'? 'disabled' : ''}>+</button>
-                </div>
-            `;
-            document.getElementById('productModal').classList.add('active');
-        }
-
-        function updateModalPrice(id) {
-            const product = allProducts.find(p => p.id === id);
-            const select = document.querySelector(`#productModal.variant-select[data-id="${id}"]`);
-            if(select && product.variants) {
-                const variantIndex = select.value;
-                const variant = product.variants[variantIndex];
-                document.getElementById(`modal-price-${id}`).textContent = `SAR ${variant.price}`;
-                const cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`;
-                const cartItem = cart[cartKey];
-                document.getElementById(`modal-qty-${id}`).value = cartItem? cartItem.qty : 0;
-            }
-        }
-
-        function setQtyFromModal(id, value) {
-            const product = allProducts.find(p => p.id === id);
-            let cartKey = id;
-            let price = product.price;
-            let size = '';
-            let name = product.name;
-
-            if(product.variants && product.variants.length > 0) {
-                const select = document.querySelector(`#productModal.variant-select[data-id="${id}"]`);
-                if(select) {
-                    const variantIndex = select.value;
-                    const variant = product.variants[variantIndex];
-                    cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`;
-                    price = variant.price;
-                    size = variant.size;
-                }
-            }
-
-            let val = parseInt(value) || 0;
-            val = Math.max(0, val);
-            document.getElementById(`modal-qty-${id}`).value = val;
-
-            if(val === 0) {
-                delete cart[cartKey];
-            } else {
-                cart[cartKey] = {
-                    qty: val,
-                    name: name,
-                    size: size,
-                    price: price,
-                    image: product.image,
-                    id: product.id
-                };
-            }
-            updateCartCount();
-            const input = document.getElementById(`qty-${id}`);
-            if(input) input.value = val;
-        }
-
-        document.addEventListener('click', function(e) {
-            if(e.target.closest('.card img')) {
-                const card = e.target.closest('.card');
-                const productId = card.getAttribute('data-product-id');
-                showProductDetail(productId);
-            }
-            if(e.target.closest('.filter-tile')) {
-                const tile = e.target.closest('.filter-tile');
-                const type = tile.getAttribute('data-type');
-                const value = tile.getAttribute('data-value');
-                if(type === 'all') {
-                    selectedCat = '';
-                    selectedBrand = '';
-                } else if(type === 'cat') {
-                    selectedCat = value;
-                    selectedBrand = '';
-                } else if(type === 'brand') {
-                    selectedBrand = value;
-                }
-                loadFilterTiles();
-                filterProducts();
-            }
-            if(e.target.id === 'resetBtn') {
-                selectedCat = '';
-                selectedBrand = '';
-                searchText = '';
-                document.getElementById('searchInput').value = '';
-                document.getElementById('catBannerContainer').innerHTML = '';
-                loadFilterTiles();
-                displayProducts(allProducts);
-            }
-            if(e.target.id === 'refreshBtn') loadData();
-            if(e.target.classList.contains('qty-plus')) changeQty(e.target.getAttribute('data-id'), 1);
-            if(e.target.classList.contains('qty-minus')) changeQty(e.target.getAttribute('data-id'), -1);
-            if(e.target.id === 'cartBtn' || e.target.closest('#cartBtn')) showCart();
-            if(e.target.id === 'cartClose') hideCart();
-            if(e.target.id === 'clearCart') clearCart();
-            if(e.target.id === 'orderWhatsApp') orderWhatsApp();
-            if(e.target.id === 'downloadPDF') downloadPDF();
-            if(e.target.classList.contains('cart-item-remove')) removeFromCart(e.target.getAttribute('data-key'));
-            if(e.target.id === 'cartModal') hideCart();
-            if(e.target.id === 'productModalClose' || e.target.id === 'productModal') {
-                document.getElementById('productModal').classList.remove('active');
-            }
-        });
-
-        document.addEventListener('change', function(e) {
-            if(e.target.classList.contains('qty-input')) setQty(e.target);
-            if(e.target.classList.contains('variant-select')) {
-                const id = e.target.getAttribute('data-id');
-                const product = allProducts.find(p => p.id === id);
-                const variantIndex = e.target.value;
-                const newPrice = product.variants[variantIndex].price;
-                document.getElementById(`price-${id}`).textContent = `SAR ${newPrice}`;
-                const newSize = product.variants[variantIndex].size;
-                const newCartKey = `${id}_${newSize.replace(/\s/g,'_')}`;
-                const cartItem = cart[newCartKey];
-                document.getElementById(`qty-${id}`).value = cartItem? cartItem.qty : 0;
-            }
-        });
-
-        document.addEventListener('input', function(e) {
-            if(e.target.id === 'searchInput') {
-                searchText = e.target.value;
-                filterProducts();
-            }
-        });
-
+        function loadFilterTiles() { const categories = [...new Set(allProducts.map(p => p.category).filter(c => c && c!== 'General'))]; const brands = [...new Set(allProducts.map(p => p.brand).filter(b => b && b!== 'No Brand'))]; const tilesDiv = document.getElementById('filterTiles'); let html = `<div class="filter-tile all ${selectedCat===''&&selectedBrand===''? 'active':''}" data-type="all"><p>ALL PRODUCTS</p></div>`; categories.forEach(cat => { const catKey = 'CAT-' + cat.toUpperCase().replace(/\s+/g, ''); const catImg = banners[catKey] || 'https://via.placeholder.com/110x65?text=' + encodeURIComponent(cat); html += `<div class="filter-tile ${selectedCat===cat?'active':''}" data-type="cat" data-value="${cat}"><img src="${catImg}" alt="${cat}"><p>${cat}</p></div>`; }); brands.forEach(brand => { html += `<div class="filter-tile brand ${selectedBrand===brand?'active':''}" data-type="brand" data-value="${brand}"><p>${brand}</p></div>`; }); tilesDiv.innerHTML = html; }
+        function filterProducts() { let filtered = allProducts; if(selectedCat) filtered = filtered.filter(p => p.category === selectedCat); if(selectedBrand) filtered = filtered.filter(p => p.brand === selectedBrand); if(searchText) { const searchLower = searchText.toLowerCase(); filtered = filtered.filter(p => p.name.toLowerCase().includes(searchLower) || p.brand.toLowerCase().includes(searchLower) || p.category.toLowerCase().includes(searchLower)); } const bannerDiv = document.getElementById('catBannerContainer'); const catKey = 'CAT-' + selectedCat.toUpperCase().replace(/\s+/g, ''); if(selectedCat && banners[catKey]) { bannerDiv.innerHTML = `<img src="${banners[catKey]}" class="cat-banner" alt="${selectedCat}">`; } else { bannerDiv.innerHTML = ''; } displayProducts(filtered); }
+        function getCartKey(id) { const product = allProducts.find(p => p.id === id); if(product && product.variants.length > 0) { const select = document.querySelector(`.variant-select[data-id="${id}"]`); if(select) { const variantIndex = select.value; const variant = product.variants[variantIndex]; return `${id}_${variant.size.replace(/\s/g,'_')}`; } } return id; }
+        function displayProducts(products) { const container = document.getElementById('products'); if(products.length === 0) { container.innerHTML = '<div class="loading">No Products Found</div>'; return; } container.innerHTML = products.map(p => { let defaultQty = 0; let displayPrice = p.price; if(p.variants && p.variants.length > 0) { displayPrice = p.variants[0].price; const defaultCartKey = `${p.id}_${p.variants[0].size.replace(/\s/g,'_')}`; const cartItem = cart[defaultCartKey]; defaultQty = cartItem? cartItem.qty : 0; } else { const cartItem = cart[p.id]; defaultQty = cartItem? cartItem.qty : 0; } const isOut = p.stock === 'OUT'; return `<div class="card ${isOut? 'stock-out' : ''}" data-product-id="${p.id}"><img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/260x200?text=No+Image'"><div class="card-body"><h3>${p.name || '&nbsp;'}</h3><p>Brand: ${p.brand}</p><p class="price" id="price-${p.id}">SAR ${displayPrice}</p>${p.variants && p.variants.length > 0? `<select class="variant-select" data-id="${p.id}">${p.variants.map((v,i) => `<option value="${i}">Size: ${v.size} - SAR ${v.price}</option>`).join('')}</select>` : ''}<p>Category: ${p.category}</p><p class="stock ${isOut? 'out' : ''}">Stock: ${p.stock}</p><div class="qty-box"><button type="button" class="qty-minus" data-id="${p.id}" ${isOut? 'disabled' : ''}>-</button><input type="number" class="qty-input" id="qty-${p.id}" value="${defaultQty}" min="0" data-id="${p.id}" ${isOut? 'disabled' : ''}><button type="button" class="qty-plus" data-id="${p.id}" ${isOut? 'disabled' : ''}>+</button></div></div></div>`; }).join(''); }
+        function changeQty(id, delta) { const product = allProducts.find(p => p.id === id); let cartKey = id; let price = product.price; let size = ''; let name = product.name; if(product.variants && product.variants.length > 0) { const select = document.querySelector(`.variant-select[data-id="${id}"]`); if(select) { const variantIndex = select.value; const variant = product.variants[variantIndex]; cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`; price = variant.price; size = variant.size; } } const input = document.getElementById(`qty-${id}`); let val = parseInt(input.value) || 0; val = Math.max(0, val + delta); input.value = val; if(val === 0) { delete cart[cartKey]; } else { cart[cartKey] = { qty: val, name: name, size: size, price: price, image: product.image, id: product.id }; } updateCartCount(); }
+        function setQty(input) { const id = input.getAttribute('data-id'); const product = allProducts.find(p => p.id === id); let cartKey = id; let price = product.price; let size = ''; let name = product.name; if(product.variants && product.variants.length > 0) { const select = document.querySelector(`.variant-select[data-id="${id}"]`); if(select) { const variantIndex = select.value; const variant = product.variants[variantIndex]; cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`; price = variant.price; size = variant.size; } } let val = parseInt(input.value) || 0; val = Math.max(0, val); input.value = val; if(val === 0) { delete cart[cartKey]; } else { cart[cartKey] = { qty: val, name: name, size: size, price: price, image: product.image, id: product.id }; } updateCartCount(); }
+        function removeFromCart(cartKey) { delete cart[cartKey]; updateCartCount(); showCart(); const productId = cartKey.split('_')[0]; const input = document.getElementById(`qty-${productId}`); if(input) input.value = 0; }
+        function showCart() { const modal = document.getElementById('cartModal'); const itemsDiv = document.getElementById('cartItems'); const totalSpan = document.getElementById('cartTotal'); const cartItems = Object.entries(cart); if(cartItems.length === 0) { itemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>'; totalSpan.textContent = 'SAR 0'; } else { let total = 0; itemsDiv.innerHTML = cartItems.map(([key, item]) => { const subtotal = item.price * item.qty; total += subtotal; const displayName = item.size? `${item.name} - ${item.size}` : item.name; return `<div class="cart-item"><img src="${item.image}" alt="${item.name}"><div class="cart-item-info"><div class="cart-item-name">${displayName || 'No Name'}</div><div class="cart-item-price">SAR ${item.price} x ${item.qty}</div><div class="cart-item-qty">Subtotal: SAR ${subtotal}</div></div><button class="cart-item-remove" data-key="${key}">&times;</button></div>`; }).join(''); totalSpan.textContent = `SAR ${total}`; } modal.classList.add('active'); }
+        function hideCart() { document.getElementById('cartModal').classList.remove('active'); }
+        function clearCart() { cart = {}; localStorage.removeItem('stg_cart_v2'); updateCartCount(); document.querySelectorAll('.qty-input').forEach(input => input.value = 0); hideCart(); }
+        function orderWhatsApp() { const cartItems = Object.values(cart); if(cartItems.length === 0) { alert('Cart is empty!'); return; } let message = `*🛒 New Order from STERLING TRADINGS*%0A`; let total = 0; cartItems.forEach((item, i) => { const subtotal = item.price * item.qty; total += subtotal; const displayName = item.size? `${item.name} - ${item.size}` : item.name; message += `*${i+1}. ${displayName || 'No Name'}*%0A📸 Image: ${item.image}%0A📦 Qty: ${item.qty} x SAR ${item.price} = *SAR ${subtotal}*%0A%0A`; }); message += `━━━━━━━━━━━━━━━%0A*💰 Total: SAR ${total}*%0A%0APlease confirm this order.`; window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank'); }
+        async function downloadPDF() { const { jsPDF } = window.jspdf; const cartItems = Object.values(cart); if(cartItems.length === 0) { alert('Cart is empty!'); return; } document.getElementById('downloadPDF').textContent = '⏳ Generating...'; document.getElementById('downloadPDF').disabled = true; const doc = new jsPDF(); let y = 20; doc.setFontSize(18); doc.setFont('helvetica', 'bold'); doc.text('STERLING TRADINGS (STG)', 105, y, { align: 'center' }); y += 10; doc.setFontSize(14); doc.text('Order Invoice', 105, y, { align: 'center' }); y += 10; doc.setFontSize(10); doc.setFont('helvetica', 'normal'); const date = new Date().toLocaleDateString('en-GB'); doc.text(`Date: ${date}`, 14, y); y += 10; let total = 0; for (let i = 0; i < cartItems.length; i++) { const item = cartItems[i]; const subtotal = item.price * item.qty; total += subtotal; const displayName = item.size? `${item.name} - ${item.size}` : item.name; if (y > 240) { doc.addPage(); y = 20; } try { const imgBase64 = await imageToBase64(item.image); if(imgBase64) { doc.addImage(imgBase64, 'JPEG', 14, y, 25, 25); } } catch(e) {} doc.setFont('helvetica', 'bold'); doc.setFontSize(10); const splitName = doc.splitTextToSize(displayName, 100); doc.text(splitName, 45, y + 5); doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text(`Qty: ${item.qty} x SAR ${item.price}`, 45, y + 12); doc.text(`Subtotal: SAR ${subtotal}`, 45, y + 17); y += 32; } if (y > 260) { doc.addPage(); y = 20; } y += 5; doc.line(14, y, 196, y); y += 7; doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.text(`Total: SAR ${total}`, 196, y, { align: 'right' }); y += 15; doc.setFontSize(10); doc.setFont('helvetica', 'normal'); doc.text('Thank you for your order!', 105, y, { align: 'center' }); y += 5; doc.text('WhatsApp: +966 55 989 5503', 105, y, { align: 'center' }); doc.save(`STG_Order_${date.replace(/\//g, '-')}.pdf`); document.getElementById('downloadPDF').textContent = '📄 PDF'; document.getElementById('downloadPDF').disabled = false; }
+        function showProductDetail(productId) { const product = allProducts.find(p => p.id === productId); if(!product) return; const cartKey = getCartKey(product.id); const cartItem = cart[cartKey]; const qty = cartItem? cartItem.qty : 0; const displayPrice = cartItem? cartItem.price : (product.variants && product.variants.length > 0? product.variants[0].price : product.price); document.getElementById('productDetailContent').innerHTML = `<img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"><h2>${product.name || 'No Name'}</h2><p style="color:#666;margin-bottom:8px">Brand: ${product.brand}</p><p style="color:#666;margin-bottom:8px">Category: ${product.category}</p><p class="price" id="modal-price-${product.id}">SAR ${displayPrice}</p>${product.variants && product.variants.length > 0? `<select class="variant-select" data-id="${product.id}" onchange="updateModalPrice('${product.id}')">${product.variants.map((v,i) => `<option value="${i}">Size: ${v.size} - SAR ${v.price}</option>`).join('')}</select>` : ''}<p class="stock ${product.stock === 'OUT'? 'out' : ''}" style="margin-bottom:15px">Stock: ${product.stock}</p><div class="qty-box"><button type="button" onclick="changeQty('${product.id}', -1)" ${product.stock === 'OUT'? 'disabled' : ''}>-</button><input type="number" id="modal-qty-${product.id}" value="${qty}" min="0" ${product.stock === 'OUT'? 'disabled' : ''} onchange="setQtyFromModal('${product.id}', this.value)"><button type="button" onclick="changeQty('${product.id}', 1)" ${product.stock === 'OUT'? 'disabled' : ''}>+</button></div>`; document.getElementById('productModal').classList.add('active'); }
+        function updateModalPrice(id) { const product = allProducts.find(p => p.id === id); const select = document.querySelector(`#productModal.variant-select[data-id="${id}"]`); if(select && product.variants) { const variantIndex = select.value; const variant = product.variants[variantIndex]; document.getElementById(`modal-price-${id}`).textContent = `SAR ${variant.price}`; const cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`; const cartItem = cart[cartKey]; document.getElementById(`modal-qty-${id}`).value = cartItem? cartItem.qty : 0; } }
+        function setQtyFromModal(id, value) { const product = allProducts.find(p => p.id === id); let cartKey = id; let price = product.price; let size = ''; let name = product.name; if(product.variants && product.variants.length > 0) { const select = document.querySelector(`#productModal.variant-select[data-id="${id}"]`); if(select) { const variantIndex = select.value; const variant = product.variants[variantIndex]; cartKey = `${id}_${variant.size.replace(/\s/g,'_')}`; price = variant.price; size = variant.size; } } let val = parseInt(value) || 0; val = Math.max(0, val); document.getElementById(`modal-qty-${id}`).value = val; if(val === 0) { delete cart[cartKey]; } else { cart[cartKey] = { qty: val, name: name, size: size, price: price, image: product.image, id: product.id }; } updateCartCount(); const input = document.getElementById(`qty-${id}`); if(input) input.value = val; }
+        document.addEventListener('click', function(e) { if(e.target.closest('.card img')) { const card = e.target.closest('.card'); const productId = card.getAttribute('data-product-id'); showProductDetail(productId); } if(e.target.closest('.filter-tile')) { const tile = e.target.closest('.filter-tile'); const type = tile.getAttribute('data-type'); const value = tile.getAttribute('data-value'); if(type === 'all') { selectedCat = ''; selectedBrand = ''; } else if(type === 'cat') { selectedCat = value; selectedBrand = ''; } else if(type === 'brand') { selectedBrand = value; } loadFilterTiles(); filterProducts(); } if(e.target.id === 'resetBtn') { selectedCat = ''; selectedBrand = ''; searchText = ''; document.getElementById('searchInput').value = ''; document.getElementById('catBannerContainer').innerHTML = ''; loadFilterTiles(); displayProducts(allProducts); } if(e.target.id === 'refreshBtn') loadData(); if(e.target.classList.contains('qty-plus')) changeQty(e.target.getAttribute('data-id'), 1); if(e.target.classList.contains('qty-minus')) changeQty(e.target.getAttribute('data-id'), -1); if(e.target.id === 'cartBtn' || e.target.closest('#cartBtn')) showCart(); if(e.target.id === 'cartClose') hideCart(); if(e.target.id === 'clearCart') clearCart(); if(e.target.id === 'orderWhatsApp') orderWhatsApp(); if(e.target.id === 'downloadPDF') downloadPDF(); if(e.target.classList.contains('cart-item-remove')) removeFromCart(e.target.getAttribute('data-key')); if(e.target.id === 'cartModal') hideCart(); if(e.target.id === 'productModalClose' || e.target.id === 'productModal') { document.getElementById('productModal').classList.remove('active'); } });
+        document.addEventListener('change', function(e) { if(e.target.classList.contains('qty-input')) setQty(e.target); if(e.target.classList.contains('variant-select') &&!e.target.closest('#productModal')) { const id = e.target.getAttribute('data-id'); const product = allProducts.find(p => p.id === id); const variantIndex = e.target.value; const newPrice = product.variants[variantIndex].price; document.getElementById(`price-${id}`).textContent = `SAR ${newPrice}`; const newSize = product.variants[variantIndex].size; const newCartKey = `${id}_${newSize.replace(/\s/g,'_')}`; const cartItem = cart[newCartKey]; document.getElementById(`qty-${id}`).value = cartItem? cartItem.qty : 0; } });
+        document.addEventListener('input', function(e) { if(e.target.id === 'searchInput') { searchText = e.target.value; filterProducts(); } });
         loadData();
     </script>
 </body>
