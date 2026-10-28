@@ -22,28 +22,25 @@ body{font-family:Arial;background:#f5f5f5}
 .sticky-wrap{position:sticky;top:60px;z-index:900;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.15)}
 .filter-section{background:#fff;padding:10px 15px 8px}
 .filter-title{font-size:13px;font-weight:bold;margin-bottom:6px}
-.filter-tiles{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.filter-tiles{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
 .filter-tiles::-webkit-scrollbar{display:none}
-.filter-tile{min-width:95px;height:95px;text-align:center;cursor:pointer;border:2px solid transparent;border-radius:10px;padding:5px;background:#f8f8f8;flex-shrink:0;transition:0.2s;position:relative}
+.filter-tile{min-width:110px;height:100px;text-align:center;cursor:pointer;border:2px solid transparent;border-radius:10px;padding:5px;background:#f8f8f8;flex-shrink:0;transition:0.2s;position:relative}
 .filter-tile.active{border-color:#007bff;background:#e7f3ff;transform:scale(1.05)}
-.filter-tile img{width:100%;height:55px;object-fit:cover;border-radius:6px;margin-bottom:3px}
-.filter-tile p{font-size:10px;font-weight:bold;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.filter-tile .count-badge{position:absolute;top:-5px;right:-5px;background:#ff3b30;color:#fff;font-size:9px;padding:2px 5px;border-radius:10px;font-weight:900}
+.filter-tile img{width:100%;height:60px;object-fit:cover;border-radius:6px;margin-bottom:4px}
+.filter-tile p{font-size:11px;font-weight:bold;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .filter-tile.brand{background:#0d1b3e;display:flex;align-items:center;justify-content:center}
-.filter-tile.brand p{color:#fff;font-size:12px;font-weight:900}
+.filter-tile.brand p{color:#fff;font-size:11px;font-weight:900}
 .filter-tile.all{background:#28a745;display:flex;align-items:center;justify-content:center}
 .filter-tile.all p{color:#fff;font-size:12px;font-weight:900}
 .filters{padding:8px 15px;background:#fff;display:flex;gap:8px;align-items:center;border-top:1px solid #eee;overflow-x:auto}
 .filters button,.filters select{padding:0 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#f8f8f8;cursor:pointer;height:40px;white-space:nowrap;font-weight:bold;outline:none}
 .search-box{flex:1;min-width:120px;height:40px;padding:0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none}
-.brand-info-card{background:#fff;margin:12px 15px 0;border-left:5px solid #111;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;border-radius:0 10px 10px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);animation:slideIn 0.3s}
-@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.brand-info-card{background:#fff;margin:12px 15px 0;border-left:5px solid #111;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;border-radius:0 10px 10px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
 .brand-info-card.sipro{border-left-color:#ff3b30}
 .brand-info-card h2{font-size:20px;font-weight:900;letter-spacing:1px}
 .brand-info-card b{font-size:13px;display:block;margin-bottom:4px}
 .brand-info-card p{font-size:12px;color:#555;line-height:1.5}
 .brand-info-card .logo-text{min-width:90px;text-align:left}
-
 .grid{display:grid;gap:18px;padding:14px;padding-bottom:90px}
 .grid.cols-2{grid-template-columns:repeat(2,1fr)!important;gap:16px}
 .grid.cols-3{grid-template-columns:repeat(3,1fr)!important;gap:12px}
@@ -89,11 +86,9 @@ body{font-family:Arial;background:#f5f5f5}
 .cart-btn-clear{background:#dc3545;color:#fff}.cart-btn-order{background:#25D366;color:#fff}.cart-btn-pdf{background:#007bff;color:#fff}
 .view-toggle-active{background:#007bff!important;color:#fff!important;border-color:#007bff!important}
 .zoom-modal img{max-width:90vw;max-height:90vh;object-fit:contain;background:#fff;border-radius:10px}
-
-/* ===== PREMIUM BIG VIEW - HIGHLIGHT FIX ===== */
+/* PREMIUM BIG VIEW */
 .grid.cols-1{padding:16px;gap:26px;background:#ececec}
-.grid.cols-1 .card{flex-direction:row;border-radius:22px;border:none;box-shadow:0 12px 35px rgba(0,0,0,0.15);overflow:hidden;min-height:390px;background:#fff;animation:pop 0.3s}
-@keyframes pop{from{transform:scale(0.98);opacity:0}to{transform:scale(1);opacity:1}}
+.grid.cols-1 .card{flex-direction:row;border-radius:22px;border:none;box-shadow:0 12px 35px rgba(0,0,0,0.15);overflow:hidden;min-height:390px;background:#fff}
 .grid.cols-1 .card-img-wrap{width:54%;background:radial-gradient(circle at center,#fff 45%,#f5f5f5 100%);display:flex;align-items:center;justify-content:center;position:relative;border-right:1px solid #eee}
 .grid.cols-1 .card-img-wrap img{height:360px!important;padding:22px;transition:transform 0.45s}
 .grid.cols-1 .card:hover .card-img-wrap img{transform:scale(1.07)}
@@ -112,7 +107,7 @@ body{font-family:Arial;background:#f5f5f5}
 <div class="page-wrapper">
 <div class="slider" id="slider"></div>
 <div class="sticky-wrap">
-<div class="filter-section"><div class="filter-title">🔍 Filter by Category & Brand</div><div class="filter-tiles" id="filterTiles"></div></div>
+<div class="filter-section"><div class="filter-title">🔍 Filter by Category & Brand - Total Products: <span id="totalCount">0</span></div><div class="filter-tiles" id="filterTiles"></div></div>
 <div class="filters">
 <button id="resetBtn">Reset All</button>
 <button id="refreshBtn" style="background:#007bff;color:#fff;border:none;">🔄</button>
@@ -143,23 +138,14 @@ function updateCartCount(){const t=Object.values(cart).reduce((s,i)=>s+i.qty,0);
 function applyGridView(){const grid=document.getElementById('products');const btn=document.getElementById('viewToggleBtn');grid.classList.remove('cols-1','cols-2','cols-3');if(currentView==='1'){grid.classList.add('cols-1');btn.textContent='🔍 BIG (1)';}else if(currentView==='2'){grid.classList.add('cols-2');btn.textContent='📱 MED (2)';}else{grid.classList.add('cols-3');btn.textContent='📱 SMALL (3)';}localStorage.setItem('stg_view_cols',currentView);}
 function toggleView(){if(currentView==='1')currentView='2';else if(currentView==='2')currentView='3';else currentView='1';applyGridView();}
 function changeProductImage(prodId, dir){const prod = allProducts.find(p=>p.id===prodId);if(!prod||!prod.images||prod.images.length<=1) return;let idx = imgIndexes[prodId]||0;idx = (idx + dir + prod.images.length) % prod.images.length;imgIndexes[prodId]=idx;const wrap = document.getElementById('img-wrap-'+prodId);if(!wrap) return;wrap.querySelectorAll('img').forEach((im,i)=>{im.classList.toggle('active-img', i===idx);});wrap.querySelectorAll('.img-dots span').forEach((d,i)=>{d.classList.toggle('active', i===idx);});const count = wrap.querySelector('.img-count');if(count) count.textContent = (idx+1)+'/'+prod.images.length;wrap.setAttribute('data-zoom', prod.images[idx]);}
-function renderBrandInfo(){
-  const container=document.getElementById('catBannerContainer');
-  let html='';const b = (selectedBrand||'').toUpperCase();
-  if(b.includes('CONFLO')){
-    html=`<div class="brand-info-card"><div class="logo-text"><h2>CONFLO</h2></div><div><b>Conflo - Fast-Moving, High-Demand Brand</b><p>Conflo is our high-rotation brand designed for everyday applications. Known for its dependable quality, modern designs, and competitive pricing. Conflo Edge, the superior sub-brand, offers enhanced specifications and improved finishes.</p></div></div>`;
-  }else if(b.includes('SI PRO')||b.includes('SIPRO')){
-    html=`<div class="brand-info-card sipro"><div class="logo-text"><h2 style="color:#d00000">SI PRO</h2></div><div><b>Sipro - The Trail Brand Supporting STG & Conflo</b><p>Sipro is our smart, strategic extension brand - flexible, adaptive, and built to support both STG and Conflo in selected product ranges.</p></div></div>`;
-  }
-  container.innerHTML=html;
-}
+function renderBrandInfo(){const container=document.getElementById('catBannerContainer');let html='';const b = (selectedBrand||'').toUpperCase();if(b.includes('CONFLO')){html=`<div class="brand-info-card"><div class="logo-text"><h2>CONFLO</h2></div><div><b>Conflo - Fast-Moving, High-Demand Brand</b><p>Conflo is our high-rotation brand designed for everyday applications. Known for its dependable quality, modern designs, and competitive pricing.</p></div></div>`;}else if(b.includes('SI PRO')||b.includes('SIPRO')){html=`<div class="brand-info-card sipro"><div class="logo-text"><h2 style="color:#d00000">SI PRO</h2></div><div><b>Sipro - The Trail Brand Supporting STG & Conflo</b><p>Sipro is our smart, strategic extension brand - flexible, adaptive, and built to support both STG and Conflo.</p></div></div>`;}container.innerHTML=html;}
 function loadData(){
 fetch(BANNER_CSV+'&cache='+Date.now()).then(r=>r.text()).then(csv=>{
-const rows=csvToArray(csv);const h=rows[0].map(x=>x.replace(/^"|"$/g,'').trim().toLowerCase());const ti=h.indexOf('type');const ii=h.indexOf('image');const di=h.indexOf('description');banners={};for(let i=1;i<rows.length;i++){const row=rows[i];const type=row[ti]?row[ti].replace(/^"|"$/g,'').trim().toUpperCase().replace(/\s+/g,''):'';const img=getImageUrl(row[ii]?row[ii].replace(/^"|"$/g,'').trim():'');const desc=row[di]?row[di].replace(/^"|"$/g,'').trim():'';if(!type)continue;if(img) banners[type]=img;if(desc) banners[type+'-DESC']=desc;}if(banners.LOGO)document.getElementById('logo').src=banners.LOGO;const slides=['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6'].map(k=>banners[k]).filter(s=>s);const slider=document.getElementById('slider');if(slides.length>0){slider.innerHTML=slides.map((s,i)=>'<img src="'+s+'" class="'+(i===0?'active':'')+'">').join('');let idx=0;setInterval(()=>{const imgs=document.querySelectorAll('.slider img');if(imgs.length>0){imgs[idx].classList.remove('active');idx=(idx+1)%imgs.length;imgs[idx].classList.add('active');}},3500);}}).catch(()=>{});
+const rows=csvToArray(csv);const h=rows[0].map(x=>x.replace(/^"|"$/g,'').trim().toLowerCase());const ti=h.indexOf('type');const ii=h.indexOf('image');banners={};for(let i=1;i<rows.length;i++){const row=rows[i];const type=row[ti]?row[ti].replace(/^"|"$/g,'').trim().toUpperCase().replace(/\s+/g,''):'';const img=getImageUrl(row[ii]?row[ii].replace(/^"|"$/g,'').trim():'');if(!type)continue;if(img) banners[type]=img;}if(banners.LOGO)document.getElementById('logo').src=banners.LOGO;const slides=['MAIN-SLIDER1','MAIN-SLIDER2','MAIN-SLIDER3','MAIN-SLIDER4','MAIN-SLIDER5','MAIN-SLIDER6'].map(k=>banners[k]).filter(s=>s);const slider=document.getElementById('slider');if(slides.length>0){slider.innerHTML=slides.map((s,i)=>'<img src="'+s+'" class="'+(i===0?'active':'')+'">').join('');let idx=0;setInterval(()=>{const imgs=document.querySelectorAll('.slider img');if(imgs.length>0){imgs[idx].classList.remove('active');idx=(idx+1)%imgs.length;imgs[idx].classList.add('active');}},3500);}}).catch(()=>{});
 fetch(PRODUCTS_CSV+'&cache='+Date.now()).then(r=>r.text()).then(csv=>{
 const rows=csvToArray(csv);allProducts=[];for(let i=1;i<rows.length;i++){const row=rows[i];const gc=(ix)=>{return (row[ix]||'').replace(/^"|"$/g,'').trim();};const idVal=gc(COL.id);const nameVal=gc(COL.name);const brand=gc(COL.brand);const priceVal=gc(COL.price);const category=gc(COL.category);const stock=gc(COL.stock);const imageStr=gc(COL.image);const vr=gc(COL.variants)||'';let fp=1;if(priceVal){const p=parseFloat(priceVal.replace(/[^0-9.]/g,''));if(!isNaN(p)&&p>0)fp=p;}const fid=(idVal||'product-'+i).toString().replace(/[^a-zA-Z0-9-]/g,'-');let variants=[];if(vr.trim()!==''){try{variants=vr.split(',').map(v=>{const parts=v.split(':');return{size:parts[0].trim(),price:parseFloat(parts[1])||fp};});}catch(e){variants=[];}}
 const imgs = parseImages(imageStr);
-allProducts.push({id:fid,name:nameVal,brand:brand||'No Brand',price:fp,category:category||'General',stock:stock||'IN',image:imgs[0]||'',images:imgs,variants:variants});}loadFilterTiles();filterProducts();updateCartCount();applyGridView();});
+allProducts.push({id:fid,name:nameVal,brand:brand||'No Brand',price:fp,category:category||'General',stock:stock||'IN',image:imgs[0]||'',images:imgs,variants:variants});}document.getElementById('totalCount').textContent=allProducts.length;loadFilterTiles();filterProducts();updateCartCount();applyGridView();});
 }
 function loadFilterTiles(){
   const catCount={};const brandCount={};
@@ -167,9 +153,17 @@ function loadFilterTiles(){
   const cats=[...new Set(allProducts.map(p=>p.category).filter(c=>c&&c!=='General'))];
   const brands=[...new Set(allProducts.map(p=>p.brand).filter(b=>b&&b!=='No Brand'))];
   const div=document.getElementById('filterTiles');
-  let h='<div class="filter-tile all '+(selectedCat===''&&selectedBrand===''? 'active':'')+'" data-type="all"><p>ALL ('+allProducts.length+')</p></div>';
-  cats.forEach(cat=>{const key='CAT-'+cat.toUpperCase().replace(/\s+/g,'');const img=banners[key]||'https://via.placeholder.com/110x65?text='+encodeURIComponent(cat);h+='<div class="filter-tile '+(selectedCat===cat?'active':'')+'" data-type="cat" data-value="'+cat+'"><span class="count-badge">'+(catCount[cat]||0)+'</span><img src="'+img+'"><p>'+cat+'</p></div>';});
-  brands.forEach(b=>{h+='<div class="filter-tile brand '+(selectedBrand===b?'active':'')+'" data-type="brand" data-value="'+b+'"><span class="count-badge">'+(brandCount[b]||0)+'</span><p>'+b+'</p></div>';});
+  let h=`<div class="filter-tile all ${(selectedCat===''&&selectedBrand===''? 'active':'')}" data-type="all"><p>ALL (${allProducts.length})</p></div>`;
+  cats.forEach(cat=>{
+    const key='CAT-'+cat.toUpperCase().replace(/\s+/g,'');
+    const img=banners[key]||'https://via.placeholder.com/110x65?text='+encodeURIComponent(cat);
+    const count = catCount[cat]||0;
+    h+=`<div class="filter-tile ${(selectedCat===cat?'active':'')}" data-type="cat" data-value="${cat}"><img src="${img}"><p>${cat.toUpperCase()} (${count})</p></div>`;
+  });
+  brands.forEach(b=>{
+    const count = brandCount[b]||0;
+    h+=`<div class="filter-tile brand ${(selectedBrand===b?'active':'')}" data-type="brand" data-value="${b}"><p>${b.toUpperCase()} (${count})</p></div>`;
+  });
   div.innerHTML=h;
 }
 function filterProducts(){
