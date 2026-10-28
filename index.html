@@ -36,8 +36,6 @@ body{font-family:Arial;background:#f5f5f5}
 .filters{padding:8px 15px;background:#fff;display:flex;gap:8px;align-items:center;border-top:1px solid #eee;overflow-x:auto}
 .filters button,.filters select{padding:0 12px;border:1px solid #ddd;border-radius:8px;font-size:13px;background:#f8f8f8;cursor:pointer;height:40px;white-space:nowrap;font-weight:bold;outline:none}
 .search-box{flex:1;min-width:120px;height:40px;padding:0 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none}
-
-/* BRAND INFO LIKE SCREENSHOT */
 .brand-info-card{background:#fff;margin:12px 15px 0;border-left:5px solid #111;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;border-radius:0 10px 10px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08);animation:slideIn 0.3s}
 @keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 .brand-info-card.sipro{border-left-color:#ff3b30}
@@ -47,15 +45,12 @@ body{font-family:Arial;background:#f5f5f5}
 .brand-info-card .logo-text{min-width:90px;text-align:left}
 
 .grid{display:grid;gap:18px;padding:14px;padding-bottom:90px}
-.grid.cols-1{grid-template-columns:1fr!important;gap:20px}
 .grid.cols-2{grid-template-columns:repeat(2,1fr)!important;gap:16px}
 .grid.cols-3{grid-template-columns:repeat(3,1fr)!important;gap:12px}
 .card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.12);display:flex;flex-direction:column;border:1px solid #eee;position:relative;transition:0.2s}
-.card:hover{transform:translateY(-2px)}
 .card.out{opacity:0.55}
 .card-body{padding:14px;display:flex;flex-direction:column;flex:1}
 .card h3{font-size:14px;margin-bottom:6px;min-height:38px;font-weight:800;line-height:1.3;color:#222;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.grid.cols-1 .card h3{font-size:18px;min-height:auto}
 .card p{font-size:12px;color:#666;margin:3px 0}
 .price{color:#28a745;font-size:19px;font-weight:900;margin:8px 0}
 .variant-select{width:100%;padding:9px;margin:6px 0;border:1px solid #b3e6b3;border-radius:8px;font-size:12px;background:#e8f8e8;font-weight:bold}
@@ -67,18 +62,15 @@ body{font-family:Arial;background:#f5f5f5}
 .card-img-wrap{position:relative;width:100%;background:#fff;overflow:hidden;cursor:zoom-in}
 .card-img-wrap img{width:100%;object-fit:contain;background:#fff;padding:12px;display:none}
 .card-img-wrap img.active-img{display:block}
-.grid.cols-1 .card-img-wrap img{height:340px}
 .grid.cols-2 .card-img-wrap img{height:250px}
 .grid.cols-3 .card-img-wrap img{height:180px}
-@media(max-width:480px){.grid.cols-1 .card-img-wrap img{height:300px}.grid.cols-2 .card-img-wrap img{height:200px}.grid.cols-3 .card-img-wrap img{height:150px}.grid{padding:10px}}
+@media(max-width:480px){.grid.cols-2 .card-img-wrap img{height:200px}.grid.cols-3 .card-img-wrap img{height:150px}.grid{padding:10px}}
 .img-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.6);color:#fff;border:none;width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer;z-index:5}
 .img-arrow.left{left:8px}.img-arrow.right{right:8px}
 .img-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;gap:5px;justify-content:center;z-index:5}
 .img-dots span{width:7px;height:7px;background:rgba(0,0,0,0.25);border-radius:50%;cursor:pointer;transition:0.2s}
 .img-dots span.active{background:#007bff;width:16px}
 .img-count{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.7);color:#fff;font-size:11px;padding:3px 8px;border-radius:12px;z-index:5}
-.skeleton-card{background:#fff;border-radius:16px;height:340px;animation:shimmer 1.5s infinite;background:linear-gradient(90deg,#f0f0f0 25%,#e6e6e6 50%,#f0f0f0 75%);background-size:200% 100%}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 .loading{text-align:center;padding:40px;color:#666}
 .whatsapp-float{position:fixed!important;bottom:20px!important;right:20px!important;background:#25D366!important;color:#fff!important;border-radius:50px!important;padding:12px 20px!important;display:flex!important;align-items:center!important;gap:8px!important;box-shadow:0 4px 12px rgba(0,0,0,0.3)!important;z-index:999!important;font-weight:bold!important;text-decoration:none!important}
 .cart-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000}
@@ -97,6 +89,22 @@ body{font-family:Arial;background:#f5f5f5}
 .cart-btn-clear{background:#dc3545;color:#fff}.cart-btn-order{background:#25D366;color:#fff}.cart-btn-pdf{background:#007bff;color:#fff}
 .view-toggle-active{background:#007bff!important;color:#fff!important;border-color:#007bff!important}
 .zoom-modal img{max-width:90vw;max-height:90vh;object-fit:contain;background:#fff;border-radius:10px}
+
+/* ===== PREMIUM BIG VIEW - HIGHLIGHT FIX ===== */
+.grid.cols-1{padding:16px;gap:26px;background:#ececec}
+.grid.cols-1 .card{flex-direction:row;border-radius:22px;border:none;box-shadow:0 12px 35px rgba(0,0,0,0.15);overflow:hidden;min-height:390px;background:#fff;animation:pop 0.3s}
+@keyframes pop{from{transform:scale(0.98);opacity:0}to{transform:scale(1);opacity:1}}
+.grid.cols-1 .card-img-wrap{width:54%;background:radial-gradient(circle at center,#fff 45%,#f5f5f5 100%);display:flex;align-items:center;justify-content:center;position:relative;border-right:1px solid #eee}
+.grid.cols-1 .card-img-wrap img{height:360px!important;padding:22px;transition:transform 0.45s}
+.grid.cols-1 .card:hover .card-img-wrap img{transform:scale(1.07)}
+.grid.cols-1 .card-body{width:46%;padding:26px 22px;justify-content:center;background:linear-gradient(180deg,#fff 0%,#fcfcfc 100%)}
+.grid.cols-1 .card h3{font-size:23px!important;line-height:1.25;min-height:auto;color:#111;font-weight:900;margin-bottom:12px}
+.grid.cols-1 .price{font-size:30px!important;color:#0a7a1e;background:#e7f8e8;display:inline-block;padding:7px 16px;border-radius:12px;margin:14px 0;border:1px solid #b6e7b6}
+.grid.cols-1 .qty-box{height:54px!important;max-width:340px;border-radius:14px!important;border:2px solid #111!important;margin-top:18px!important}
+.grid.cols-1 .card-img-wrap::after{content:attr(data-brand);position:absolute;top:14px;left:14px;background:#111;color:#fff;font-size:10px;font-weight:900;padding:6px 12px;border-radius:20px;letter-spacing:1px;z-index:6;text-transform:uppercase}
+.grid.cols-1 .card-img-wrap[data-brand*="CONFLO"]::after{background:#000}
+.grid.cols-1 .card-img-wrap[data-brand*="SI PRO"]::after,.grid.cols-1 .card-img-wrap[data-brand*="SIPRO"]::after{background:#d00000}
+@media(max-width:768px){.grid.cols-1 .card{flex-direction:column;min-height:auto}.grid.cols-1 .card-img-wrap,.grid.cols-1 .card-body{width:100%}.grid.cols-1 .card-img-wrap img{height:300px!important}}
 </style>
 </head>
 <body>
@@ -119,7 +127,6 @@ body{font-family:Arial;background:#f5f5f5}
 <a href="https://wa.me/966559895503?text=Hello" target="_blank" class="whatsapp-float">CHAT</a>
 <div class="cart-modal" id="cartModal"><div class="cart-content"><div class="cart-header"><span>🛒 Your Cart</span><button class="cart-close" id="cartClose">&times;</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><span>Total:</span><span id="cartTotal">SAR 0</span></div><div class="cart-actions"><button class="cart-btn cart-btn-clear" id="clearCart">Clear</button><button class="cart-btn cart-btn-pdf" id="downloadPDF">📄 PDF</button><button class="cart-btn cart-btn-order" id="orderWhatsApp">WhatsApp Order</button></div></div></div>
 <div class="cart-modal" id="zoomModal"><div class="zoom-modal" style="position:relative"><button class="cart-close" id="zoomClose" style="position:absolute;top:-35px;right:0;background:#fff;color:#000;width:30px;height:30px;border-radius:50%">&times;</button><img id="zoomImg" src=""></div></div>
-
 <script>
 const SHEET_ID='1f0IojrpWxgWxxOp70KaLrGd5mn0pgFCndztV1v43fqk';
 const PRODUCTS_CSV='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/export?format=csv&gid=0';
@@ -129,28 +136,20 @@ const COL={id:0,name:1,brand:2,price:3,category:4,image:5,stock:6,variants:7};
 let allProducts=[];let banners={};let cart=JSON.parse(localStorage.getItem('stg_cart_v2')||'{}');let selectedCat='';let selectedBrand='';let searchText='';let sortBy='';
 let currentView=localStorage.getItem('stg_view_cols')||'1';
 let imgIndexes={};
-
 function csvToArray(csv){const rows=[];let curRow=[];let curCell='';let inQ=false;for(let i=0;i<csv.length;i++){const c=csv[i];const n=csv[i+1];if(c=='"'&&inQ&&n=='"'){curCell+='"';i++;}else if(c=='"'){inQ=!inQ;}else if(c==','&&!inQ){curRow.push(curCell);curCell='';}else if((c=='\n'||c=='\r')&&!inQ){if(curCell||curRow.length>0){curRow.push(curCell);rows.push(curRow);curRow=[];curCell='';}}else if(c!='\r'){curCell+=c;}}if(curCell||curRow.length>0){curRow.push(curCell);rows.push(curRow);}return rows;}
 function getImageUrl(url){if(!url)return'';url=url.trim();if(url.includes('lh3.googleusercontent'))return url;const m=url.match(/\/d\/([a-zA-Z0-9_-]+)/);if(m)return 'https://lh3.googleusercontent.com/d/'+m[1]+'=w800';const m2=url.match(/id=([a-zA-Z0-9_-]+)/);if(m2)return 'https://lh3.googleusercontent.com/d/'+m2[1]+'=w800';return url;}
 function parseImages(imgStr){if(!imgStr) return [];return imgStr.split(/[,|\n]+/).map(s=>getImageUrl(s.trim())).filter(s=>s);}
 function updateCartCount(){const t=Object.values(cart).reduce((s,i)=>s+i.qty,0);document.getElementById('cartCount').textContent=t;localStorage.setItem('stg_cart_v2',JSON.stringify(cart));}
 function applyGridView(){const grid=document.getElementById('products');const btn=document.getElementById('viewToggleBtn');grid.classList.remove('cols-1','cols-2','cols-3');if(currentView==='1'){grid.classList.add('cols-1');btn.textContent='🔍 BIG (1)';}else if(currentView==='2'){grid.classList.add('cols-2');btn.textContent='📱 MED (2)';}else{grid.classList.add('cols-3');btn.textContent='📱 SMALL (3)';}localStorage.setItem('stg_view_cols',currentView);}
 function toggleView(){if(currentView==='1')currentView='2';else if(currentView==='2')currentView='3';else currentView='1';applyGridView();}
-function changeProductImage(prodId, dir){const prod = allProducts.find(p=>p.id===prodId);if(!prod||!prod.images||prod.images.length<=1) return;let idx = imgIndexes[prodId]||0;idx = (idx + dir + prod.images.length) % prod.images.length;imgIndexes[prodId]=idx;const wrap = document.getElementById('img-wrap-'+prodId);if(!wrap) return;wrap.querySelectorAll('img').forEach((im,i)=>{im.classList.toggle('active-img', i===idx);});wrap.querySelectorAll('.img-dots span').forEach((d,i)=>{d.classList.toggle('active', i===idx);});const count = wrap.querySelector('.img-count');if(count) count.textContent = (idx+1)+'/'+prod.images.length;}
+function changeProductImage(prodId, dir){const prod = allProducts.find(p=>p.id===prodId);if(!prod||!prod.images||prod.images.length<=1) return;let idx = imgIndexes[prodId]||0;idx = (idx + dir + prod.images.length) % prod.images.length;imgIndexes[prodId]=idx;const wrap = document.getElementById('img-wrap-'+prodId);if(!wrap) return;wrap.querySelectorAll('img').forEach((im,i)=>{im.classList.toggle('active-img', i===idx);});wrap.querySelectorAll('.img-dots span').forEach((d,i)=>{d.classList.toggle('active', i===idx);});const count = wrap.querySelector('.img-count');if(count) count.textContent = (idx+1)+'/'+prod.images.length;wrap.setAttribute('data-zoom', prod.images[idx]);}
 function renderBrandInfo(){
   const container=document.getElementById('catBannerContainer');
-  if(!container) return;
-  let html='';
-  const b = (selectedBrand||'').toUpperCase();
+  let html='';const b = (selectedBrand||'').toUpperCase();
   if(b.includes('CONFLO')){
-    html=`<div class="brand-info-card"><div class="logo-text"><h2>CONFLO</h2></div><div><b>Conflo - Fast-Moving, High-Demand Brand</b><p>Conflo is our high-rotation brand designed for everyday applications. Known for its dependable quality, modern designs, and competitive pricing, Conflo products are developed to meet fast-moving retail demand while maintaining consistent performance standards. Conflo Edge, the superior sub-brand of Conflo, offers enhanced specifications, improved finishes, and elevated performance-ideal for customers seeking added value and durability within a fast-moving category.</p></div></div>`;
+    html=`<div class="brand-info-card"><div class="logo-text"><h2>CONFLO</h2></div><div><b>Conflo - Fast-Moving, High-Demand Brand</b><p>Conflo is our high-rotation brand designed for everyday applications. Known for its dependable quality, modern designs, and competitive pricing. Conflo Edge, the superior sub-brand, offers enhanced specifications and improved finishes.</p></div></div>`;
   }else if(b.includes('SI PRO')||b.includes('SIPRO')){
-    html=`<div class="brand-info-card sipro"><div class="logo-text"><h2 style="color:#d00000">SI PRO</h2><h2 style="color:#0033a0;margin-top:2px">SI PRO</h2></div><div><b>Sipro - The Trail Brand Supporting STG & Conflo</b><p>Sipro is our smart, strategic extension brand - flexible, adaptive, and built to support both STG and Conflo in selected product ranges. It helps us test new ideas, explore emerging categories, and offer dependable solutions across evolving market demands.</p></div></div>`;
-  }else if(selectedCat){
-    const key='CAT-'+selectedCat.toUpperCase().replace(/\s+/g,'');
-    if(banners[key+'-DESC']){
-      html=`<div class="brand-info-card"><div class="logo-text"><h2>${selectedCat.toUpperCase()}</h2></div><div><b>${selectedCat}</b><p>${banners[key+'-DESC']}</p></div></div>`;
-    }
+    html=`<div class="brand-info-card sipro"><div class="logo-text"><h2 style="color:#d00000">SI PRO</h2></div><div><b>Sipro - The Trail Brand Supporting STG & Conflo</b><p>Sipro is our smart, strategic extension brand - flexible, adaptive, and built to support both STG and Conflo in selected product ranges.</p></div></div>`;
   }
   container.innerHTML=html;
 }
@@ -198,7 +197,7 @@ const idx = imgIndexes[p.id];
 let imagesHtml = '';
 if(p.images.length>0){imagesHtml = p.images.map((im,i)=>'<img src="'+im+'" loading="lazy" class="'+(i===idx?'active-img':'')+'">').join('');}else{imagesHtml = '<img src="https://via.placeholder.com/400x400?text=No+Image" class="active-img">';}
 let arrows = hasMulti ? '<button class="img-arrow left" data-id="'+p.id+'" data-dir="-1">‹</button><button class="img-arrow right" data-id="'+p.id+'" data-dir="1">›</button><div class="img-count">'+(idx+1)+'/'+p.images.length+'</div><div class="img-dots">'+p.images.map((_,i)=>'<span class="'+(i===idx?'active':'')+'" data-id="'+p.id+'" data-idx="'+i+'"></span>').join('')+'</div>' : '';
-return '<div class="card '+(isOut?'out':'')+'"><div class="card-img-wrap" id="img-wrap-'+p.id+'" data-zoom="'+(p.images[idx]||p.image)+'">'+imagesHtml+arrows+'</div><div class="card-body"><h3>'+(p.name||'')+'</h3><p>Brand: '+p.brand+' | '+p.category+'</p><p class="price" id="price-'+p.id+'">SAR '+dPrice+'</p>'+(p.variants&&p.variants.length>0?'<select class="variant-select" data-id="'+p.id+'">'+p.variants.map((v,i)=>'<option value="'+i+'">Size: '+v.size+' - SAR '+v.price+'</option>').join('')+'</select>':'')+'<p>Stock: '+(isOut?'<span style="color:red;font-weight:bold">OUT</span>':p.stock)+'</p><div class="qty-box"><button class="qty-minus" data-id="'+p.id+'" '+(isOut?'disabled':'')+'>-</button><input class="qty-input" id="qty-'+p.id+'" value="'+qty+'" min="0" data-id="'+p.id+'" '+(isOut?'disabled':'')+'><button class="qty-plus" data-id="'+p.id+'" '+(isOut?'disabled':'')+'>+</button></div></div></div>';
+return '<div class="card '+(isOut?'out':'')+'"><div class="card-img-wrap" id="img-wrap-'+p.id+'" data-zoom="'+(p.images[idx]||p.image)+'" data-brand="'+p.brand+'">'+imagesHtml+arrows+'</div><div class="card-body"><h3>'+(p.name||'')+'</h3><p>Brand: '+p.brand+' | Category: '+p.category+'</p><p class="price" id="price-'+p.id+'">SAR '+dPrice+'</p>'+(p.variants&&p.variants.length>0?'<select class="variant-select" data-id="'+p.id+'">'+p.variants.map((v,i)=>'<option value="'+i+'">Size: '+v.size+' - SAR '+v.price+'</option>').join('')+'</select>':'')+'<p>Stock: '+(isOut?'<span style="color:red;font-weight:bold">OUT OF STOCK</span>':p.stock)+'</p><div class="qty-box"><button class="qty-minus" data-id="'+p.id+'" '+(isOut?'disabled':'')+'>-</button><input class="qty-input" id="qty-'+p.id+'" value="'+qty+'" min="0" data-id="'+p.id+'" '+(isOut?'disabled':'')+'><button class="qty-plus" data-id="'+p.id+'" '+(isOut?'disabled':'')+'>+</button></div></div></div>';
 }).join('');
 applyGridView();
 }
@@ -218,7 +217,7 @@ if(e.target.id==='viewToggleBtn')toggleView();
 if(e.target.classList.contains('qty-plus'))changeQty(e.target.getAttribute('data-id'),1);
 if(e.target.classList.contains('qty-minus'))changeQty(e.target.getAttribute('data-id'),-1);
 if(e.target.classList.contains('img-arrow')){e.stopPropagation();changeProductImage(e.target.getAttribute('data-id'), parseInt(e.target.getAttribute('data-dir')));}
-if(e.target.closest('.img-dots span')){const dot=e.target.closest('.img-dots span');const pid=dot.getAttribute('data-id');const idx=parseInt(dot.getAttribute('data-idx'));imgIndexes[pid]=idx;const wrap=document.getElementById('img-wrap-'+pid);wrap.querySelectorAll('img').forEach((im,i)=>{im.classList.toggle('active-img', i===idx);});wrap.querySelectorAll('.img-dots span').forEach((d,i)=>{d.classList.toggle('active', i===idx);});const cnt=wrap.querySelector('.img-count');if(cnt) cnt.textContent=(idx+1)+'/'+allProducts.find(p=>p.id===pid).images.length;wrap.setAttribute('data-zoom', allProducts.find(p=>p.id===pid).images[idx]);}
+if(e.target.closest('.img-dots span')){const dot=e.target.closest('.img-dots span');const pid=dot.getAttribute('data-id');const idx=parseInt(dot.getAttribute('data-idx'));imgIndexes[pid]=idx;const prod=allProducts.find(p=>p.id===pid);const wrap=document.getElementById('img-wrap-'+pid);wrap.querySelectorAll('img').forEach((im,i)=>{im.classList.toggle('active-img', i===idx);});wrap.querySelectorAll('.img-dots span').forEach((d,i)=>{d.classList.toggle('active', i===idx);});const cnt=wrap.querySelector('.img-count');if(cnt) cnt.textContent=(idx+1)+'/'+prod.images.length;wrap.setAttribute('data-zoom', prod.images[idx]);}
 if(e.target.id==='cartBtn'||e.target.closest('#cartBtn'))showCart();
 if(e.target.id==='cartClose')hideCart();
 if(e.target.id==='clearCart')clearCart();
@@ -229,7 +228,7 @@ if(e.target.id==='cartModal')hideCart();
 if(e.target.closest('.card-img-wrap')){const wrap=e.target.closest('.card-img-wrap');if(!e.target.closest('.img-arrow')&&!e.target.closest('.img-dots')){document.getElementById('zoomImg').src=wrap.getAttribute('data-zoom')||wrap.querySelector('img.active-img')?.src;document.getElementById('zoomModal').classList.add('active');}}
 if(e.target.id==='zoomModal'||e.target.id==='zoomClose')document.getElementById('zoomModal').classList.remove('active');
 });
-document.addEventListener('change',function(e){if(e.target.classList.contains('qty-input')){setQty(e.target);}if(e.target.classList.contains('variant-select')){const id=e.target.getAttribute('data-id');const prod=allProducts.find(p=>p.id===id);const priceEl=document.getElementById('price-'+id);if(prod&&priceEl) priceEl.textContent='SAR '+prod.variants[e.target.value].price;const inp=document.getElementById('qty-'+id);if(inp) setQty(inp);}if(e.target.id==='sortSelect'){sortBy=e.target.value;filterProducts();}});
+document.addEventListener('change',function(e){if(e.target.classList.contains('qty-input')){setQty(e.target);}if(e.target.classList.contains('variant-select')){const id=e.target.getAttribute('data-id');const prod=allProducts.find(p=>p.id===id);const priceEl=document.getElementById('price-'+id);if(prod&&priceEl) priceEl.textContent='SAR '+prod.variants[e.target.value].price;}if(e.target.id==='sortSelect'){sortBy=e.target.value;filterProducts();}});
 document.addEventListener('input',function(e){if(e.target.id==='searchInput'){clearTimeout(searchTimeout);searchTimeout=setTimeout(()=>{searchText=e.target.value;filterProducts();},400);}});
 loadData();applyGridView();
 </script>
